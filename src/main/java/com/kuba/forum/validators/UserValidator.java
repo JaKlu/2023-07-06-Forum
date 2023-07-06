@@ -35,7 +35,12 @@ public class UserValidator {
     }
 
     public static void validateBirthday(String birthday) {
-
+        String regex = "^\\d{4}-\\d{2}-\\d{2}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(birthday);
+        if (!matcher.matches()) {
+            throw new UserValidationException();
+        }
     }
 
     public static void validateGender(String gender) {
@@ -82,6 +87,7 @@ public class UserValidator {
     public static void validateUser(User user) {
         validateLogin(user.getLogin());
         validatePassword(user.getPassword());
+        //validateBirthday(user.getBirthday().toString());
         validateEmail(user.getEmail());
         validatePlace(user.getPlace());
     }

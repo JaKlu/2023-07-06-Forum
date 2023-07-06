@@ -11,12 +11,22 @@
             th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
-    <div th:each="thread : ${threads}" class="thread">
-        <a th:text="${thread.subject}" th:href="'/thread/' + ${thread.id}" class="thread-subject"></a>
+    <div class="thread-grid-headers">
+        <div class="topic-header">Tematy</div>
+        <div class="topic-header">Odpowiedzi</div>
     </div>
 
+    <div th:each="thread : ${threads}" class="thread-grid">
+        <div class="thread-subject">
+            <a th:text="${thread.subject}" th:href="'/thread/' + ${thread.id}" ></a>
+        </div>
+        <div>
+            <div class="thread-stats">y</div>
+        </div>
+
+    </div>
     <div>
-        <a th:href="@{/thread/new-thread/{topic.id}(topic.id=${{topic.id}})}">Nowy temat</a>
+        <a th:href="@{/thread/new-thread/{topic.id}(topic.id=${{topic.id}})}" class="button">Nowy temat</a>
     </div>
 
 </div>

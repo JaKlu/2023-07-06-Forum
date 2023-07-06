@@ -19,8 +19,8 @@
 
 <!--  th:text="'Forum FILMOVIE >> ' + ${topic.getName()} + ' >> ' + ${thread.getSubject()}" -->
 <th:block th:fragment="directory-link">
-    <div>
-        <a href="/" class="directory-link">..::Forum FILMOVIE::..</a>
+    <div class="div-directory-link">
+        <a href="/" class="directory-link">.: Forum FILMOVIE :.</a>
         <th:block th:if="${topic != null}">
             >>
             <a th:text="${topic.name}" th:href="@{/topic/{topicId}(topicId=${topic.id})}"></a>
@@ -33,7 +33,7 @@
 </th:block>
 
 <th:block th:fragment="main-menu-link">
-    <div>
+    <div class="div-main-menu-link">
         <a href="/" class="main-menu-link">Strona główna</a> |
         <a href="/" class="main-menu-link">Szukaj</a> |
         <a href="/register" class="main-menu-link">Rejestracja</a> |
@@ -42,10 +42,12 @@
 </th:block>
 
 <th:block th:fragment="main-menu-link-logged">
-    <div th:text="'Zalogowany użytkownik: ' + ${user.login}"></div>
-    <a href="/" class="main-menu-link">Strona główna</a> |
-    <a href="/" class="main-menu-link">Szukaj</a> |
-    <a href="/logout" class="main-menu-link">Wyloguj</a>
+    <div th:text="'Zalogowany użytkownik: ' + ${user.login}" class="div-main-menu-link"></div>
+    <div class="div-main-menu-link">
+        <a href="/" class="main-menu-link">Strona główna</a> |
+        <a href="/" class="main-menu-link">Szukaj</a> |
+        <a href="/logout" class="main-menu-link">Wyloguj</a>
+    </div>
 </th:block>
 
 

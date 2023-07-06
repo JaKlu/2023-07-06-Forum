@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
+  <link rel="stylesheet" href="/login.css">
+
 </head>
 <body>
 <th:block th:replace="~{fragments.html :: under-construction}"></th:block>
@@ -11,9 +13,14 @@
 
   <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
+  <h4>Podaj dane logowania</h4>
+
 <form method="post">
-  <input type="text" name="login" class="input-login" placeholder="Login">
-  <input type="password" name="password" class="input-login" placeholder="Password">
+  <label for="login">Login: </label><br>
+  <input type="text" name="login" id="login" class="input" placeholder="Login">
+
+  <label for="password">Hasło: </label>
+  <input type="password" name="password" id="password" class="input" placeholder="Password">
   <input type="submit" value="Zaloguj" class="button">
 </form>
 </div>

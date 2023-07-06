@@ -43,6 +43,9 @@ public class ThreadController {
 
     @GetMapping(path = "/new-thread/{topicId}")
     public String createThread(@PathVariable int topicId, Model model) {
+        if (!this.sessionData.isLogged()) {
+            return "redirect:/login";
+        }
         ModelUtils.addCommonDataToModel(model, sessionData);
         model.addAttribute("topic", this.topicService.findTopicById(topicId));
         model.addAttribute("threadModel", new Thread());
@@ -55,7 +58,9 @@ public class ThreadController {
     public String createThread(@ModelAttribute Thread thread,
                                @ModelAttribute Post post,
                                @PathVariable int topicId) {
-
+        if (!this.sessionData.isLogged()) {
+            return "redirect:/login";
+        }
         thread.setAuthorId(sessionData.getUser().getId());
         thread.setTopicId(topicId);
         thread = this.threadService.addThread(thread);
@@ -66,5 +71,32 @@ public class ThreadController {
         thread.getPosts().add(post);
 
         return "redirect:/thread/" + thread.getId();
+    }
+
+    @GetMapping(path = "/{threadId}/add-reply/")
+    public String addReply(@PathVariable int threadId, Model model) {
+        if (!this.sessionData.isLogged()) {
+            return "redirect:/login";
+        }
+        ModelUtils.addCommonDataToModel(model, sessionData);
+        model.addAttribute("thread", this.threadService.findThreadById(threadId));
+        model.addAttribute("postModel", new Post());
+
+        return "new-reply";
+    }
+
+    @PostMapping(path = "/{threadId}/add-reply/")
+    public String addReply(@ModelAttribute Post post,
+                           @ModelAttribute Thread thread,
+                           @PathVariable int threadId) {
+        if (!this.sessionData.isLogged()) {
+            return "redirect:/login";
+        }
+        post.setThreadId(threadId);
+        post.setAuthorId(sessionData.getUser().getId());
+        post = this.postService.addPost(post);
+        thread.getPosts().add(post);
+
+        return "redirect:/thread/" + threadId;
     }
 }

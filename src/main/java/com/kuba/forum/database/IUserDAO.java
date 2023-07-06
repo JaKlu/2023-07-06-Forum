@@ -8,4 +8,6 @@ public interface IUserDAO {
     User getUserById(int userId);
 
     void addUser(User user);
+
+    void increaseNumberOfPosts(User user);
 }

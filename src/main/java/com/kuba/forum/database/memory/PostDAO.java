@@ -1,13 +1,12 @@
 package com.kuba.forum.database.memory;
 
 import com.kuba.forum.database.IPostDAO;
-import com.kuba.forum.database.IThreadDAO;
+import com.kuba.forum.database.IUserDAO;
 import com.kuba.forum.database.sequences.IPostSequence;
 import com.kuba.forum.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -18,6 +17,8 @@ import java.util.*;
 public class PostDAO implements IPostDAO {
 
     IPostSequence postSequence;
+    @Autowired
+    IUserDAO userDAO;
     private final List<Post> posts = new ArrayList<>();
 
     public PostDAO(@Autowired IPostSequence postSequence) {
@@ -54,7 +55,9 @@ public class PostDAO implements IPostDAO {
     @Override
     public Post addPost(Post post) {
         post.setId(postSequence.getId());
+        post.setCreationTime(ZonedDateTime.now());
         this.posts.add(post);
+        this.userDAO.increaseNumberOfPosts(this.userDAO.getUserById(post.getAuthorId()));
         return post;
     }
 

@@ -24,13 +24,13 @@ public class UserDAO implements IUserDAO {
                 LocalDate.of(1989, 5, 28), User.Gender.MALE,
                 ZonedDateTime.of(LocalDate.of(2023, 7, 1),
                         LocalTime.of(12, 0, 0), ZoneId.of("Europe/Warsaw")),
-                0, "Rzeszów", User.Function.ADMIN));
+                2, "Rzeszów", User.Function.ADMIN));
         this.users.add(new User(userIdSequence.getId(),
                 "kuba", "fccbce33643556ee698db7d599853a1f", "kuba@wp.pl",
                 LocalDate.of(1990, 3, 12), User.Gender.MALE,
                 ZonedDateTime.of(LocalDate.of(2023, 7, 2),
                         LocalTime.of(13, 15, 0), ZoneId.of("Europe/Warsaw")),
-                0, "Kraków", User.Function.USER));
+                2, "Kraków", User.Function.USER));
 
         this.userIdSequence = userIdSequence;
     }
@@ -61,5 +61,14 @@ public class UserDAO implements IUserDAO {
         user.setJoinDate(ZonedDateTime.now());
         user.setFunction(User.Function.USER);
         this.users.add(user);
+    }
+
+    @Override
+    public void increaseNumberOfPosts(User userToUpdate) {
+        for (User user : this.users) {
+            if (user.equals(userToUpdate)) {
+                user.setNumberOfPosts(user.getNumberOfPosts() + 1);
+            }
+        }
     }
 }

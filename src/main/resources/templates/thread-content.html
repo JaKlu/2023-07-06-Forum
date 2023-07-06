@@ -1,23 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
+    <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
 </head>
 <body>
 <th:block th:replace="~{fragments.html :: under-construction}"></th:block>
 
 <div id="content">
-  <th:block th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
-  <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
+    <th:block
+            th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
+    <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
-  <div th:each="post : ${posts}" class="post">
-    <div th:text="${users.getUserById(post.authorId).getLogin()}"  class="post-authorId"></div>
-    <div th:text="${post.contents}"  class="post-contents"></div>
-  </div>
+    <div th:each="post : ${posts}" class="post-grid">
+        <div class="post-grid-content">
 
-  <div>
-    <a th:href="@{/thread/new-thread/{topic.id}(topic.id=${{topic.id}})}">Nowy temat</a>
-  </div>
+            <div th:text="${users.getUserById(post.authorId).login}" class="post-author"></div>
+
+            <div th:text="${users.getUserById(post.authorId).function.toString()}" class="post-author-info"></div>
+
+            <div class="post-author-info">
+                <div th:text="'Wiek: ' + ${users.getUserById(post.authorId).getAge()}"></div>
+                <div th:text="'Dołączenie: ' + ${users.getUserById(post.authorId).getPrettyJoinDate()}"></div>
+                <div th:text="'Posty: ' + ${users.getUserById(post.authorId).numberOfPosts}"></div>
+                <div th:text="'Skąd: ' + ${users.getUserById(post.authorId).place}"></div>
+            </div>
+
+        </div>
+        <div class="post-grid-content">
+            <div th:text="'Wysłano: ' + ${post.getPrettyDate()}" class="post-author-info">
+<!--                <a th:if="${admin}" th:href="@{/book/update/{id}(id=${book.id})}" class="delete">Usuń post></a>-->
+            </div>
+            <div th:text="${post.contents}" class="post-message"></div>
+        </div>
+    </div>
+
+    <div>
+        <a th:href="@{/thread/{thread.id}/add-reply/(thread.id=${{thread.id}})}" class="button">Odpowiedz</a>
+    </div>
 
 </div>
 </body>

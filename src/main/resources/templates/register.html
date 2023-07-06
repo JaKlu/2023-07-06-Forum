@@ -2,43 +2,55 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
+    <link rel="stylesheet" href="/login.css">
 </head>
 <body>
 <th:block th:replace="~{fragments.html :: under-construction}"></th:block>
 
 <div id="content">
-    <th:block th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
+    <th:block
+            th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
-    <form method="post">
-        <label for="login">Login: </label>
-        <input type="text" class="input" id="login" th:field="*{userModel.login}">
-        <label for="password">Hasło: </label>
-        <input type="password" class="input" id="password" th:field="*{userModel.password}">
-        <label for="password2">Powtórz hasło: </label>
-        <input type="password" class="input" id="password2" name="password2">
-        <label for="email">E-mail: </label>
-        <input type="text" class="input" id="email" th:field="*{userModel.email}">
-        <label for="birthday">Data urodzenia: </label>
-        <input type="date" class="input" id="birthday" th:field="*{userModel.birthday}">
+    <h4>Podaj dane rejestracyjne</h4>
 
-        <!--        <label for="gender">Płeć: </label>
-                <input type="text" class="input" id="gender" th:field="*{userModel.gender}">-->
+    <div class="content-register">
+        <form method="post">
+            <label for="login">Login: </label><br>
+            <input type="text" class="input" id="login" th:field="*{userModel.login}"><br>
 
+            <label for="password">Hasło: </label><br>
+            <input type="password" class="input" id="password" th:field="*{userModel.password}"><br>
 
-        <input type="radio" id="male" name="male" class="custom-control-input" value="MALE"
-               th:field="*{userModel.gender}" checked="checked">
-        <label class="custom-control-label" for="male">Mężczyzna</label>
-        <input type="radio" id="female" name="male" class="custom-control-input" value="FEMALE"
-               th:field="*{userModel.gender}">
-        <label class="custom-control-label" for="female">Kobieta</label>
+            <label for="password2">Powtórz hasło: </label><br>
+            <input type="password" class="input" id="password2" name="password2"><br>
 
+            <label for="email">E-mail: </label><br>
+            <input type="text" class="input" id="email" th:field="*{userModel.email}"><br>
 
-        <label for="place">Skąd: </label>
-        <input type="text" class="input" id="place" th:field="*{userModel.place}">
-        <input type="submit" value="Zarejestruj" class="button">
-        <input type="reset" value="Reset" class="button">
-    </form>
+            <label for="birthday">Data urodzenia: </label><br>
+            <input type="date" class="input" id="birthday" th:field="*{userModel.birthday}"><br>
+
+            <!--        <label for="gender">Płeć: </label>
+                    <input type="text" class="input" id="gender" th:field="*{userModel.gender}">-->
+
+            <fieldset>
+                <legend>Płeć</legend>
+                <input type="radio" id="male" name="gender" value="MALE"
+                       th:field="*{userModel.gender}" checked="checked">
+                <label class="input-radio" for="male">Mężczyzna</label><br>
+
+                <input type="radio" id="female" name="gender" value="FEMALE"
+                       th:field="*{userModel.gender}">
+                <label class="input-radio" for="female">Kobieta</label><br>
+            </fieldset>
+
+            <label for="place">Skąd: </label><br>
+            <input type="text" class="input" id="place" th:field="*{userModel.place}"><br>
+            <input type="submit" value="Zarejestruj" class="button">
+            <input type="reset" value="Wyczyść formularz" class="button">
+        </form>
+    </div>
 </div>
 </body>
 </html>

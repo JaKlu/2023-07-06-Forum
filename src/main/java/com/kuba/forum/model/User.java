@@ -2,8 +2,11 @@ package com.kuba.forum.model;
 
 import lombok.*;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,15 +42,41 @@ public class User {
         return copiedUser;
     }
 
+    public String getPrettyJoinDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return this.joinDate.format(formatter);
+    }
+
+    public int getAge() {
+        return (int) java.time.temporal.ChronoUnit.YEARS.between(this.birthday, ZonedDateTime.now());
+    }
 
     public enum Function {
-        ADMIN,
-        USER
+        ADMIN("Administrator"),
+        USER("Użytkownik");
+        private final String name;
+
+        Function(String name) {
+            this.name = name;
+        }
+
+        public String toString() {
+            return this.name;
+        }
     }
 
     public enum Gender {
-        MALE,
-        FEMALE
+        MALE("Kobieta"),
+        FEMALE("Mężczyzna");
+        private final String name;
+
+        Gender(String name) {
+            this.name = name;
+        }
+
+        public String toString() {
+            return this.name();
+        }
     }
 
 }

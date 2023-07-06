@@ -7,14 +7,24 @@
 <th:block th:replace="~{fragments.html :: under-construction}"></th:block>
 
 <div id="content">
-    <th:block th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
+    <th:block
+            th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
 
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
-
-    <div th:each="topic : ${topics}" class="topic">
-        <a th:text="${topic.name}" th:href="'/topic/' + ${topic.id}" class="topic-name"></a>
-        <div th:text="${topic.description}" class="topic-description"></div>
+    <div class="topic-grid-headers">
+        <div class="topic-header">Forum</div>
+        <div class="topic-header">Tematy</div>
     </div>
+    <div th:each="topic : ${topics}" class="topic-grid">
+        <div class="topic-info">
+            <a th:text="${topic.name}" th:href="'/topic/' + ${topic.id}" class="topic-name"></a>
+            <div th:text="${topic.description}" class="topic-description"></div>
+        </div>
+        <div class="topic-stats">
+            <div>x</div>
+        </div>
+    </div>
+
 
 </div>
 </body>

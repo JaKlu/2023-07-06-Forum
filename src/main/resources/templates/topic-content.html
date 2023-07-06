@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{fragments.html :: under-construction}"></th:block>
+
+<div id="content">
+    <th:block
+            th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
+    <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
+
+    <div th:each="thread : ${threads}" class="thread">
+        <a th:text="${thread.subject}" th:href="'/thread/' + ${thread.id}" class="thread-subject"></a>
+    </div>
+
+    <div>
+        <a th:href="@{/thread/new-thread/{topic.id}(topic.id=${{topic.id}})}">Nowy temat</a>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{fragments.html :: under-construction}"></th:block>
+
+<div id="content">
+    <th:block th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
+
+    <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
+
+    <div th:each="topic : ${topics}" class="topic">
+        <a th:text="${topic.name}" th:href="'/topic/' + ${topic.id}" class="topic-name"></a>
+        <div th:text="${topic.description}" class="topic-description"></div>
+    </div>
+
+</div>
+</body>
+</html>

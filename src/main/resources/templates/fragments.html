@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DEV_FRAGMENTS</title>
+</head>
+<body>
+
+<th:block th:fragment="head-meta">
+    <meta charset="UTF-8">
+    <title>Filmovie - pomówny o filmach</title>
+    <link rel="stylesheet" href="/common.css">
+</th:block>
+
+<th:block th:fragment="under-construction">
+    <h1>HOME PAGE</h1>
+    <h2>UNDER CONSTRUCTION</h2>
+</th:block>
+
+<!--  th:text="'Forum FILMOVIE >> ' + ${topic.getName()} + ' >> ' + ${thread.getSubject()}" -->
+<th:block th:fragment="directory-link">
+    <div>
+        <a href="/" class="directory-link">..::Forum FILMOVIE::..</a>
+        <th:block th:if="${topic != null}">
+            >>
+            <a th:text="${topic.name}" th:href="@{/topic/{topicId}(topicId=${topic.id})}"></a>
+            <th:block th:if="${thread != null}">
+                >>
+                <a th:text="${thread.subject}" th:href="@{/thread/{threadId}(threadId=${thread.id})}"></a>
+            </th:block>
+        </th:block>
+    </div>
+</th:block>
+
+<th:block th:fragment="main-menu-link">
+    <div>
+        <a href="/" class="main-menu-link">Strona główna</a> |
+        <a href="/" class="main-menu-link">Szukaj</a> |
+        <a href="/register" class="main-menu-link">Rejestracja</a> |
+        <a href="/login" class="main-menu-link">Zaloguj</a>
+    </div>
+</th:block>
+
+<th:block th:fragment="main-menu-link-logged">
+    <div th:text="'Zalogowany użytkownik: ' + ${user.login}"></div>
+    <a href="/" class="main-menu-link">Strona główna</a> |
+    <a href="/" class="main-menu-link">Szukaj</a> |
+    <a href="/logout" class="main-menu-link">Wyloguj</a>
+</th:block>
+
+
+</body>
+</html>

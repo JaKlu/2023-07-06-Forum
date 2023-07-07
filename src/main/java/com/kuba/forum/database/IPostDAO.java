@@ -16,7 +16,7 @@ public interface IPostDAO {
 
     void editPost(Post post);
 
-    void deletePost(int id);
+    void deletePost(int postId);
 
 
 }

@@ -11,6 +11,19 @@
             th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
+    <div class="delete-thread">
+        <a th:if="${admin}"
+           th:href="@{/thread/{threadId}/delete-thread(threadId=${thread.id})}"
+           >Usuń temat</a>
+    </div>
+
+
+    <div class="post-grid-headers">
+        <div class="post-header">Autor</div>
+        <div class="post-header">Wiadomość</div>
+    </div>
+
+
     <div th:each="post : ${posts}" class="post-grid">
         <div class="post-grid-content">
 
@@ -27,8 +40,11 @@
 
         </div>
         <div class="post-grid-content">
-            <div th:text="'Wysłano: ' + ${post.getPrettyDate()}" class="post-author-info">
-<!--                <a th:if="${admin}" th:href="@{/book/update/{id}(id=${book.id})}" class="delete">Usuń post></a>-->
+            <div>
+                <span th:text="'Wysłano: ' + ${post.getPrettyDate()}" class="post-author-info"></span>
+                <a th:if="${admin}"
+                   th:href="@{/thread/{threadId}/delete-post/{postId}(threadId=${thread.id},postId=${post.id})}"
+                   class="post-author-info">Usuń post</a>
             </div>
             <div th:text="${post.contents}" class="post-message"></div>
         </div>

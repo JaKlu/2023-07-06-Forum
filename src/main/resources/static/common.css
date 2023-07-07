@@ -8,7 +8,7 @@ body {
 a {
     color: #E10B14;
 }
-h1, h2 {
+h1, h2, h4 {
     text-align: center;
 }
 
@@ -19,19 +19,19 @@ h1, h2 {
 .post-grid {
     display: grid;
     grid-template-columns: 160px auto;
-    grid-column-gap: 1px;
-    grid-row-gap: 1px;
+
 }
 .post-grid-content{
+    border: 1px solid black;
     padding: 2px;
-    box-shadow: 1px;
 }
 .post-author{
-    padding: 2px 0px;
+    padding: 2px;
 }
 .post-author-info{
+    display: inline-block;
     font-size: .8em;
-    padding: 2px 0px;
+    padding: 2px;
 }
 
 .post-message{
@@ -98,6 +98,19 @@ h1, h2 {
     text-align: center;
     font-size: .9em;
     padding: 5px;
+}
+
+.post-grid-headers{
+    font-size: .9em;
+    display: grid;
+    grid-template-columns: 160px auto;
+    border: 1px solid black;
+    text-align: center;
+}
+.delete-thread{
+    text-align: right;
+    font-size: .8em;
+    padding: 2px;
 }
 .button {
     color: #E10B14;

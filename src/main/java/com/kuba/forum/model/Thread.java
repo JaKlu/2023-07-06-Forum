@@ -18,5 +18,4 @@ public class Thread {
     private int topicId;
     private String subject;
     private ZonedDateTime creationTime;
-    private List<Post> posts = new ArrayList<>();
 }

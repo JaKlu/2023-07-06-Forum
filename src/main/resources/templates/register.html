@@ -12,9 +12,10 @@
             th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
-    <h4>Podaj dane rejestracyjne</h4>
 
-    <div class="content-register">
+    <div class="content-login">
+        <h4>Podaj dane rejestracyjne</h4>
+
         <form method="post">
             <label for="login">Login: </label><br>
             <input type="text" class="input" id="login" th:field="*{userModel.login}"><br>

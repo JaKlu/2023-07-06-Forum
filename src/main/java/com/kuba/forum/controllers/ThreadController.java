@@ -68,7 +68,6 @@ public class ThreadController {
         post.setThreadId(thread.getId());
         post.setAuthorId(sessionData.getUser().getId());
         post = this.postService.addPost(post);
-        thread.getPosts().add(post);
 
         return "redirect:/thread/" + thread.getId();
     }
@@ -87,16 +86,36 @@ public class ThreadController {
 
     @PostMapping(path = "/{threadId}/add-reply/")
     public String addReply(@ModelAttribute Post post,
-                           @ModelAttribute Thread thread,
                            @PathVariable int threadId) {
         if (!this.sessionData.isLogged()) {
             return "redirect:/login";
         }
         post.setThreadId(threadId);
         post.setAuthorId(sessionData.getUser().getId());
-        post = this.postService.addPost(post);
-        thread.getPosts().add(post);
+        this.postService.addPost(post);
 
         return "redirect:/thread/" + threadId;
     }
+
+    @GetMapping(path = "/{threadId}/delete-post/{postId}")
+    public String deletePost(@PathVariable int threadId,
+                             @PathVariable int postId) {
+        if (!this.sessionData.isAdmin()) {
+            return "redirect:/thread/" + threadId;
+        }
+        this.postService.deletePost(postId);
+        return "redirect:/thread/" + threadId;
+    }
+
+    @GetMapping(path = "/{threadId}/delete-thread")
+    public String deleteThread(@PathVariable int threadId) {
+        int topicId = this.threadService.findThreadById(threadId).getTopicId();
+        if (!this.sessionData.isAdmin()) {
+            return "redirect:/thread/" + threadId;
+        }
+        this.threadService.deleteThread(threadId);
+
+        return "redirect:/topic/" + topicId;
+    }
+
 }

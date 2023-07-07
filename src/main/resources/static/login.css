@@ -1,17 +1,22 @@
-
+.content-login {
+    display: block;
+    max-width: 350px;
+    margin: auto;
+}
 
 label {
-    margin: 15px;
+    margin: 5px;
 }
 
 .input {
-    margin:5px;
+    margin: 10px 5px;
     width: 100%;
 }
 fieldset {
     width: 50%;
-    margin: 5px;
+    margin: 10px 5px;
 }
 .input-radio {
-
+    display: inline-block;
+    padding: 2px;
 }

@@ -27,8 +27,8 @@ public class ThreadServiceImpl implements IThreadService {
     }
 
     @Override
-    public List<Post> getPostsInThread(int threadId) {
-        return this.threadDAO.getPostsInThread(threadId);
+    public void deleteThread(int threadId) {
+        this.threadDAO.deleteThread(threadId);
     }
 
     @Override

@@ -10,11 +10,10 @@ public interface IThreadDAO {
 
     List<Thread> getThreadsInTopic(int topicId);
 
-    List<Post> getPostsInThread(int threadId);
 
     Thread findThreadById(int threadId);
 
-    void deleteThread(Thread thread);
+    void deleteThread(int threadId);
 
     void editThread(Thread thread);
 }

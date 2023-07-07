@@ -38,10 +38,12 @@ public class PostDAO implements IPostDAO {
         this.postSequence = postSequence;
     }
 
+    @Override
     public List<Post> getAllPosts() {
         return new ArrayList<>(this.posts);
     }
 
+    @Override
     public List<Post> getPostsFromThread(int threadId) {
         List<Post> postsFromThread = new ArrayList<>();
         for (Post post : posts) {
@@ -84,10 +86,10 @@ public class PostDAO implements IPostDAO {
     }
 
     @Override
-    public void deletePost(int id) {
+    public void deletePost(int postId) {
         Iterator<Post> iterator = this.posts.iterator();
         while (iterator.hasNext()) {
-            if (iterator.next().getId() == id) {
+            if (iterator.next().getId() == postId) {
                 iterator.remove();
                 return;
             }

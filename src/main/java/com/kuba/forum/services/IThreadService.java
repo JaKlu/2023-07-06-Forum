@@ -7,10 +7,13 @@ import java.util.List;
 
 public interface IThreadService {
 
-    List<Post> getPostsInThread(int threadId);
+
     Thread addThread(Thread thread);
 
     List<Thread> getThreadsInTopic(int topicId);
+
+    void deleteThread(int threadId);
+
     Thread findThreadById(int threadId);
 
 }

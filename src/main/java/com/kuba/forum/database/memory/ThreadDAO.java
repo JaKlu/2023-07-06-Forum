@@ -14,6 +14,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Repository
@@ -29,9 +30,11 @@ public class ThreadDAO implements IThreadDAO {
         this.threadSequence = threadSequence;
 
         this.threads.add(new Thread(threadSequence.getId(), 1, 3, "Kill Bill",
-                ZonedDateTime.of(LocalDate.of(2023, 7, 1), LocalTime.of(12, 15, 10), ZoneId.of("Europe/Warsaw")), new ArrayList<>()));
+                ZonedDateTime.of(LocalDate.of(2023, 7, 1),
+                        LocalTime.of(12, 15, 10), ZoneId.of("Europe/Warsaw"))));
         this.threads.add(new Thread(threadSequence.getId(), 2, 3, "Avengers",
-                ZonedDateTime.of(LocalDate.of(2023, 7, 2), LocalTime.of(9, 30, 20), ZoneId.of("Europe/Warsaw")), new ArrayList<>()));
+                ZonedDateTime.of(LocalDate.of(2023, 7, 2),
+                        LocalTime.of(9, 30, 20), ZoneId.of("Europe/Warsaw"))));
     }
 
     public List<Thread> getThreadsInTopic(int topicId) {
@@ -44,10 +47,6 @@ public class ThreadDAO implements IThreadDAO {
         return threadsInTopic;
     }
 
-    @Override
-    public List<Post> getPostsInThread(int threadId) {
-        return findThreadById(threadId).getPosts();
-    }
 
     @Override
     public Thread findThreadById(int threadId) {
@@ -69,8 +68,14 @@ public class ThreadDAO implements IThreadDAO {
 
 
     @Override
-    public void deleteThread(Thread thread) {
-
+    public void deleteThread(int threadId) {
+        Iterator<Thread> iterator = this.threads.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().getId() == threadId) {
+                iterator.remove();
+                return;
+            }
+        }
     }
 
     @Override

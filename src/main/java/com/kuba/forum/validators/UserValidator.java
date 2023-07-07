@@ -17,7 +17,7 @@ public class UserValidator {
     }
 
     public static void validatePassword(String password) {
-        String regex = "^.{3,}$";
+        String regex = "^.{2,}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
         if (!matcher.matches()) {
@@ -57,7 +57,7 @@ public class UserValidator {
     }
 
     public static void validatePlace(String place) {
-        String regex = "^.{3,}$";
+        String regex = "^+$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(place);
         if (!matcher.matches()) {

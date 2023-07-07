@@ -3,6 +3,7 @@
 <head>
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
     <link rel="stylesheet" href="/login.css">
+    <script src="/login-validator.js"></script>
 
 </head>
 <body>
@@ -17,12 +18,15 @@
     <div class="content-login">
         <h4>Podaj dane logowania</h4>
 
-        <form method="post">
+        <form method="post" onsubmit="return validate()">
             <label for="login">Login: </label><br>
             <input type="text" name="login" id="login" class="input">
+            <div id="login-error"></div>
 
             <label for="password">Hasło: </label>
             <input type="password" name="password" id="password" class="input">
+            <div id="password-error"></div>
+
             <input type="submit" value="Zaloguj" class="button">
         </form>
     </div>

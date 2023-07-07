@@ -77,6 +77,7 @@ public class ThreadController {
         if (!this.sessionData.isLogged()) {
             return "redirect:/login";
         }
+        //TODO directory-link
         ModelUtils.addCommonDataToModel(model, sessionData);
         model.addAttribute("thread", this.threadService.findThreadById(threadId));
         model.addAttribute("postModel", new Post());
@@ -87,6 +88,7 @@ public class ThreadController {
     @PostMapping(path = "/{threadId}/add-reply/")
     public String addReply(@ModelAttribute Post post,
                            @PathVariable int threadId) {
+
         if (!this.sessionData.isLogged()) {
             return "redirect:/login";
         }

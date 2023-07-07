@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
+    <link rel="stylesheet" href="/login.css">
 </head>
 <body>
 <th:block th:replace="~{fragments.html :: under-construction}"></th:block>
@@ -11,14 +12,18 @@
             th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
 
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
+    <div class="content-login">
 
-    <form method="post">
-        <label for="contents">Treść wiadomości: </label>
-        <textarea class="input" id="contents" th:field="*{postModel.contents}"></textarea>
 
-        <input type="submit" value="Wyślij" class="button">
-        <input type="reset" value="Reset" class="button">
-    </form>
+        <h4>Napisz odpowiedź</h4>
+        <form method="post">
+            <label for="contents">Treść wiadomości: </label>
+            <textarea class="input" id="contents"  rows="20" th:field="*{postModel.contents}"></textarea>
+
+            <input type="submit" value="Wyślij" class="button">
+            <input type="reset" value="Reset" class="button">
+        </form>
+    </div>
 </div>
 </body>
 </html>

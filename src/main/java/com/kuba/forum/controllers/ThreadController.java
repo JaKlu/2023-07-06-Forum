@@ -79,6 +79,7 @@ public class ThreadController {
         }
         //TODO directory-link
         ModelUtils.addCommonDataToModel(model, sessionData);
+        model.addAttribute("topic", this.topicService.findTopicById(this.threadService.findThreadById(threadId).getTopicId()));
         model.addAttribute("thread", this.threadService.findThreadById(threadId));
         model.addAttribute("postModel", new Post());
 
@@ -119,5 +120,4 @@ public class ThreadController {
 
         return "redirect:/topic/" + topicId;
     }
-
 }

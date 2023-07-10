@@ -18,8 +18,8 @@
     <div class="content-login">
         <h4>Podaj dane rejestracyjne</h4>
 
-<!--  TODO      <form method="post" onsubmit="return validate()">-->
-        <form method="post">
+        <form method="post" onsubmit="return validate()">
+
             <label for="login">Login: </label><br>
             <input type="text" class="input" id="login" th:field="*{userModel.login}"><br>
             <div id="login-error"></div>

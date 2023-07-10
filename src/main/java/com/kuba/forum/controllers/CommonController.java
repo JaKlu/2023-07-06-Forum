@@ -1,6 +1,7 @@
 package com.kuba.forum.controllers;
 
 import com.kuba.forum.controllers.utils.ModelUtils;
+import com.kuba.forum.services.IThreadService;
 import com.kuba.forum.services.ITopicService;
 import com.kuba.forum.session.SessionData;
 import jakarta.annotation.Resource;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CommonController {
     @Autowired
     ITopicService topicService;
+    @Autowired
+    IThreadService threadService;
     @Resource
     SessionData sessionData;
 
@@ -20,6 +23,7 @@ public class CommonController {
     public String homePage(Model model) {
         ModelUtils.addCommonDataToModel(model, sessionData);
         model.addAttribute("topics", this.topicService.getAllTopics());
+        model.addAttribute("threads", this.threadService);
         return "index";
     }
 }

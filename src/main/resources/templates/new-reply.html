@@ -3,6 +3,7 @@
 <head>
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
     <link rel="stylesheet" href="/login.css">
+    <script src="/reply-validator.js"></script>
 </head>
 <body>
 <th:block th:replace="~{fragments.html :: under-construction}"></th:block>
@@ -16,9 +17,10 @@
 
 
         <h4>Napisz odpowiedź</h4>
-        <form method="post">
+        <form method="post" onsubmit="return validate()">
             <label for="contents">Treść wiadomości: </label>
-            <textarea class="input" id="contents"  rows="20" th:field="*{postModel.contents}"></textarea>
+            <textarea class="input" id="contents" rows="20" th:field="*{postModel.contents}"></textarea>
+            <div id="contents-error"></div>
 
             <input type="submit" value="Wyślij" class="button">
             <input type="reset" value="Reset" class="button">

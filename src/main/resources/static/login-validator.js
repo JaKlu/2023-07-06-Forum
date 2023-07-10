@@ -15,20 +15,19 @@ function validate() {
     var passwordErrorMsg = "";
 
     if(!loginRegex.test(login.value)) {
-        loginError.innerHTML = "Podaj poprawny login";
+        loginError.innerHTML = "Login musi mieć co najmniej 2 znaki";
         loginError.classList.add("error-on");
         result = false;
     } else {
         loginError.innerHTML = "";
-        loginError.style.background = "#ffffff";
     }
 
     if(!passwordRegex.test(password.value)) {
-        passwordError.innerHTML = "Podaj porawne hasło";
+        passwordError.innerHTML = "Hasło musi mieć co najmniej 2 znaki";
         passwordError.classList.add("error-on");
         result = false;
     } else {
-        passwordError.style.background = "#ffffff";
+        loginError.innerHTML = "";
     }
 
     return result;

@@ -14,7 +14,7 @@
     <div class="delete-thread">
         <a th:if="${admin}"
            th:href="@{/thread/{threadId}/delete-thread(threadId=${thread.id})}"
-           >Usuń temat</a>
+           onclick="return confirm('Czy na pewno chcesz usunąć ten temat?')">Usuń temat</a>
     </div>
 
 
@@ -27,7 +27,8 @@
     <div th:each="post : ${posts}" class="post-grid">
         <div class="post-grid-content">
 
-            <div th:text="${users.getUserById(post.authorId).login}" class="post-author"></div>
+            <div th:text="${users.getUserById(post.authorId).login}"
+                 th:class="${users.getUserById(post.authorId).function.toString() == 'Administrator'} ? 'post-author-admin' : 'post-author'"></div>
 
             <div th:text="${users.getUserById(post.authorId).function.toString()}" class="post-author-info"></div>
 
@@ -44,7 +45,8 @@
                 <span th:text="'Wysłano: ' + ${post.getPrettyDate()}" class="post-author-info"></span>
                 <a th:if="${admin}"
                    th:href="@{/thread/{threadId}/delete-post/{postId}(threadId=${thread.id},postId=${post.id})}"
-                   class="post-author-info">Usuń post</a>
+                   class="post-author-info" onclick="return confirm('Czy na pewno chcesz usunąć ten post?')">Usuń
+                    post</a>
             </div>
             <div th:text="${post.contents}" class="post-message"></div>
         </div>

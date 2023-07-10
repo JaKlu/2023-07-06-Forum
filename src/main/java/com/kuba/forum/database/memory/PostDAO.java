@@ -90,6 +90,7 @@ public class PostDAO implements IPostDAO {
         Iterator<Post> iterator = this.posts.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getId() == postId) {
+                this.userDAO.decreaseNumberOfPosts(this.userDAO.getUserById(getPostById(postId).getAuthorId()));
                 iterator.remove();
                 return;
             }

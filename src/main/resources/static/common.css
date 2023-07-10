@@ -3,7 +3,7 @@
     font-family: 'Roboto', sans-serif;
 }
 body {
-    font-size:100%;
+    font-size:14px;
 }
 a {
     color: #E10B14;
@@ -13,8 +13,10 @@ h1, h2, h4 {
 }
 
 #content {
-    width: 80%;
-    margin: 10px auto;
+    max-width: 60rem;
+    padding: 10px;
+    margin: 0px auto;
+
 }
 .post-grid {
     display: grid;
@@ -26,8 +28,16 @@ h1, h2, h4 {
     padding: 2px;
 }
 .post-author{
+    font-weight: bold;
     padding: 2px;
 }
+.post-author-admin{
+    color: red;
+    font-weight: bold;
+    padding: 2px;
+}
+
+
 .post-author-info{
     display: inline-block;
     font-size: .8em;
@@ -40,11 +50,16 @@ h1, h2, h4 {
 .div-directory-link{
     font-weight: bold;
     margin:5px;
+    padding:2px;
     border-bottom: 1px solid #E10B14;
 }
 .div-directory-link a {
     text-decoration: none;
 }
+.div-directory-link a:hover {
+    text-decoration: underline;
+}
+
 .div-main-menu-link{
     text-align: right;
     margin: 5px;
@@ -81,13 +96,13 @@ h1, h2, h4 {
 }
 .thread-grid {
     display: grid;
-    grid-template-columns: auto 100px;
+    grid-template-columns: auto 100px 100px;
     border: 1px solid black;
 }
 .thread-grid-headers {
     font-size: .9em;
     display: grid;
-    grid-template-columns: auto 100px;
+    grid-template-columns: auto 100px 100px;
     border: 1px solid black;
     text-align: center;
 }
@@ -101,7 +116,7 @@ h1, h2, h4 {
 }
 
 .post-grid-headers{
-    font-size: .9em;
+    font-size: .9rem;
     display: grid;
     grid-template-columns: 160px auto;
     border: 1px solid black;
@@ -112,16 +127,34 @@ h1, h2, h4 {
     font-size: .8em;
     padding: 2px;
 }
+
+.no-threads{
+    font-size: 1.05rem;
+    text-align: center;
+    padding: 20px;
+}
 .button {
     color: #E10B14;
+    background-color: #f0f0f0;
     display: inline-block;
     margin: 10px;
-    padding: 10px;
+    padding: 5px 10px;
     text-decoration:none;
     font-weight: bold;
+    font-size: .9rem;
     border: 1px solid #E10B14;
-    border-radius: 12px;
+    border-radius: 10px;
 }
 .button:hover {
     border-radius: 3px;
+}
+
+.error-on{
+    margin: 0px 0px 10px 15px;
+    font-size: .8em;
+    color: #E10B14;
+}
+
+.error-off {
+
 }

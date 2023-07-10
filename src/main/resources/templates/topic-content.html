@@ -13,18 +13,20 @@
 
     <div class="thread-grid-headers">
         <div class="topic-header">Tematy</div>
+        <div class="topic-header">Autor</div>
         <div class="topic-header">Odpowiedzi</div>
     </div>
 
     <div th:each="thread : ${threads}" class="thread-grid">
         <div class="thread-subject">
-            <a th:text="${thread.subject}" th:href="'/thread/' + ${thread.id}" ></a>
+            <a th:text="${thread.subject}" th:href="'/thread/' + ${thread.id}"></a>
         </div>
-        <div>
-            <div class="thread-stats">y</div>
-        </div>
-
+        <div th:text="${authors.getUserById({thread.authorId}).login}" class="thread-stats"></div>
+        <div th:text="${replys.getPostsFromThread({thread.id}).size() - 1}" class="thread-stats"></div>
     </div>
+
+    <div th:if="${threads.size() == 0}" class="no-threads">Na tym forum nie ma jeszcze żadnych tematów.<br>
+        </div>
     <div>
         <a th:href="@{/thread/new-thread/{topic.id}(topic.id=${{topic.id}})}" class="button">Nowy temat</a>
     </div>

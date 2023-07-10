@@ -20,9 +20,7 @@
             <a th:text="${topic.name}" th:href="'/topic/' + ${topic.id}" class="topic-name"></a>
             <div th:text="${topic.description}" class="topic-description"></div>
         </div>
-        <div class="topic-stats">
-            <div>x</div>
-        </div>
+        <div th:text="${threads.getThreadsInTopic({topic.id}).size()}" class="topic-stats">x</div>
     </div>
 
 

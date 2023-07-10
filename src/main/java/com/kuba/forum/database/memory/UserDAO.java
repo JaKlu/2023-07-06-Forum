@@ -21,13 +21,13 @@ public class UserDAO implements IUserDAO {
     public UserDAO(@Autowired IUserIdSequence userIdSequence) {
         this.users.add(new User(userIdSequence.getId(),
                 "admin", "21232f297a57a5a743894a0e4a801fc3", "admin@filmovie.com",
-                LocalDate.of(1989, 5, 28), User.Gender.MALE,
+                LocalDate.of(1995, 7, 18), User.Gender.MALE,
                 ZonedDateTime.of(LocalDate.of(2023, 7, 1),
                         LocalTime.of(12, 0, 0), ZoneId.of("Europe/Warsaw")),
                 2, "Rzeszów", User.Function.ADMIN));
         this.users.add(new User(userIdSequence.getId(),
                 "kuba", "fccbce33643556ee698db7d599853a1f", "kuba@wp.pl",
-                LocalDate.of(1990, 3, 12), User.Gender.MALE,
+                LocalDate.of(1994, 3, 12), User.Gender.MALE,
                 ZonedDateTime.of(LocalDate.of(2023, 7, 2),
                         LocalTime.of(13, 15, 0), ZoneId.of("Europe/Warsaw")),
                 2, "Kraków", User.Function.USER));
@@ -63,11 +63,20 @@ public class UserDAO implements IUserDAO {
         this.users.add(user);
     }
 
+    // TODO odpytywać bazę o liczbę postów, nie przypisywać na stałe
     @Override
     public void increaseNumberOfPosts(User userToUpdate) {
         for (User user : this.users) {
             if (user.equals(userToUpdate)) {
                 user.setNumberOfPosts(user.getNumberOfPosts() + 1);
+            }
+        }
+    }
+
+    public void decreaseNumberOfPosts(User userToUpdate) {
+        for (User user : this.users) {
+            if (user.equals(userToUpdate)) {
+                user.setNumberOfPosts(user.getNumberOfPosts() - 1);
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.kuba.forum.database.memory;
 
+import com.kuba.forum.database.IPostDAO;
 import com.kuba.forum.database.IUserDAO;
 import com.kuba.forum.database.sequences.IUserIdSequence;
 import com.kuba.forum.model.User;
@@ -16,6 +17,8 @@ import java.util.List;
 @Repository
 public class UserDAO implements IUserDAO {
     IUserIdSequence userIdSequence;
+    @Autowired
+    IPostDAO postDAO;
     private final List<User> users = new ArrayList<>();
 
     public UserDAO(@Autowired IUserIdSequence userIdSequence) {
@@ -24,13 +27,13 @@ public class UserDAO implements IUserDAO {
                 LocalDate.of(1995, 7, 18), User.Gender.MALE,
                 ZonedDateTime.of(LocalDate.of(2023, 7, 1),
                         LocalTime.of(12, 0, 0), ZoneId.of("Europe/Warsaw")),
-                2, "Rzeszów", User.Function.ADMIN));
+                "Rzeszów", User.Function.ADMIN));
         this.users.add(new User(userIdSequence.getId(),
                 "kuba", "fccbce33643556ee698db7d599853a1f", "kuba@wp.pl",
                 LocalDate.of(1994, 3, 12), User.Gender.MALE,
                 ZonedDateTime.of(LocalDate.of(2023, 7, 2),
                         LocalTime.of(13, 15, 0), ZoneId.of("Europe/Warsaw")),
-                2, "Kraków", User.Function.USER));
+                "Kraków", User.Function.USER));
 
         this.userIdSequence = userIdSequence;
     }
@@ -63,21 +66,9 @@ public class UserDAO implements IUserDAO {
         this.users.add(user);
     }
 
-    // TODO odpytywać bazę o liczbę postów, nie przypisywać na stałe
-    @Override
-    public void increaseNumberOfPosts(User userToUpdate) {
-        for (User user : this.users) {
-            if (user.equals(userToUpdate)) {
-                user.setNumberOfPosts(user.getNumberOfPosts() + 1);
-            }
-        }
-    }
 
-    public void decreaseNumberOfPosts(User userToUpdate) {
-        for (User user : this.users) {
-            if (user.equals(userToUpdate)) {
-                user.setNumberOfPosts(user.getNumberOfPosts() - 1);
-            }
-        }
+    @Override
+    public int getNumberOfPosts(int userId) {
+        return this.postDAO.getAllUserPosts(userId).size();
     }
 }

@@ -10,6 +10,8 @@ public interface IPostDAO {
 
     List<Post> getPostsFromThread(int threadId);
 
+    List<Post> getAllUserPosts(int userId);
+
     Post addPost(Post post);
 
     Post getPostById(int id);

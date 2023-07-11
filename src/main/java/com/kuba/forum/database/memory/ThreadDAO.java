@@ -4,7 +4,6 @@ import com.kuba.forum.database.IPostDAO;
 import com.kuba.forum.database.IThreadDAO;
 import com.kuba.forum.database.IUserDAO;
 import com.kuba.forum.database.sequences.IThreadSequence;
-import com.kuba.forum.model.Post;
 import com.kuba.forum.model.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,10 +18,6 @@ import java.util.List;
 
 @Repository
 public class ThreadDAO implements IThreadDAO {
-    @Autowired
-    IUserDAO users;
-    @Autowired
-    IPostDAO posts;
     IThreadSequence threadSequence;
     private final List<Thread> threads = new ArrayList<>();
 

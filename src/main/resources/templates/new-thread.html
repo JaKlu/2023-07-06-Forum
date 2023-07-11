@@ -2,20 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
-    <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="/form.css">
     <script src="/thread-validator.js"></script>
 </head>
 <body>
-<th:block th:replace="~{fragments.html :: under-construction}"></th:block>
+<th:block th:replace="~{fragments.html :: page-header}"></th:block>
 
 <div id="content">
     <th:block
             th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
 
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
-    <div class="content-login">
-        <h4>Napisz nowy temat</h4>
 
+    <div class="content-form">
+        <h4>Napisz nowy temat</h4>
         <form method="post" onsubmit="return validate()">
             <label for="subject">Temat: </label>
             <input type="text" class="input" id="subject" th:field="*{threadModel.subject}">
@@ -24,9 +24,10 @@
             <label for="contents">Treść wiadomości: </label>
             <textarea class="input" id="contents" rows="20" th:field="*{postModel.contents}"></textarea>
             <div id="contents-error"></div>
-
-            <input type="submit" value="Wyślij" class="button">
-            <input type="reset" value="Reset" class="button">
+            <div class="form-footer">
+                <input type="submit" value="Wyślij" class="button">
+                <input type="reset" value="Reset" class="button">
+            </div>
         </form>
     </div>
 </div>

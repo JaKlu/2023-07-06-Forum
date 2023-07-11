@@ -9,7 +9,5 @@ public interface IUserDAO {
 
     void addUser(User user);
 
-    void increaseNumberOfPosts(User user);
-
-    void decreaseNumberOfPosts(User userToUpdate);
+    int getNumberOfPosts(int userId);
 }

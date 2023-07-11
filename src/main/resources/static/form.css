@@ -1,4 +1,4 @@
-.content-login {
+.content-form {
     display: block;
     max-width: 350px;
     margin: auto;
@@ -21,3 +21,6 @@ fieldset {
     padding: 2px;
 }
 
+.form-footer {
+    text-align: center;
+}

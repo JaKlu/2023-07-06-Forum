@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Repository
@@ -31,6 +32,7 @@ public class TopicDAO implements ITopicDAO {
         topics.add(new Topic(topicSequence.getId(), "Off Topic", "Rozmowy o wszystkim i o niczym"));
     }
 
+    @Override
     public List<Topic> getAllTopics() {
         return new ArrayList<>(this.topics);
     }
@@ -45,8 +47,21 @@ public class TopicDAO implements ITopicDAO {
         return null;
     }
 
-    public void addTopic(Topic topic) {
+    @Override
+    public Topic addTopic(Topic topic) {
         topic.setId(topicSequence.getId());
         this.topics.add(topic);
+        return topic;
+    }
+
+    @Override
+    public void deleteTopic(int topicId) {
+        Iterator<Topic> iterator = this.topics.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().getId() == topicId) {
+                iterator.remove();
+                return;
+            }
+        }
     }
 }

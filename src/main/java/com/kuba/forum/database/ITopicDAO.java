@@ -9,5 +9,7 @@ public interface ITopicDAO {
 
     Topic findTopicById(int topicId);
 
-    void addTopic(Topic topic);
+    Topic addTopic(Topic topic);
+
+    void deleteTopic(int topicId);
 }

@@ -4,7 +4,7 @@
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
 </head>
 <body>
-<th:block th:replace="~{fragments.html :: under-construction}"></th:block>
+<th:block th:replace="~{fragments.html :: page-header}"></th:block>
 
 <div id="content">
     <th:block
@@ -18,10 +18,17 @@
     <div th:each="topic : ${topics}" class="topic-grid">
         <div class="topic-info">
             <a th:text="${topic.name}" th:href="'/topic/' + ${topic.id}" class="topic-name"></a>
-            <div th:text="${topic.description}" class="topic-description"></div>
+            <div class="topic-description">
+                <th:block th:text="${topic.description}"></th:block>
+                <a th:if="${admin}"
+                   th:href="@{/topic/{topicId}/delete-topic(topicId=${topic.id})}"
+                   onclick="return confirm('Czy na pewno chcesz usunąć to forum?')" class="delete-topic">Usuń forum</a>
+            </div>
         </div>
         <div th:text="${threads.getThreadsInTopic({topic.id}).size()}" class="topic-stats">x</div>
     </div>
+
+    <a th:if="${admin}" th:href="@{/topic/new-topic}" class="button">Nowe forum</a>
 
 
 </div>

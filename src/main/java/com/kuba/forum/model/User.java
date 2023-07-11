@@ -2,8 +2,6 @@ package com.kuba.forum.model;
 
 import lombok.*;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +20,6 @@ public class User {
     private LocalDate birthday;
     private Gender gender;
     private ZonedDateTime joinDate;
-    private int numberOfPosts;
     private String place;
     private Function function;
 
@@ -36,7 +33,6 @@ public class User {
         copiedUser.birthday = user.birthday;
         copiedUser.gender = user.gender;
         copiedUser.joinDate = user.joinDate;
-        copiedUser.numberOfPosts = user.numberOfPosts;
         copiedUser.place = user.place;
         copiedUser.function = user.function;
         return copiedUser;

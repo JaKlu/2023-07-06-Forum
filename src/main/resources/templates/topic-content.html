@@ -4,12 +4,19 @@
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
 </head>
 <body>
-<th:block th:replace="~{fragments.html :: under-construction}"></th:block>
+<th:block th:replace="~{fragments.html :: page-header}"></th:block>
 
 <div id="content">
     <th:block
             th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
+
+    <div class="delete-thread">
+        <a th:if="${admin}"
+           th:href="@{/topic/{topicId}/delete-topic(topicId=${topic.id})}"
+           onclick="return confirm('Czy na pewno chcesz usunąć to forum?')" class="delete-topic">Usuń forum</a>
+    </div>
+
 
     <div class="thread-grid-headers">
         <div class="topic-header">Tematy</div>
@@ -25,8 +32,7 @@
         <div th:text="${replys.getPostsFromThread({thread.id}).size() - 1}" class="thread-stats"></div>
     </div>
 
-    <div th:if="${threads.size() == 0}" class="no-threads">Na tym forum nie ma jeszcze żadnych tematów.<br>
-        </div>
+    <div th:if="${threads.size() == 0}" class="no-threads">Na tym forum nie ma jeszcze żadnych tematów.</div>
     <div>
         <a th:href="@{/thread/new-thread/{topic.id}(topic.id=${{topic.id}})}" class="button">Nowy temat</a>
     </div>

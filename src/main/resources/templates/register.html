@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
-    <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="/form.css">
     <script src="/register-validator.js"></script>
 
 </head>
 <body>
-<th:block th:replace="~{fragments.html :: under-construction}"></th:block>
+<th:block th:replace="~{fragments.html :: page-header}"></th:block>
 
 <div id="content">
     <th:block
@@ -15,11 +15,9 @@
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
 
-    <div class="content-login">
+    <div class="content-form">
         <h4>Podaj dane rejestracyjne</h4>
-
         <form method="post" onsubmit="return validate()">
-
             <label for="login">Login: </label><br>
             <input type="text" class="input" id="login" th:field="*{userModel.login}"><br>
             <div id="login-error"></div>
@@ -40,9 +38,6 @@
             <input type="date" class="input" id="birthday" th:field="*{userModel.birthday}"><br>
             <div id="birthday-error"></div>
 
-            <!--        <label for="gender">Płeć: </label>
-                    <input type="text" class="input" id="gender" th:field="*{userModel.gender}">-->
-
             <fieldset>
                 <legend>Płeć</legend>
                 <input type="radio" id="male" name="gender" value="MALE"
@@ -60,9 +55,10 @@
             <input type="text" class="input" id="place" th:field="*{userModel.place}"><br>
             <div id="place-error"></div>
 
-
-            <input type="submit" value="Zarejestruj" class="button">
-            <input type="reset" value="Wyczyść formularz" class="button">
+            <div class="form-footer">
+                <input type="submit" value="Zarejestruj" class="button">
+                <input type="reset" value="Wyczyść formularz" class="button">
+            </div>
         </form>
     </div>
 </div>

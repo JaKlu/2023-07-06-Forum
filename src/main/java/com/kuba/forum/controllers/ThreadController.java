@@ -77,7 +77,6 @@ public class ThreadController {
         if (!this.sessionData.isLogged()) {
             return "redirect:/login";
         }
-        //TODO directory-link
         ModelUtils.addCommonDataToModel(model, sessionData);
         model.addAttribute("topic", this.topicService.findTopicById(this.threadService.findThreadById(threadId).getTopicId()));
         model.addAttribute("thread", this.threadService.findThreadById(threadId));

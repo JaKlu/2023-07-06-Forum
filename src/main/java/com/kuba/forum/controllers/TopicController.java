@@ -1,13 +1,12 @@
 package com.kuba.forum.controllers;
 
 import com.kuba.forum.database.IUserDAO;
-import com.kuba.forum.model.Post;
-import com.kuba.forum.model.Thread;
 import com.kuba.forum.controllers.utils.ModelUtils;
 import com.kuba.forum.model.Topic;
 import com.kuba.forum.services.IPostService;
 import com.kuba.forum.services.IThreadService;
 import com.kuba.forum.services.ITopicService;
+import com.kuba.forum.services.IUserService;
 import com.kuba.forum.session.SessionData;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class TopicController {
     @Autowired
     IPostService postService;
     @Autowired
-    IUserDAO userDAO;
+    IUserService userService;
     @Resource
     SessionData sessionData;
 
@@ -34,10 +33,40 @@ public class TopicController {
         ModelUtils.addCommonDataToModel(model, sessionData);
         model.addAttribute("topic", this.topicService.findTopicById(topicId));
         model.addAttribute("threads", this.threadService.getThreadsInTopic(topicId));
-        model.addAttribute("authors", this.userDAO);
+        model.addAttribute("authors", this.userService);
         model.addAttribute("replys", this.postService);
         return "topic-content";
     }
 
+    @GetMapping(path = "/new-topic")
+    public String createTopic(Model model) {
+        if (!this.sessionData.isAdmin()) {
+            return "redirect:/main";
+        }
+        ModelUtils.addCommonDataToModel(model, sessionData);
+        model.addAttribute("topicModel", new Topic());
+
+        return "new-topic";
+    }
+
+    @PostMapping(path = "/new-topic")
+    public String createTopic(@ModelAttribute Topic topic) {
+        if (!this.sessionData.isAdmin()) {
+            return "redirect:/main";
+        }
+        topic = this.topicService.addTopic(topic);
+
+        return "redirect:/topic/" + topic.getId();
+    }
+
+    @GetMapping(path = "/{topicId}/delete-topic")
+    public String deleteThread(@PathVariable int topicId) {
+        if (!this.sessionData.isAdmin()) {
+            return "redirect:/main";
+        }
+        this.topicService.deleteTopic(topicId);
+
+        return "redirect:/main";
+    }
 
 }

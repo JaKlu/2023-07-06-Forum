@@ -21,7 +21,7 @@ public class App {
                 LocalDate.of(1989, 5, 28), User.Gender.MALE,
                 ZonedDateTime.of(LocalDate.of(2023, 7, 1),
                         LocalTime.of(12, 0, 0), ZoneId.of("Europe/Warsaw")),
-                0, "Rzeszów", User.Function.ADMIN);
+                "Rzeszów", User.Function.ADMIN);
         UserValidator.validateUser(user);
 
     }

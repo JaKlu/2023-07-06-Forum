@@ -25,4 +25,9 @@ public class UserServiceImpl implements IUserService {
     public void addUser(User user) {
         this.userDAO.addUser(user);
     }
+
+    @Override
+    public int getNumberOfPosts(int userId) {
+        return this.userDAO.getNumberOfPosts(userId);
+    }
 }

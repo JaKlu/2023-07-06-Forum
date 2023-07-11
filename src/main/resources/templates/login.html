@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
-    <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="/form.css">
     <script src="/login-validator.js"></script>
 
 </head>
 <body>
-<th:block th:replace="~{fragments.html :: under-construction}"></th:block>
+<th:block th:replace="~{fragments.html :: page-header}"></th:block>
 
 <div id="content">
     <th:block
@@ -15,9 +15,8 @@
 
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
-    <div class="content-login">
+    <div class="content-form">
         <h4>Podaj dane logowania</h4>
-
         <form method="post" onsubmit="return validate()">
             <label for="login">Login: </label><br>
             <input type="text" name="login" id="login" class="input">
@@ -26,8 +25,9 @@
             <label for="password">Hasło: </label>
             <input type="password" name="password" id="password" class="input">
             <div id="password-error"></div>
-
-            <input type="submit" value="Zaloguj" class="button">
+            <div class="form-footer">
+                <input type="submit" value="Zaloguj" class="button">
+            </div>
         </form>
     </div>
 </div>

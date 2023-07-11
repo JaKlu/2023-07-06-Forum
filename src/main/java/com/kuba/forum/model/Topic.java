@@ -2,8 +2,6 @@ package com.kuba.forum.model;
 
 import lombok.*;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -14,5 +12,4 @@ public class Topic {
     private int id;
     private String name;
     private String description;
-//    private List<Thread> threads;
 }

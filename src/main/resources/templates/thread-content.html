@@ -4,7 +4,7 @@
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
 </head>
 <body>
-<th:block th:replace="~{fragments.html :: under-construction}"></th:block>
+<th:block th:replace="~{fragments.html :: page-header}"></th:block>
 
 <div id="content">
     <th:block
@@ -25,18 +25,19 @@
 
 
     <div th:each="post : ${posts}" class="post-grid">
-        <div class="post-grid-content">
+        <div class="post-grid-content" th:with="currentUser=${users.getUserById(post.authorId)}">
 
-            <div th:text="${users.getUserById(post.authorId).login}"
-                 th:class="${users.getUserById(post.authorId).function.toString() == 'Administrator'} ? 'post-author-admin' : 'post-author'"></div>
+            <div th:text="${currentUser.login}"
+                 th:class="${currentUser.function == T(com.kuba.forum.model.User.Function).ADMIN} ? 'post-author-admin' : 'post-author'">
+            </div>
 
-            <div th:text="${users.getUserById(post.authorId).function.toString()}" class="post-author-info"></div>
+            <div th:text="${currentUser.function.toString()}" class="post-author-info"></div>
 
             <div class="post-author-info">
-                <div th:text="'Wiek: ' + ${users.getUserById(post.authorId).getAge()}"></div>
-                <div th:text="'Dołączenie: ' + ${users.getUserById(post.authorId).getPrettyJoinDate()}"></div>
-                <div th:text="'Posty: ' + ${users.getUserById(post.authorId).numberOfPosts}"></div>
-                <div th:text="'Skąd: ' + ${users.getUserById(post.authorId).place}"></div>
+                <div th:text="'Wiek: ' + ${currentUser.getAge()}"></div>
+                <div th:text="'Dołączenie: ' + ${currentUser.getPrettyJoinDate()}"></div>
+                <div th:text="'Posty: ' + ${users.getNumberOfPosts(post.authorId)}"></div>
+                <div th:text="'Skąd: ' + ${currentUser.place}"></div>
             </div>
 
         </div>

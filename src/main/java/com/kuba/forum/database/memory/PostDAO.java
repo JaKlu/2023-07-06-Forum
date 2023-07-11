@@ -1,7 +1,6 @@
 package com.kuba.forum.database.memory;
 
 import com.kuba.forum.database.IPostDAO;
-import com.kuba.forum.database.IUserDAO;
 import com.kuba.forum.database.sequences.IPostSequence;
 import com.kuba.forum.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,7 @@ import java.util.*;
 public class PostDAO implements IPostDAO {
 
     IPostSequence postSequence;
-    @Autowired
-    IUserDAO userDAO;
+
     private final List<Post> posts = new ArrayList<>();
 
     public PostDAO(@Autowired IPostSequence postSequence) {
@@ -26,7 +24,7 @@ public class PostDAO implements IPostDAO {
                 2023, 7, 1), LocalTime.of(12, 15, 10), ZoneId.of("Europe/Warsaw")),
                 "Uważam, że Kill Bill to słaby film, bo za mało w nim szybkich samochodów"));
         this.posts.add(new Post(postSequence.getId(), 1, 2, ZonedDateTime.of(LocalDate.of(
-                2023, 7, 1), LocalTime.of(12, 20, 10), ZoneId.of("Europe/Warsaw")),
+                2023, 7, 2), LocalTime.of(12, 20, 10), ZoneId.of("Europe/Warsaw")),
                 "Kolego, chyba nie zrozumiałeś przesłania tego filmu - tam nie ma być autek tylko mordobicie"));
         this.posts.add(new Post(postSequence.getId(), 2, 2, ZonedDateTime.of(LocalDate.of(
                 2023, 7, 2), LocalTime.of(9, 30, 20), ZoneId.of("Europe/Warsaw")),
@@ -41,6 +39,17 @@ public class PostDAO implements IPostDAO {
     @Override
     public List<Post> getAllPosts() {
         return new ArrayList<>(this.posts);
+    }
+
+    @Override
+    public List<Post> getAllUserPosts(int userId) {
+        List<Post> allUserPosts = new ArrayList<>();
+        for (Post post : posts) {
+            if (post.getAuthorId() == userId) {
+                allUserPosts.add(post);
+            }
+        }
+        return allUserPosts;
     }
 
     @Override
@@ -59,7 +68,6 @@ public class PostDAO implements IPostDAO {
         post.setId(postSequence.getId());
         post.setCreationTime(ZonedDateTime.now());
         this.posts.add(post);
-        this.userDAO.increaseNumberOfPosts(this.userDAO.getUserById(post.getAuthorId()));
         return post;
     }
 
@@ -90,7 +98,6 @@ public class PostDAO implements IPostDAO {
         Iterator<Post> iterator = this.posts.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getId() == postId) {
-                this.userDAO.decreaseNumberOfPosts(this.userDAO.getUserById(getPostById(postId).getAuthorId()));
                 iterator.remove();
                 return;
             }

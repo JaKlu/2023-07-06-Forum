@@ -22,7 +22,12 @@ public class TopicServiceImpl implements ITopicService {
         return this.topicDAO.findTopicById(topicId);
     }
 
-    public void addTopic(Topic topic) {
-        this.topicDAO.addTopic(topic);
+    public Topic addTopic(Topic topic) {
+        return this.topicDAO.addTopic(topic);
+    }
+
+    @Override
+    public void deleteTopic(int topicId) {
+        this.topicDAO.deleteTopic(topicId);
     }
 }

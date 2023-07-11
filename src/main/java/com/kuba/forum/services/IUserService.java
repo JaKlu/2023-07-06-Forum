@@ -8,4 +8,5 @@ public interface IUserService {
     User getUserById(int userId);
 
     void addUser(User user);
+    int getNumberOfPosts(int userId);
 }

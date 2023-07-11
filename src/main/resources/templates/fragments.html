@@ -8,16 +8,15 @@
 
 <th:block th:fragment="head-meta">
     <meta charset="UTF-8">
-    <title>Filmovie - pomówny o filmach</title>
+    <title>Filmovie - mówimy o filmach</title>
     <link rel="stylesheet" href="/common.css">
 </th:block>
 
-<th:block th:fragment="under-construction">
+<th:block th:fragment="page-header">
     <h1>Forum FILMOVIE</h1>
-    <h2>Pomówmy o filmach</h2>
+    <h2>Mówimy o filmach</h2>
 </th:block>
 
-<!--  th:text="'Forum FILMOVIE >> ' + ${topic.getName()} + ' >> ' + ${thread.getSubject()}" -->
 <th:block th:fragment="directory-link">
     <div class="div-directory-link">
         <a href="/" class="directory-link">.: Forum FILMOVIE :.</a>
@@ -49,7 +48,5 @@
         <a href="/logout" class="main-menu-link">Wyloguj</a>
     </div>
 </th:block>
-
-
 </body>
 </html>

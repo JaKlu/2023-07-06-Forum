@@ -62,8 +62,8 @@ public class User {
     }
 
     public enum Gender {
-        MALE("Kobieta"),
-        FEMALE("Mężczyzna");
+        MALE("Mężczyzna"),
+        FEMALE("Kobieta");
         private final String name;
 
         Gender(String name) {
@@ -71,8 +71,7 @@ public class User {
         }
 
         public String toString() {
-            return this.name();
+            return this.name;
         }
     }
-
 }

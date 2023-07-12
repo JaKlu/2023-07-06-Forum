@@ -26,4 +26,10 @@ public class CommonController {
         model.addAttribute("threads", this.threadService);
         return "index";
     }
+
+    @GetMapping(path = "/search")
+    public String search() {
+
+        return "search";
+    }
 }

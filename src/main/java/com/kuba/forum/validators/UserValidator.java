@@ -57,7 +57,7 @@ public class UserValidator {
     }
 
     public static void validatePlace(String place) {
-        String regex = "^+$";
+        String regex = "^.+$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(place);
         if (!matcher.matches()) {
@@ -87,7 +87,8 @@ public class UserValidator {
     public static void validateUser(User user) {
         validateLogin(user.getLogin());
         validatePassword(user.getPassword());
-        //validateBirthday(user.getBirthday().toString());
+        validateGender(String.valueOf(user.getGender()));
+        validateBirthday(user.getBirthday().toString());
         validateEmail(user.getEmail());
         validatePlace(user.getPlace());
     }

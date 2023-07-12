@@ -22,7 +22,7 @@ public class PostDAO implements IPostDAO {
     public PostDAO(@Autowired IPostSequence postSequence) {
         this.posts.add(new Post(postSequence.getId(), 1, 1, ZonedDateTime.of(LocalDate.of(
                 2023, 7, 1), LocalTime.of(12, 15, 10), ZoneId.of("Europe/Warsaw")),
-                "Uważam, że Kill Bill to słaby film, bo za mało w nim szybkich samochodów"));
+                "Uważam, że Kill Bill to słaby film, bo za mało w nim \nszybkich samochodów"));
         this.posts.add(new Post(postSequence.getId(), 1, 2, ZonedDateTime.of(LocalDate.of(
                 2023, 7, 2), LocalTime.of(12, 20, 10), ZoneId.of("Europe/Warsaw")),
                 "Kolego, chyba nie zrozumiałeś przesłania tego filmu - tam nie ma być autek tylko mordobicie"));
@@ -39,6 +39,19 @@ public class PostDAO implements IPostDAO {
     @Override
     public List<Post> getAllPosts() {
         return new ArrayList<>(this.posts);
+    }
+
+    public List<Post> getQueriedPosts(String query) {
+        List<Post> posts = getAllPosts();
+        List<Post> queriedPosts = new ArrayList<>();
+
+        for (Post post : posts) {
+            if (post.getContents().contains(query.toLowerCase())) {
+                queriedPosts.add(post);
+            }
+        }
+
+        return queriedPosts;
     }
 
     @Override

@@ -35,6 +35,7 @@
 
             <div class="post-author-info">
                 <div th:text="'Wiek: ' + ${currentUser.getAge()}"></div>
+                <div th:text="'Płeć: ' + ${currentUser.gender.toString()}"></div>
                 <div th:text="'Dołączenie: ' + ${currentUser.getPrettyJoinDate()}"></div>
                 <div th:text="'Posty: ' + ${users.getNumberOfPosts(post.authorId)}"></div>
                 <div th:text="'Skąd: ' + ${currentUser.place}"></div>

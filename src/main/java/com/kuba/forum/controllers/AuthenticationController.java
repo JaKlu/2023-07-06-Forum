@@ -11,10 +11,7 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AuthenticationController {
@@ -24,7 +21,13 @@ public class AuthenticationController {
     SessionData sessionData;
 
     @GetMapping(path = "/login")
-    public String login(Model model) {
+    public String login(Model model,
+                        @RequestParam(required = false) String error) {
+        if (error == null) {
+            model.addAttribute("error", "");
+        } else if (error.equals("1")) {
+            model.addAttribute("error", "Niepoprawny login lub hasło");
+        }
         ModelUtils.addCommonDataToModel(model, sessionData);
         return "login";
     }
@@ -36,7 +39,7 @@ public class AuthenticationController {
         if (sessionData.isLogged()) {
             return "redirect:/main";
         }
-        return "redirect:/login";
+        return "redirect:/login?error=1";
     }
 
     @GetMapping(path = "/logout")
@@ -46,7 +49,17 @@ public class AuthenticationController {
     }
 
     @GetMapping(path = "/register")
-    public String register(Model model) {
+    public String register(Model model,
+                           @RequestParam(required = false) String error,
+                           @RequestParam(required = false) String login) {
+        if (error == null) {
+            model.addAttribute("error", "");
+        } else if (error.equals("1")) {
+            model.addAttribute("error", "Użytkownik " + login + " już istnieje");
+        } else if (error.equals("2")) {
+            model.addAttribute("error", "Wprowadź poprawne dane do formularza");
+        }
+
         ModelUtils.addCommonDataToModel(model, sessionData);
         model.addAttribute("userModel", new User());
         return "register";
@@ -59,10 +72,13 @@ public class AuthenticationController {
             UserValidator.validateUser(user);
             UserValidator.validatePasswordEquality(user.getPassword(), password2);
             this.authenticationService.register(user);
-        } catch (LoginAlreadyExistException | UserValidationException e) {
-            return "redirect:/register";
+        } catch (LoginAlreadyExistException e) {
+            e.printStackTrace();
+            return "redirect:/register?error=1&login=" + user.getLogin();
+        } catch (UserValidationException e) {
+            e.printStackTrace();
+            return "redirect:/register?error=2";
         }
-
-        return "redirect:/main";
+        return "redirect:/login";
     }
 }

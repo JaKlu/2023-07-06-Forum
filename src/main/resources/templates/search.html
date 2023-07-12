@@ -16,18 +16,16 @@
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
     <div class="content-form">
-        <h4>Podaj dane logowania</h4>
+        <h4>Wyszukiwarka</h4>
         <div th:text="${error}" class="register-error"></div>
         <form method="post" onsubmit="return validate()">
-            <label for="login">Login: </label><br>
-            <input type="text" name="login" id="login" class="input">
-            <div id="login-error"></div>
+            <label for="query">Szukany tekst: </label><br>
+            <input type="text" name="query" id="query" class="input">
+            <div id="query-error"></div>
 
-            <label for="password">Hasło: </label>
-            <input type="password" name="password" id="password" class="input">
-            <div id="password-error"></div>
+
             <div class="form-footer">
-                <input type="submit" value="Zaloguj" class="button">
+                <input type="submit" value="Szukaj" class="button">
             </div>
         </form>
     </div>

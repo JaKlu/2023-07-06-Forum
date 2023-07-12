@@ -34,7 +34,7 @@
 <th:block th:fragment="main-menu-link">
     <div class="div-main-menu-link">
         <a href="/" class="main-menu-link">Strona główna</a> |
-        <a href="/" class="main-menu-link">Szukaj</a> |
+        <a href="/search" class="main-menu-link">Szukaj</a> |
         <a href="/register" class="main-menu-link">Rejestracja</a> |
         <a href="/login" class="main-menu-link">Zaloguj</a>
     </div>
@@ -44,7 +44,7 @@
     <div th:text="'Zalogowany użytkownik: ' + ${user.login}" class="div-main-menu-link"></div>
     <div class="div-main-menu-link">
         <a href="/" class="main-menu-link">Strona główna</a> |
-        <a href="/" class="main-menu-link">Szukaj</a> |
+        <a href="/search" class="main-menu-link">Szukaj</a> |
         <a href="/logout" class="main-menu-link">Wyloguj</a>
     </div>
 </th:block>

@@ -156,7 +156,12 @@ h1, h2, h4 {
 .button:hover {
     border-radius: 3px;
 }
-
+.register-error{
+    margin: 0px 0px 10px 15px;
+    font-size: .8em;
+    color: #E10B14;
+    text-align:center;
+}
 .error-on{
     margin: 0px 0px 10px 15px;
     font-size: .8em;

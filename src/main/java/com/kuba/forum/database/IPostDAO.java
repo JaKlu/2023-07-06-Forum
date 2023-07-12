@@ -8,6 +8,8 @@ import java.util.Set;
 public interface IPostDAO {
     List<Post> getAllPosts();
 
+    List<Post> getQueriedPosts(String query);
+
     List<Post> getPostsFromThread(int threadId);
 
     List<Post> getAllUserPosts(int userId);

@@ -11,9 +11,8 @@
             th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
-    <div class="delete-thread">
-        <a th:if="${admin}"
-           th:href="@{/thread/{threadId}/delete-thread(threadId=${thread.id})}"
+    <div th:if="${admin}" class="delete-thread">
+        <a th:href="@{/thread/{threadId}/delete-thread(threadId=${thread.id})}"
            onclick="return confirm('Czy na pewno chcesz usunąć ten temat?')">Usuń temat</a>
     </div>
 

@@ -15,7 +15,7 @@
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
     <div class="content-form">
-        <h4>Napisz odpowiedź</h4>
+        <h3>Napisz odpowiedź</h3>
         <form method="post" onsubmit="return validate()">
             <label for="contents">Treść wiadomości: </label>
             <textarea class="input" id="contents" rows="20" th:field="*{postModel.contents}"></textarea>

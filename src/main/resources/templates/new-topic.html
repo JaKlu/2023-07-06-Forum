@@ -16,7 +16,7 @@
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
     <div class="content-form">
-        <h4>Dodaj nowe forum</h4>
+        <h3>Dodaj nowe forum</h3>
         <form method="post" onsubmit="return validate()">
             <label for="name">Temat: </label>
             <input type="text" class="input" id="name" th:field="*{topicModel.name}">

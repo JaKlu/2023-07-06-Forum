@@ -30,6 +30,18 @@ public class ThreadDAO implements IThreadDAO {
         this.threads.add(new Thread(threadSequence.getId(), 2, 3, "Avengers",
                 ZonedDateTime.of(LocalDate.of(2023, 7, 2),
                         LocalTime.of(9, 30, 20), ZoneId.of("Europe/Warsaw"))));
+        this.threads.add(new Thread(threadSequence.getId(), 1, 1, "Witam na forum",
+                ZonedDateTime.of(LocalDate.of(2023, 7, 1),
+                        LocalTime.of(8, 0, 0), ZoneId.of("Europe/Warsaw"))));
+        this.threads.add(new Thread(threadSequence.getId(), 2, 1, "Cześć wszystkim!!!",
+                ZonedDateTime.of(LocalDate.of(2023, 7, 2),
+                        LocalTime.of(15, 12, 0), ZoneId.of("Europe/Warsaw"))));
+        this.threads.add(new Thread(threadSequence.getId(), 3, 1, "Pozdrowienia z Warszawy :)",
+                ZonedDateTime.of(LocalDate.of(2023, 7, 3),
+                        LocalTime.of(9, 7, 0), ZoneId.of("Europe/Warsaw"))));
+        this.threads.add(new Thread(threadSequence.getId(), 4, 1, "Eluwina, tu Ania z Gdańska",
+                ZonedDateTime.of(LocalDate.of(2023, 7, 4),
+                        LocalTime.of(8, 15, 0), ZoneId.of("Europe/Warsaw"))));
     }
 
     public List<Thread> getThreadsInTopic(int topicId) {

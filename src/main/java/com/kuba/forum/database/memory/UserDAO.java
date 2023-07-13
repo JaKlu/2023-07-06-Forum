@@ -34,6 +34,18 @@ public class UserDAO implements IUserDAO {
                 ZonedDateTime.of(LocalDate.of(2023, 7, 2),
                         LocalTime.of(13, 15, 0), ZoneId.of("Europe/Warsaw")),
                 "Kraków", User.Function.USER));
+        this.users.add(new User(userIdSequence.getId(),
+                "wojtek", "0d333f240498cfd51eb8bd1d74ee0f6e", "wojtek@wp.pl",
+                LocalDate.of(1997, 12, 26), User.Gender.MALE,
+                ZonedDateTime.of(LocalDate.of(2023, 7, 3),
+                        LocalTime.of(10, 12, 0), ZoneId.of("Europe/Warsaw")),
+                "Warszawa", User.Function.ADMIN));
+        this.users.add(new User(userIdSequence.getId(),
+                "ania", "5f59ac736640f43e61c6070284bf1c06", "ania@wp.pl",
+                LocalDate.of(2001, 2, 13), User.Gender.FEMALE,
+                ZonedDateTime.of(LocalDate.of(2023, 7, 4),
+                        LocalTime.of(8, 7, 0), ZoneId.of("Europe/Warsaw")),
+                "Gdańsk", User.Function.USER));
 
         this.userIdSequence = userIdSequence;
     }

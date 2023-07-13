@@ -22,11 +22,13 @@ public class AuthenticationController {
 
     @GetMapping(path = "/login")
     public String login(Model model,
-                        @RequestParam(required = false) String error) {
-        if (error == null) {
-            model.addAttribute("error", "");
-        } else if (error.equals("1")) {
-            model.addAttribute("error", "Niepoprawny login lub hasło");
+                        @RequestParam(required = false) String info) {
+        if (info == null) {
+            model.addAttribute("info", "");
+        } else if (info.equals("1")) {
+            model.addAttribute("info", "Niepoprawny login lub hasło");
+        } else if (info.equals("2")) {
+            model.addAttribute("info", "Rejestracja zakończona sukcesem. Zaloguj się na swoje konto.");
         }
         ModelUtils.addCommonDataToModel(model, sessionData);
         return "login";
@@ -39,7 +41,7 @@ public class AuthenticationController {
         if (sessionData.isLogged()) {
             return "redirect:/main";
         }
-        return "redirect:/login?error=1";
+        return "redirect:/login?info=1";
     }
 
     @GetMapping(path = "/logout")
@@ -50,14 +52,14 @@ public class AuthenticationController {
 
     @GetMapping(path = "/register")
     public String register(Model model,
-                           @RequestParam(required = false) String error,
+                           @RequestParam(required = false) String info,
                            @RequestParam(required = false) String login) {
-        if (error == null) {
-            model.addAttribute("error", "");
-        } else if (error.equals("1")) {
-            model.addAttribute("error", "Użytkownik " + login + " już istnieje");
-        } else if (error.equals("2")) {
-            model.addAttribute("error", "Wprowadź poprawne dane do formularza");
+        if (info == null) {
+            model.addAttribute("info", "");
+        } else if (info.equals("1")) {
+            model.addAttribute("info", "Użytkownik " + login + " już istnieje");
+        } else if (info.equals("2")) {
+            model.addAttribute("info", "Wprowadź poprawne dane do formularza");
         }
 
         ModelUtils.addCommonDataToModel(model, sessionData);
@@ -73,12 +75,10 @@ public class AuthenticationController {
             UserValidator.validatePasswordEquality(user.getPassword(), password2);
             this.authenticationService.register(user);
         } catch (LoginAlreadyExistException e) {
-            e.printStackTrace();
-            return "redirect:/register?error=1&login=" + user.getLogin();
+            return "redirect:/register?info=1&login=" + user.getLogin();
         } catch (UserValidationException e) {
-            e.printStackTrace();
-            return "redirect:/register?error=2";
+            return "redirect:/register?info=2";
         }
-        return "redirect:/login";
+        return "redirect:/login?info=2";
     }
 }

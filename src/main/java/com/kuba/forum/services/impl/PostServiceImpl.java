@@ -18,6 +18,10 @@ public class PostServiceImpl implements IPostService {
         return this.postDAO.getPostById(postId);
     }
 
+    @Override
+    public List<Post> getQueriedPosts(String query) {
+        return this.postDAO.getQueriedPosts(query);
+    }
 
     @Override
     public Post addPost(Post post) {

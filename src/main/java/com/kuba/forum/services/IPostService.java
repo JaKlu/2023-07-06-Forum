@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IPostService {
     Post getPostById(int postId);
-
+    List<Post> getQueriedPosts(String query);
     Post addPost(Post post);
 
     List<Post> getPostsFromThread(int threadId);

@@ -14,7 +14,7 @@ public class App {
     public static void main(String[] args) {
 
 
-        System.out.println(DigestUtils.md5Hex("kuba"));
+        System.out.println(DigestUtils.md5Hex("ania"));
 
         User user = new User(1,
                 "4hgfgfg", "21232f297a57a5a743894a0e4a801fc3", "admin@filmovie.com",

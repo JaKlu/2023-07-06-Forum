@@ -11,22 +11,22 @@
             th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
     <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 
-    <div class="delete-thread">
-        <a th:if="${admin}"
-           th:href="@{/topic/{topicId}/delete-topic(topicId=${topic.id})}"
+    <div th:if="${admin}" class="delete-thread">
+        <a th:href="@{/topic/{topicId}/delete-topic(topicId=${topic.id})}"
            onclick="return confirm('Czy na pewno chcesz usunąć to forum?')" class="delete-topic">Usuń forum</a>
     </div>
 
-
-    <div class="thread-grid-headers">
-        <div class="topic-header">Tematy</div>
-        <div class="topic-header">Autor</div>
-        <div class="topic-header">Odpowiedzi</div>
-    </div>
+    <th:block th:if="${threads.size() > 0}">
+        <div class="thread-grid-headers">
+            <div class="topic-header">Tematy</div>
+            <div class="topic-header">Autor</div>
+            <div class="topic-header">Odpowiedzi</div>
+        </div>
+    </th:block>
 
     <div th:each="thread : ${threads}" class="thread-grid">
         <div class="thread-subject">
-            <a th:text="${thread.subject}" th:href="'/thread/' + ${thread.id}"></a>
+            <a th:text="${thread.subject}" th:href="'/thread/' + ${thread.id}" class="thread-title"></a>
         </div>
         <div th:text="${authors.getUserById({thread.authorId}).login}" class="thread-stats"></div>
         <div th:text="${replys.getPostsFromThread({thread.id}).size() - 1}" class="thread-stats"></div>

@@ -22,6 +22,7 @@ public class UserDAO implements IUserDAO {
     private final List<User> users = new ArrayList<>();
 
     public UserDAO(@Autowired IUserIdSequence userIdSequence) {
+        // password = login
         this.users.add(new User(userIdSequence.getId(),
                 "admin", "21232f297a57a5a743894a0e4a801fc3", "admin@filmovie.com",
                 LocalDate.of(1995, 7, 18), User.Gender.MALE,

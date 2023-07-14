@@ -39,6 +39,11 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
+    public void deleteAllPostsFromThread(int threadId) {
+        this.postDAO.deleteAllPostsFromThread(threadId);
+    }
+
+    @Override
     public void editPost(Post post) {
         this.postDAO.editPost(post);
     }

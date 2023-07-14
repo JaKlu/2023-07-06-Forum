@@ -1,5 +1,6 @@
 package com.kuba.forum.database.memory;
 
+import com.kuba.forum.database.IThreadDAO;
 import com.kuba.forum.database.ITopicDAO;
 import com.kuba.forum.database.sequences.ITopicSequence;
 import com.kuba.forum.model.Thread;
@@ -14,10 +15,12 @@ import java.util.List;
 @Repository
 public class TopicDAO implements ITopicDAO {
     @Autowired
+    IThreadDAO threadDAO;
+
     ITopicSequence topicSequence;
     private final List<Topic> topics = new ArrayList<>();
 
-    public TopicDAO(ITopicSequence topicSequence) {
+    public TopicDAO(@Autowired ITopicSequence topicSequence) {
         this.topicSequence = topicSequence;
 
         topics.add(new Topic(topicSequence.getId(), "Powitania", "Tutaj możesz sie przywitać i napisać o sobie kilka słów!"));
@@ -56,6 +59,11 @@ public class TopicDAO implements ITopicDAO {
 
     @Override
     public void deleteTopic(int topicId) {
+        List<Thread> threadsToDelete = this.threadDAO.getThreadsInTopic(topicId);
+        for (Thread thread : threadsToDelete) {
+            this.threadDAO.deleteThread(thread.getId());
+        }
+
         Iterator<Topic> iterator = this.topics.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getId() == topicId) {

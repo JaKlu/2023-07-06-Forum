@@ -4,6 +4,7 @@ import com.kuba.forum.controllers.utils.ModelUtils;
 import com.kuba.forum.services.IPostService;
 import com.kuba.forum.services.IThreadService;
 import com.kuba.forum.services.ITopicService;
+import com.kuba.forum.services.IUserService;
 import com.kuba.forum.session.SessionData;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class CommonController {
     IThreadService threadService;
     @Autowired
     IPostService postService;
+    @Autowired
+    IUserService userService;
     @Resource
     SessionData sessionData;
 
@@ -41,8 +44,9 @@ public class CommonController {
             model.addAttribute("posts", new ArrayList<>());
         } else {
             model.addAttribute("posts", this.postService.getQueriedPosts(query));
+            model.addAttribute("users", this.userService);
+            System.out.println(this.postService.getQueriedPosts(query));
         }
-
         return "search";
     }
 

@@ -72,7 +72,7 @@ public class ThreadController {
         return "redirect:/thread/" + thread.getId();
     }
 
-    @GetMapping(path = "/{threadId}/add-reply/")
+    @GetMapping(path = "/{threadId}/add-reply")
     public String addReply(@PathVariable int threadId, Model model) {
         if (!this.sessionData.isLogged()) {
             return "redirect:/login";
@@ -85,7 +85,7 @@ public class ThreadController {
         return "new-reply";
     }
 
-    @PostMapping(path = "/{threadId}/add-reply/")
+    @PostMapping(path = "/{threadId}/add-reply")
     public String addReply(@ModelAttribute Post post,
                            @PathVariable int threadId) {
 

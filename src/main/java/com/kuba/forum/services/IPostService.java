@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface IPostService {
     Post getPostById(int postId);
+
     List<Post> getQueriedPosts(String query);
+
     Post addPost(Post post);
 
     List<Post> getPostsFromThread(int threadId);
@@ -14,4 +16,6 @@ public interface IPostService {
     void deletePost(int id);
 
     void editPost(Post post);
+
+    void deleteAllPostsFromThread(int threadId);
 }

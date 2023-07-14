@@ -58,10 +58,6 @@
             <div class="post-grid-content">
                 <div>
                     <span th:text="'Wysłano: ' + ${post.getPrettyDate()}" class="post-author-info"></span>
-                    <a th:if="${admin}"
-                       th:href="@{/thread/{threadId}/delete-post/{postId}(threadId=${thread.id},postId=${post.id})}"
-                       class="post-author-info" onclick="return confirm('Czy na pewno chcesz usunąć ten post?')">Usuń
-                        post</a>
                 </div>
                 <div th:text="${post.contents}" class="post-message"></div>
             </div>

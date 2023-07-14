@@ -67,7 +67,7 @@ public class PostDAO implements IPostDAO {
         List<Post> queriedPosts = new ArrayList<>();
 
         for (Post post : posts) {
-            if (post.getContents().contains(query.toLowerCase())) {
+            if (post.getContents().toLowerCase().contains(query.toLowerCase())) {
                 queriedPosts.add(post);
             }
         }
@@ -135,6 +135,14 @@ public class PostDAO implements IPostDAO {
                 iterator.remove();
                 return;
             }
+        }
+    }
+
+    @Override
+    public void deleteAllPostsFromThread(int threadId) {
+        List<Post> threadToDelete = getPostsFromThread(threadId);
+        for (Post post : threadToDelete) {
+            deletePost(post.getId());
         }
     }
 }

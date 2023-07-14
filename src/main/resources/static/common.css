@@ -132,6 +132,22 @@ h1, h2, h3, h4 {
     font-size: .9em;
     padding: 5px;
 }
+.thread-stats-author-admin{
+    font-weight:bold;
+    text-align: center;
+    margin: auto;
+    font-size: .9em;
+    padding: 5px;
+    color: rgba(225, 11, 20, 1);
+    background-color: rgba(225, 11, 20, 8%);
+}
+.thread-stats-author-user{
+    font-weight:bold;
+    text-align: center;
+    margin: auto;
+    font-size: .9em;
+    padding: 5px;
+}
 .thread-title{
     font-weight:bold;
     text-decoration:none;
@@ -151,6 +167,7 @@ h1, h2, h3, h4 {
     padding: 5px;
 }
 .delete-thread{
+    font-weight: normal;
     text-align: right;
     font-size: .7rem;
     padding: 2px;

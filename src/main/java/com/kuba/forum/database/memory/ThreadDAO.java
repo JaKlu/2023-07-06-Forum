@@ -18,6 +18,8 @@ import java.util.List;
 
 @Repository
 public class ThreadDAO implements IThreadDAO {
+    @Autowired
+    IPostDAO postDAO;
     IThreadSequence threadSequence;
     private final List<Thread> threads = new ArrayList<>();
 
@@ -76,6 +78,7 @@ public class ThreadDAO implements IThreadDAO {
 
     @Override
     public void deleteThread(int threadId) {
+        this.postDAO.deleteAllPostsFromThread(threadId);
         Iterator<Thread> iterator = this.threads.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getId() == threadId) {

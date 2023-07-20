@@ -29,7 +29,6 @@
             <a th:text="${thread.subject}" th:href="'/thread/' + ${thread.id}" class="thread-title"></a>
             <a th:href="@{/thread/{threadId}/delete-thread(threadId=${thread.id})}"
                onclick="return confirm('Czy na pewno chcesz usunąć ten temat?')" class="delete-thread">Usuń temat</a>
-            <!-- TODO usuń temat-->
         </div>
         <div th:text="${authors.getUserById({thread.authorId}).login}"
              th:class="${authors.getUserById({thread.authorId}).function == T(com.kuba.forum.model.User.Function).ADMIN} ? 'thread-stats-author-admin' : 'thread-stats-author-user'"

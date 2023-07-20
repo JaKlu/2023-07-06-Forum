@@ -62,39 +62,24 @@ public class PostDAO implements IPostDAO {
         return new ArrayList<>(this.posts);
     }
 
-    public List<Post> getQueriedPosts(String query) {
-        List<Post> posts = getAllPosts();
-        List<Post> queriedPosts = new ArrayList<>();
-
-        for (Post post : posts) {
-            if (post.getContents().toLowerCase().contains(query.toLowerCase())) {
-                queriedPosts.add(post);
-            }
-        }
-
-        return queriedPosts;
+    public List<Post> getQueriedPosts(final String query) {
+        return this.posts.stream()
+                .filter(post -> post.getContents().toLowerCase().contains(query.toLowerCase()))
+                .toList();
     }
 
     @Override
-    public List<Post> getAllUserPosts(int userId) {
-        List<Post> allUserPosts = new ArrayList<>();
-        for (Post post : posts) {
-            if (post.getAuthorId() == userId) {
-                allUserPosts.add(post);
-            }
-        }
-        return allUserPosts;
+    public List<Post> getAllUserPosts(final int userId) {
+        return this.posts.stream()
+                .filter(post -> post.getAuthorId() == userId)
+                .toList();
     }
 
     @Override
-    public List<Post> getPostsFromThread(int threadId) {
-        List<Post> postsFromThread = new ArrayList<>();
-        for (Post post : posts) {
-            if (post.getThreadId() == threadId) {
-                postsFromThread.add(post);
-            }
-        }
-        return postsFromThread;
+    public List<Post> getPostsFromThread(final int threadId) {
+        return this.posts.stream()
+                .filter(post -> post.getThreadId() == threadId)
+                .toList();
     }
 
     @Override
@@ -106,13 +91,9 @@ public class PostDAO implements IPostDAO {
     }
 
     @Override
-    public Post getPostById(int id) {
-        for (Post post : this.posts) {
-            if (post.getId() == id) {
-                return post;
-            }
-        }
-        return null;
+    public Optional<Post> getPostById(final int id) {
+        return this.posts.stream()
+                .filter(post -> post.getId() == id).findFirst();
     }
 
     @Override
@@ -129,20 +110,31 @@ public class PostDAO implements IPostDAO {
 
     @Override
     public void deletePost(int postId) {
-        Iterator<Post> iterator = this.posts.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getId() == postId) {
-                iterator.remove();
-                return;
-            }
+        Optional<Post> postBox = getPostById(postId);
+        if (postBox.isPresent()) {
+            this.posts.remove(postBox.get());
         }
     }
 
     @Override
-    public void deleteAllPostsFromThread(int threadId) {
-        List<Post> threadToDelete = getPostsFromThread(threadId);
-        for (Post post : threadToDelete) {
-            deletePost(post.getId());
-        }
+    public void deleteAllPostsFromThread(final int threadId) {
+
+        //working stream
+        //List<Post> threadToDelete = getPostsFromThread(threadId);
+        List<Post> threadToDelete = this.posts.stream()
+                .filter(post -> post.getThreadId() == threadId)
+                .toList();
+        threadToDelete.stream()
+                .forEach(post -> deletePost(post.getId()));
+        //TODO dlaczego nie działa?
+        //not working stream
+/*        this.posts.stream()
+                .filter(post -> post.getThreadId() == threadId)
+                .forEach(post -> deletePost(post.getId()));*/
+
+//        List<Post> threadToDelete = getPostsFromThread(threadId);
+//        for (Post post : threadToDelete) {
+//            deletePost(post.getId());
+//        }
     }
 }

@@ -4,6 +4,7 @@ import com.kuba.forum.model.Post;
 import com.kuba.forum.model.Thread;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IThreadService {
 
@@ -14,6 +15,6 @@ public interface IThreadService {
 
     void deleteThread(int threadId);
 
-    Thread findThreadById(int threadId);
+    Optional<Thread> findThreadById(int threadId);
 
 }

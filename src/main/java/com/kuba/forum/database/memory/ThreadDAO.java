@@ -2,7 +2,6 @@ package com.kuba.forum.database.memory;
 
 import com.kuba.forum.database.IPostDAO;
 import com.kuba.forum.database.IThreadDAO;
-import com.kuba.forum.database.IUserDAO;
 import com.kuba.forum.database.sequences.IThreadSequence;
 import com.kuba.forum.model.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ThreadDAO implements IThreadDAO {
@@ -46,25 +46,26 @@ public class ThreadDAO implements IThreadDAO {
                         LocalTime.of(8, 15, 0), ZoneId.of("Europe/Warsaw"))));
     }
 
-    public List<Thread> getThreadsInTopic(int topicId) {
-        List<Thread> threadsInTopic = new ArrayList<>();
-        for (Thread thread : this.threads) {
-            if (thread.getTopicId() == topicId) {
-                threadsInTopic.add(thread);
-            }
-        }
-        return threadsInTopic;
+    public List<Thread> getThreadsInTopic(final int topicId) {
+        return this.threads.stream()
+                .filter(thread -> thread.getTopicId() == topicId)
+                .toList();
     }
 
 
     @Override
-    public Thread findThreadById(int threadId) {
+    public Optional<Thread> findThreadById(int threadId) {
+        return this.threads.stream()
+                .filter(thread -> thread.getId() == (threadId))
+                .findFirst();
+/*
+
         for (Thread thread : this.threads) {
             if (thread.getId() == (threadId)) {
                 return thread;
             }
         }
-        return null;
+        return null;*/
     }
 
     @Override

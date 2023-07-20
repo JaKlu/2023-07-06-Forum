@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ThreadServiceImpl implements IThreadService {
@@ -17,7 +18,7 @@ public class ThreadServiceImpl implements IThreadService {
     IThreadDAO threadDAO;
 
     @Override
-    public Thread findThreadById(int threadId) {
+    public Optional<Thread> findThreadById(int threadId) {
         return this.threadDAO.findThreadById(threadId);
     }
 

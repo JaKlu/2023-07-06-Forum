@@ -33,17 +33,19 @@ public class ThreadController {
     public String viewThread(@PathVariable int threadId, Model model) {
         ModelUtils.addCommonDataToModel(model, sessionData);
         model.addAttribute("topic", this.topicService.findTopicById(
-                this.threadService.findThreadById(threadId).getTopicId()
+                this.threadService.findThreadById(threadId).get().getTopicId()
         ));
-        model.addAttribute("thread", this.threadService.findThreadById(threadId));
-        model.addAttribute("posts", this.postService.getPostsFromThread(threadId));
-        model.addAttribute("users", this.userService);
+        model.addAttribute("thread", this.threadService.findThreadById(threadId).get());
+//        model.addAttribute("posts", this.postService.getPostsFromThread(threadId));
+        model.addAttribute("posts", this.postService.getThreadContent(threadId));
+//        model.addAttribute("users", this.userService);
         return "thread-content";
     }
 
     @GetMapping(path = "/new-thread/{topicId}")
     public String createThread(@PathVariable int topicId, Model model) {
         if (!this.sessionData.isLogged()) {
+            this.sessionData.setLastPath("/thread/new-thread/" + topicId);
             return "redirect:/login";
         }
         ModelUtils.addCommonDataToModel(model, sessionData);
@@ -75,11 +77,12 @@ public class ThreadController {
     @GetMapping(path = "/{threadId}/add-reply")
     public String addReply(@PathVariable int threadId, Model model) {
         if (!this.sessionData.isLogged()) {
+            this.sessionData.setLastPath("/thread/" + threadId + "/add-reply");
             return "redirect:/login";
         }
         ModelUtils.addCommonDataToModel(model, sessionData);
-        model.addAttribute("topic", this.topicService.findTopicById(this.threadService.findThreadById(threadId).getTopicId()));
-        model.addAttribute("thread", this.threadService.findThreadById(threadId));
+        model.addAttribute("topic", this.topicService.findTopicById(this.threadService.findThreadById(threadId).get().getTopicId()));
+        model.addAttribute("thread", this.threadService.findThreadById(threadId).get());
         model.addAttribute("postModel", new Post());
 
         return "new-reply";
@@ -111,7 +114,7 @@ public class ThreadController {
 
     @GetMapping(path = "/{threadId}/delete-thread")
     public String deleteThread(@PathVariable int threadId) {
-        int topicId = this.threadService.findThreadById(threadId).getTopicId();
+        int topicId = this.threadService.findThreadById(threadId).get().getTopicId();
         if (!this.sessionData.isAdmin()) {
             return "redirect:/thread/" + threadId;
         }

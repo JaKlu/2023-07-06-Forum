@@ -23,33 +23,33 @@
     </div>
 
 
-    <div th:each="post : ${posts}" class="post-grid">
-        <div class="post-grid-content" th:with="currentUser=${users.getUserById(post.authorId)}">
+    <div th:each="fullPostDTO : ${posts}" class="post-grid">
+        <div class="post-grid-content" >
 
-            <div th:text="${currentUser.login}"
-                 th:class="${currentUser.function == T(com.kuba.forum.model.User.Function).ADMIN} ? 'post-author-admin' : 'post-author'">
+            <div th:text="${fullPostDTO.user.login}"
+                 th:class="${fullPostDTO.user.function == T(com.kuba.forum.model.User.Function).ADMIN} ? 'post-author-admin' : 'post-author'">
             </div>
 
-            <div th:text="${currentUser.function.toString()}" class="post-author-info"></div>
+            <div th:text="${fullPostDTO.user.function.toString()}" class="post-author-info"></div>
 
             <div class="post-author-info">
-                <div th:text="'Wiek: ' + ${currentUser.getAge()}"></div>
-                <div th:text="'Płeć: ' + ${currentUser.gender.toString()}"></div>
-                <div th:text="'Dołączenie: ' + ${currentUser.getPrettyJoinDate()}"></div>
-                <div th:text="'Posty: ' + ${users.getNumberOfPosts(post.authorId)}"></div>
-                <div th:text="'Skąd: ' + ${currentUser.place}"></div>
+                <div th:text="'Wiek: ' + ${fullPostDTO.user.getAge()}"></div>
+                <div th:text="'Płeć: ' + ${fullPostDTO.user.gender.toString()}"></div>
+                <div th:text="'Dołączenie: ' + ${fullPostDTO.user.getPrettyJoinDate()}"></div>
+                <div th:text="'Posty: ' + ${fullPostDTO.numberOfUserPosts}"></div>
+                <div th:text="'Skąd: ' + ${fullPostDTO.user.place}"></div>
             </div>
 
         </div>
         <div class="post-grid-content">
             <div>
-                <span th:text="'Wysłano: ' + ${post.getPrettyDate()}" class="post-author-info"></span>
+                <span th:text="'Wysłano: ' + ${fullPostDTO.post.getPrettyDate()}" class="post-author-info"></span>
                 <a th:if="${admin}"
-                   th:href="@{/thread/{threadId}/delete-post/{postId}(threadId=${thread.id},postId=${post.id})}"
+                   th:href="@{/thread/{threadId}/delete-post/{postId}(threadId=${thread.id},postId=${fullPostDTO.post.id})}"
                    class="post-author-info" onclick="return confirm('Czy na pewno chcesz usunąć ten post?')">Usuń
                     post</a>
             </div>
-            <div th:text="${post.contents}" class="post-message"></div>
+            <div th:text="${fullPostDTO.post.contents}" class="post-message"></div>
         </div>
     </div>
 

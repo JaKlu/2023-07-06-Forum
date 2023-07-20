@@ -13,7 +13,10 @@ import org.springframework.web.context.annotation.SessionScope;
 @Component
 @SessionScope
 public class SessionData {
+    //TODO clean sessiondata
     private User user = null;
+    private String lastPath = "/main";
+    private String info = null;
 
 
     public boolean isLogged() {
@@ -25,5 +28,15 @@ public class SessionData {
             return false;
         }
         return this.user.getFunction() == User.Function.ADMIN;
+    }
+
+    public String getInfo() {
+        if (this.info == null) {
+            return "";
+        } else {
+            String temp = this.info;
+            this.info = null;
+            return temp;
+        }
     }
 }

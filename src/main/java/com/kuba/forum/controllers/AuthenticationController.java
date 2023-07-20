@@ -23,13 +23,7 @@ public class AuthenticationController {
     @GetMapping(path = "/login")
     public String login(Model model,
                         @RequestParam(required = false) String info) {
-        if (info == null) {
-            model.addAttribute("info", "");
-        } else if (info.equals("1")) {
-            model.addAttribute("info", "Niepoprawny login lub hasło");
-        } else if (info.equals("2")) {
-            model.addAttribute("info", "Rejestracja zakończona sukcesem. Zaloguj się na swoje konto.");
-        }
+        model.addAttribute("info", this.sessionData.getInfo());
         ModelUtils.addCommonDataToModel(model, sessionData);
         return "login";
     }
@@ -39,9 +33,10 @@ public class AuthenticationController {
                         @RequestParam String password) {
         this.authenticationService.authenticate(login, password);
         if (sessionData.isLogged()) {
-            return "redirect:/main";
+            return "redirect:" + this.sessionData.getLastPath();
         }
-        return "redirect:/login?info=1";
+        this.sessionData.setInfo("Niepoprawny login lub hasło");
+        return "redirect:/login";
     }
 
     @GetMapping(path = "/logout")
@@ -52,17 +47,9 @@ public class AuthenticationController {
 
     @GetMapping(path = "/register")
     public String register(Model model,
-                           @RequestParam(required = false) String info,
-                           @RequestParam(required = false) String login) {
-        if (info == null) {
-            model.addAttribute("info", "");
-        } else if (info.equals("1")) {
-            model.addAttribute("info", "Użytkownik " + login + " już istnieje");
-        } else if (info.equals("2")) {
-            model.addAttribute("info", "Wprowadź poprawne dane do formularza");
-        }
-
+                           @RequestParam(required = false) String info) {
         ModelUtils.addCommonDataToModel(model, sessionData);
+        model.addAttribute("info", this.sessionData.getInfo());
         model.addAttribute("userModel", new User());
         return "register";
     }
@@ -75,10 +62,13 @@ public class AuthenticationController {
             UserValidator.validatePasswordEquality(user.getPassword(), password2);
             this.authenticationService.register(user);
         } catch (LoginAlreadyExistException e) {
-            return "redirect:/register?info=1&login=" + user.getLogin();
+            this.sessionData.setInfo("Użytkownik " + user.getLogin() + " już istnieje");
+            return "redirect:/register";
         } catch (UserValidationException e) {
-            return "redirect:/register?info=2";
+            this.sessionData.setInfo("Wprowadź poprawne dane do formularza");
+            return "redirect:/register";
         }
-        return "redirect:/login?info=2";
+        this.sessionData.setInfo("Rejestracja zakończona sukcesem. Zaloguj się na swoje konto.");
+        return "redirect:/login";
     }
 }

@@ -2,10 +2,12 @@ package com.kuba.forum.database;
 
 import com.kuba.forum.model.User;
 
-public interface IUserDAO {
-    User getUserByLogin(String login);
+import java.util.Optional;
 
-    User getUserById(int userId);
+public interface IUserDAO {
+    Optional<User> getUserByLogin(final String login);
+
+    Optional<User> getUserById(final int userId);
 
     void addUser(User user);
 

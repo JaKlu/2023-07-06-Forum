@@ -15,22 +15,23 @@
         <div class="topic-header">Forum</div>
         <div class="topic-header">Tematy</div>
     </div>
-    <div th:each="topic : ${topics}" class="topic-grid">
+    <div th:each="fullTopicDTO : ${topics}" class="topic-grid">
         <div class="topic-info">
-            <a th:text="${topic.name}" th:href="'/topic/' + ${topic.id}" class="topic-name"></a>
+            <a th:text="${fullTopicDTO.topic.name}" th:href="'/topic/' + ${fullTopicDTO.topic.id}"
+               class="topic-name"></a>
             <div class="topic-description">
-                <th:block th:text="${topic.description}"></th:block>
+                <th:block th:text="${fullTopicDTO.topic.description}"></th:block>
                 <a th:if="${admin}"
-                   th:href="@{/topic/{topicId}/delete-topic(topicId=${topic.id})}"
+                   th:href="@{/topic/{topicId}/delete-topic(topicId=${fullTopicDTO.topic.id})}"
                    onclick="return confirm('Czy na pewno chcesz usunąć to forum?')" class="delete-topic">Usuń forum</a>
             </div>
         </div>
-        <div th:text="${threads.getThreadsInTopic({topic.id}).size()}" class="topic-stats">x</div>
+        <div th:text="${fullTopicDTO.numberOfThreads}" class="topic-stats">x</div>
     </div>
 
     <a th:if="${admin}" th:href="@{/topic/new-topic}" class="button">Nowe forum</a>
 
-
+    <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
 </div>
 </body>
 </html>

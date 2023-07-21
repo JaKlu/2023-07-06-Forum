@@ -24,16 +24,17 @@
         </div>
     </th:block>
 
-    <div th:each="thread : ${threads}" class="thread-grid">
+    <div th:each="fullThreadDTO : ${threads}" class="thread-grid">
         <div class="thread-subject">
-            <a th:text="${thread.subject}" th:href="'/thread/' + ${thread.id}" class="thread-title"></a>
-            <a th:href="@{/thread/{threadId}/delete-thread(threadId=${thread.id})}"
+            <a th:text="${fullThreadDTO.thread.subject}" th:href="'/thread/' + ${fullThreadDTO.thread.id}" class="thread-title"></a>
+            <a th:if="${admin}"
+               th:href="@{/thread/{threadId}/delete-thread(threadId=${fullThreadDTO.thread.id})}"
                onclick="return confirm('Czy na pewno chcesz usunąć ten temat?')" class="delete-thread">Usuń temat</a>
         </div>
-        <div th:text="${authors.getUserById({thread.authorId}).login}"
-             th:class="${authors.getUserById({thread.authorId}).function == T(com.kuba.forum.model.User.Function).ADMIN} ? 'thread-stats-author-admin' : 'thread-stats-author-user'"
+        <div th:text="${fullThreadDTO.user.login}"
+             th:class="${fullThreadDTO.user.function == T(com.kuba.forum.model.User.Function).ADMIN} ? 'thread-stats-author-admin' : 'thread-stats-author-user'"
         ></div>
-        <div th:text="${replys.getPostsFromThread({thread.id}).size() - 1}" class="thread-stats"></div>
+        <div th:text="${fullThreadDTO.numberOfReplies}" class="thread-stats"></div>
     </div>
 
     <div th:if="${threads.size() == 0}" class="no-threads">Na tym forum nie ma jeszcze żadnych tematów.</div>
@@ -41,6 +42,7 @@
         <a th:href="@{/thread/new-thread/{topic.id}(topic.id=${{topic.id}})}" class="button">Nowy temat</a>
     </div>
 
+    <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
 </div>
 </body>
 </html>

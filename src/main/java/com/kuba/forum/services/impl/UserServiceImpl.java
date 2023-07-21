@@ -6,18 +6,20 @@ import com.kuba.forum.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements IUserService {
     @Autowired
     IUserDAO userDAO;
 
     @Override
-    public User getUserByLogin(String login) {
+    public Optional<User> getUserByLogin(String login) {
         return this.userDAO.getUserByLogin(login);
     }
 
     @Override
-    public User getUserById(int userId) {
+    public Optional<User> getUserById(int userId) {
         return this.userDAO.getUserById(userId);
     }
 

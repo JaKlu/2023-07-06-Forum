@@ -87,9 +87,9 @@ public class UserValidator {
     public static void validateUser(User user) {
         validateLogin(user.getLogin());
         validatePassword(user.getPassword());
-        validateGender(String.valueOf(user.getGender()));
-        validateBirthday(user.getBirthday().toString());
         validateEmail(user.getEmail());
+        validateBirthday(user.getBirthday().toString());
+        validateGender(String.valueOf(user.getGender()));
         validatePlace(user.getPlace());
     }
 }

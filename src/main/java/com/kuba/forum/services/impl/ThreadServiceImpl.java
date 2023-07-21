@@ -1,11 +1,11 @@
 package com.kuba.forum.services.impl;
 
 import com.kuba.forum.database.IThreadDAO;
-import com.kuba.forum.model.Post;
+import com.kuba.forum.database.ITopicDAO;
+import com.kuba.forum.database.IUserDAO;
 import com.kuba.forum.model.Thread;
+import com.kuba.forum.model.view.FullThreadDTO;
 import com.kuba.forum.services.IThreadService;
-import com.kuba.forum.session.SessionData;
-import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,11 @@ import java.util.Optional;
 @Service
 public class ThreadServiceImpl implements IThreadService {
     @Autowired
+    ITopicDAO topicDAO;
+    @Autowired
     IThreadDAO threadDAO;
+    @Autowired
+    IUserDAO userDAO;
 
     @Override
     public Optional<Thread> findThreadById(int threadId) {
@@ -35,5 +39,17 @@ public class ThreadServiceImpl implements IThreadService {
     @Override
     public List<Thread> getThreadsInTopic(int topicId) {
         return threadDAO.getThreadsInTopic(topicId);
+    }
+
+    @Override
+    public List<FullThreadDTO> getTopicContent(final int topicId) {
+        return this.threadDAO.getThreadsInTopic(topicId).stream()
+                .map(thread -> new FullThreadDTO(
+                        thread,
+                        this.topicDAO.findTopicById(topicId).get(),
+                        this.userDAO.getUserById(thread.getAuthorId()).get(),
+                        (Math.max(this.threadDAO.getNumberOfRepliesInThread(thread.getId()) - 1, 0))
+                ))
+                .toList();
     }
 }

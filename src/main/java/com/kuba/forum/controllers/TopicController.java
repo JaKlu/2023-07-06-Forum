@@ -1,12 +1,9 @@
 package com.kuba.forum.controllers;
 
-import com.kuba.forum.database.IUserDAO;
 import com.kuba.forum.controllers.utils.ModelUtils;
 import com.kuba.forum.model.Topic;
-import com.kuba.forum.services.IPostService;
 import com.kuba.forum.services.IThreadService;
 import com.kuba.forum.services.ITopicService;
-import com.kuba.forum.services.IUserService;
 import com.kuba.forum.session.SessionData;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +18,14 @@ public class TopicController {
     IThreadService threadService;
     @Autowired
     ITopicService topicService;
-    @Autowired
-    IPostService postService;
-    @Autowired
-    IUserService userService;
     @Resource
     SessionData sessionData;
 
     @GetMapping(path = "/{topicId}")
     public String viewTopic(@PathVariable int topicId, Model model) {
         ModelUtils.addCommonDataToModel(model, sessionData);
-        model.addAttribute("topic", this.topicService.findTopicById(topicId));
-        model.addAttribute("threads", this.threadService.getThreadsInTopic(topicId));
-        model.addAttribute("authors", this.userService);
-        model.addAttribute("replys", this.postService);
+        model.addAttribute("topic", this.topicService.findTopicById(topicId).get());
+        model.addAttribute("threads", this.threadService.getTopicContent(topicId));
         return "topic-content";
     }
 
@@ -68,5 +59,4 @@ public class TopicController {
 
         return "redirect:/main";
     }
-
 }

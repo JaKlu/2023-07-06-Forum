@@ -18,27 +18,28 @@
     <div class="content-form">
         <h3>Podaj dane logowania</h3>
         <div th:text="${info}" class="register-info"></div>
+
         <form method="post" onsubmit="return validate()">
             <fieldset class="fieldset-form parent">
                 <legend>Login</legend>
                 <input type="text" name="login" id="login" class="input-form child" autofocus>
             </fieldset>
-            <!--            <label for="login">Login: </label><br>-->
-            <!--            <input type="text" name="login" id="login" class="input" autofocus>-->
             <div id="login-error"></div>
 
             <fieldset class="fieldset-form">
                 <legend>Hasło</legend>
                 <input type="password" name="password" id="password" class="input-form">
             </fieldset>
-            <!--            <label for="password">Hasło: </label>-->
-            <!--            <input type="password" name="password" id="password" class="input">-->
             <div id="password-error"></div>
+
             <div class="form-footer">
                 <input type="submit" value="Zaloguj" class="button">
             </div>
         </form>
+
+        <div class="register-link"><a href="/register">Zarejestruj</a></div>
     </div>
+    <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
 </div>
 </body>
 </html>

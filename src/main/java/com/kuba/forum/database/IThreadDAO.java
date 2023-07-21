@@ -17,4 +17,6 @@ public interface IThreadDAO {
     void deleteThread(int threadId);
 
     void editThread(Thread thread);
+
+    int getNumberOfRepliesInThread(int threadId);
 }

@@ -20,6 +20,8 @@ public class PostDAO implements IPostDAO {
     private final List<Post> posts = new ArrayList<>();
 
     public PostDAO(@Autowired IPostSequence postSequence) {
+        this.postSequence = postSequence;
+
         this.posts.add(new Post(postSequence.getId(), 1, 1, ZonedDateTime.of(LocalDate.of(
                 2023, 7, 1), LocalTime.of(12, 15, 10), ZoneId.of("Europe/Warsaw")),
                 "Uważam, że Kill Bill to słaby film, bo za mało w nim \nszybkich samochodów"));
@@ -53,8 +55,6 @@ public class PostDAO implements IPostDAO {
         this.posts.add(new Post(postSequence.getId(), 6, 4, ZonedDateTime.of(LocalDate.of(
                 2023, 7, 4), LocalTime.of(15, 12, 0), ZoneId.of("Europe/Warsaw")),
                 "Siemaneczko słodziaczki moje kochane pierożki nie-ruskie z masełkiem. BUZIACZKI!"));
-
-        this.postSequence = postSequence;
     }
 
     @Override
@@ -93,9 +93,11 @@ public class PostDAO implements IPostDAO {
     @Override
     public Optional<Post> getPostById(final int id) {
         return this.posts.stream()
-                .filter(post -> post.getId() == id).findFirst();
+                .filter(post -> post.getId() == id)
+                .findFirst();
     }
 
+    //TODO edycja postów
     @Override
     public void editPost(Post post) {
         Iterator<Post> iterator = this.posts.iterator();

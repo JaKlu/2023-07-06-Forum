@@ -32,6 +32,17 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
+    public List<FullPostDTO> getPostsFromQuery(String query) {
+        return this.postDAO.getQueriedPosts(query).stream()
+                .map(post -> new FullPostDTO(
+                        post,
+                        this.threadDAO.findThreadById(post.getThreadId()).get(),
+                        this.userDAO.getUserById(post.getAuthorId()).get(),
+                        this.userDAO.getNumberOfPosts(post.getAuthorId())))
+                .toList();
+    }
+
+    @Override
     public Post addPost(Post post) {
         return this.postDAO.addPost(post);
     }
@@ -43,22 +54,11 @@ public class PostServiceImpl implements IPostService {
 
     @Override
     public List<FullPostDTO> getThreadContent(final int threadId) {
-/*
-        List<FullPostDTO> getThreadContent = new ArrayList<>();
-        for (Post post : this.postDAO.getPostsFromThread(threadId)) {
-            if (post.getThreadId() == threadId) {
-                getThreadContent.add(new FullPostDTO(
-                        post, this.threadDAO.findThreadById(threadId).get(), this.userDAO.getUserById(post.getAuthorId()),
-                        this.userDAO.getNumberOfPosts(post.getAuthorId())));
-            }
-        }
-        return getThreadContent;
-*/
-
-        return this.postDAO.getAllPosts().stream()
-                .filter(post -> post.getThreadId() == threadId)
+        return this.postDAO.getPostsFromThread(threadId).stream()
                 .map(post -> new FullPostDTO(
-                        post, this.threadDAO.findThreadById(threadId).get(), this.userDAO.getUserById(post.getAuthorId()),
+                        post,
+                        this.threadDAO.findThreadById(threadId).get(),
+                        this.userDAO.getUserById(post.getAuthorId()).get(),
                         this.userDAO.getNumberOfPosts(post.getAuthorId())))
                 .toList();
 

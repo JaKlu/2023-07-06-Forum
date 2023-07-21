@@ -10,6 +10,7 @@ public interface IPostService {
     Optional<Post> getPostById(int postId);
 
     List<Post> getQueriedPosts(String query);
+    List<FullPostDTO> getPostsFromQuery(String query);
 
     Post addPost(Post post);
 

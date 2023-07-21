@@ -12,7 +12,6 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,20 +51,11 @@ public class ThreadDAO implements IThreadDAO {
                 .toList();
     }
 
-
     @Override
-    public Optional<Thread> findThreadById(int threadId) {
+    public Optional<Thread> findThreadById(final int threadId) {
         return this.threads.stream()
                 .filter(thread -> thread.getId() == (threadId))
                 .findFirst();
-/*
-
-        for (Thread thread : this.threads) {
-            if (thread.getId() == (threadId)) {
-                return thread;
-            }
-        }
-        return null;*/
     }
 
     @Override
@@ -79,18 +69,21 @@ public class ThreadDAO implements IThreadDAO {
 
     @Override
     public void deleteThread(int threadId) {
-        this.postDAO.deleteAllPostsFromThread(threadId);
-        Iterator<Thread> iterator = this.threads.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getId() == threadId) {
-                iterator.remove();
-                return;
-            }
+        Optional<Thread> threadBox = findThreadById(threadId);
+        if (threadBox.isPresent()) {
+            this.threads.remove(threadBox.get());
+            this.postDAO.deleteAllPostsFromThread(threadId);
         }
     }
 
+    //TODO edycja tematów
     @Override
     public void editThread(Thread thread) {
 
+    }
+
+    @Override
+    public int getNumberOfRepliesInThread(int threadId) {
+        return this.postDAO.getPostsFromThread(threadId).size();
     }
 }

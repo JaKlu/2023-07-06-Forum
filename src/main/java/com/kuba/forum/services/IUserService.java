@@ -2,11 +2,14 @@ package com.kuba.forum.services;
 
 import com.kuba.forum.model.User;
 
-public interface IUserService {
-    User getUserByLogin(String login);
+import java.util.Optional;
 
-    User getUserById(int userId);
+public interface IUserService {
+    Optional<User> getUserByLogin(String login);
+
+    Optional<User> getUserById(int userId);
 
     void addUser(User user);
+
     int getNumberOfPosts(int userId);
 }

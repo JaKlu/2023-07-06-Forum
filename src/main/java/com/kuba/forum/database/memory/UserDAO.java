@@ -13,6 +13,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDAO implements IUserDAO {
@@ -52,23 +53,17 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public User getUserByLogin(String login) {
-        for (User user : this.users) {
-            if (user.getLogin().equals(login)) {
-                return User.copyOf(user);
-            }
-        }
-        return null;
+    public Optional<User> getUserByLogin(final String login) {
+        return this.users.stream()
+                .filter(user -> user.getLogin().equals(login))
+                .findFirst();
     }
 
     @Override
-    public User getUserById(int userId) {
-        for (User user : this.users) {
-            if (user.getId() == userId) {
-                return User.copyOf(user);
-            }
-        }
-        return null;
+    public Optional<User> getUserById(final int userId) {
+        return this.users.stream()
+                .filter(user -> user.getId() == userId)
+                .findFirst();
     }
 
     @Override

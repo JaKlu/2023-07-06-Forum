@@ -13,7 +13,6 @@ import org.springframework.web.context.annotation.SessionScope;
 @Component
 @SessionScope
 public class SessionData {
-    //TODO clean sessiondata
     private User user = null;
     private String lastPath = "/main";
     private String info = null;

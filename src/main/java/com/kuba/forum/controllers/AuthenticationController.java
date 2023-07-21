@@ -8,6 +8,7 @@ import com.kuba.forum.services.IAuthenticationService;
 import com.kuba.forum.session.SessionData;
 import com.kuba.forum.validators.UserValidator;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +22,7 @@ public class AuthenticationController {
     SessionData sessionData;
 
     @GetMapping(path = "/login")
-    public String login(Model model,
-                        @RequestParam(required = false) String info) {
+    public String login(Model model) {
         model.addAttribute("info", this.sessionData.getInfo());
         ModelUtils.addCommonDataToModel(model, sessionData);
         return "login";
@@ -40,8 +40,8 @@ public class AuthenticationController {
     }
 
     @GetMapping(path = "/logout")
-    public String logout() {
-        this.authenticationService.logout();
+    public String logout(HttpServletRequest request) {
+        this.authenticationService.logout(request);
         return "redirect:/main";
     }
 

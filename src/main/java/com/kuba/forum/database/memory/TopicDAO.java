@@ -3,14 +3,13 @@ package com.kuba.forum.database.memory;
 import com.kuba.forum.database.IThreadDAO;
 import com.kuba.forum.database.ITopicDAO;
 import com.kuba.forum.database.sequences.ITopicSequence;
-import com.kuba.forum.model.Thread;
 import com.kuba.forum.model.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class TopicDAO implements ITopicDAO {
@@ -41,13 +40,10 @@ public class TopicDAO implements ITopicDAO {
     }
 
     @Override
-    public Topic findTopicById(int topicId) {
-        for (Topic topic : this.topics) {
-            if (topic.getId() == (topicId)) {
-                return topic;
-            }
-        }
-        return null;
+    public Optional<Topic> findTopicById(final int topicId) {
+        return this.topics.stream()
+                .filter(topic -> topic.getId() == topicId)
+                .findFirst();
     }
 
     @Override
@@ -58,18 +54,17 @@ public class TopicDAO implements ITopicDAO {
     }
 
     @Override
-    public void deleteTopic(int topicId) {
-        List<Thread> threadsToDelete = this.threadDAO.getThreadsInTopic(topicId);
-        for (Thread thread : threadsToDelete) {
-            this.threadDAO.deleteThread(thread.getId());
+    public void deleteTopic(final int topicId) {
+        Optional<Topic> topicBox = findTopicById(topicId);
+        if (topicBox.isPresent()) {
+            this.topics.remove(topicBox.get());
+            this.threadDAO.getThreadsInTopic(topicId).stream()
+                    .forEach(thread -> this.threadDAO.deleteThread(thread.getId()));
         }
+    }
 
-        Iterator<Topic> iterator = this.topics.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getId() == topicId) {
-                iterator.remove();
-                return;
-            }
-        }
+    @Override
+    public int getNumberOfThreadsInTopic(int topicId) {
+        return this.threadDAO.getThreadsInTopic(topicId).size();
     }
 }

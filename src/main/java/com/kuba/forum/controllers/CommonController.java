@@ -2,9 +2,7 @@ package com.kuba.forum.controllers;
 
 import com.kuba.forum.controllers.utils.ModelUtils;
 import com.kuba.forum.services.IPostService;
-import com.kuba.forum.services.IThreadService;
 import com.kuba.forum.services.ITopicService;
-import com.kuba.forum.services.IUserService;
 import com.kuba.forum.session.SessionData;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +18,14 @@ public class CommonController {
     @Autowired
     ITopicService topicService;
     @Autowired
-    IThreadService threadService;
-    @Autowired
     IPostService postService;
-    @Autowired
-    IUserService userService;
     @Resource
     SessionData sessionData;
 
     @GetMapping(path = {"/main", "/"})
     public String homePage(Model model) {
         ModelUtils.addCommonDataToModel(model, sessionData);
-        model.addAttribute("topics", this.topicService.getAllTopics());
-        model.addAttribute("threads", this.threadService);
+        model.addAttribute("topics", this.topicService.getForumContent());
         return "index";
     }
 
@@ -43,9 +36,7 @@ public class CommonController {
         if (query == null || query.equals("")) {
             model.addAttribute("posts", new ArrayList<>());
         } else {
-            model.addAttribute("posts", this.postService.getQueriedPosts(query));
-            model.addAttribute("users", this.userService);
-            System.out.println(this.postService.getQueriedPosts(query));
+            model.addAttribute("posts", this.postService.getPostsFromQuery(query));
         }
         return "search";
     }

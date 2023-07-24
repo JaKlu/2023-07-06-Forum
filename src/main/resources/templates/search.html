@@ -3,70 +3,70 @@
 <head>
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
     <link rel="stylesheet" href="/form.css">
-    <script src="/login-validator.js"></script>
-
 </head>
 <body>
-<th:block th:replace="~{fragments.html :: page-header}"></th:block>
-
-<div id="content">
-    <th:block
-            th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
-
-    <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
-
-    <div class="content-form">
-        <h3>Wyszukiwarka</h3>
-        <div th:text="${error}" class="register-error"></div>
-        <form method="get">
-            <label for="query">Szukany tekst: </label><br>
-            <input type="search" name="query" id="query" class="input" autofocus>
-            <div id="query-error"></div>
-
-
-            <div class="form-footer">
-                <input type="submit" value="Szukaj" class="button">
+<div class="wrapper">
+    <header>
+        <th:block th:replace="~{fragments.html :: page-header}"></th:block>
+    </header>
+    <section>
+        <div id="content">
+            <!--TODO -->
+            <div class="content-form">
+                <h3>Wyszukiwarka</h3>
+                <form method="get">
+                    <label for="query">Wyszukaj w treści posta: </label><br>
+                    <input type="search" name="query" id="query" class="input" autofocus>
+                    <div class="form-footer">
+                        <input type="submit" value="Szukaj" class="button">
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
 
-    <th:block th:if="${posts.size() > 0}">
-        <h4 th:text="'Wyniki wyszukiwania dla frazy: ' + ${param.query}"> </h4>
-        <div class="post-grid-headers">
-            <div class="post-header">Autor</div>
-            <div class="post-header">Wiadomość</div>
+            <h4 th:if="${param.query} != null"
+                th:text="${posts.size() > 0} ? 'Wyniki wyszukiwania dla frazy: ' + ${param.query} : 'Brak wyników wyszukiwania dla frazy: ' + ${param.query}"></h4>
+
+            <th:block th:if="${posts.size() > 0}">
+                <div class="post-grid">
+                    <div class="grid-header">Autor</div>
+                    <div class="grid-header">Wiadomość</div>
+
+                    <th:block th:each="fullPostDTO : ${posts}">
+                        <div class="post-grid-content">
+
+                            <div th:text="${fullPostDTO.user.login}"
+                                 th:class="${fullPostDTO.user.function == T(com.kuba.forum.model.User.Function).ADMIN} ? 'post-author-admin' : 'post-author'">
+                            </div>
+
+                            <div th:text="${fullPostDTO.user.function.toString()}" class="post-author-info"></div>
+
+                            <div class="post-author-info">
+                                <div th:text="'Wiek: ' + ${fullPostDTO.user.getAge()}"></div>
+                                <div th:text="'Płeć: ' + ${fullPostDTO.user.gender.toString()}"></div>
+                                <div th:text="'Dołączenie: ' + ${fullPostDTO.user.getPrettyJoinDate()}"></div>
+                                <div th:text="'Posty: ' + ${fullPostDTO.numberOfUserPosts}"></div>
+                                <div th:text="'Skąd: ' + ${fullPostDTO.user.place}"></div>
+                            </div>
+
+                        </div>
+                        <div class="post-grid-content">
+                            <div>
+                        <span th:text="'Wysłano:' + ${fullPostDTO.post.getPrettyDate()}"
+                              class="post-author-info"></span>
+                                <span class="post-author-info">Temat:</span>
+                                <a th:href="@{/thread/{threadId}(threadId=${fullPostDTO.thread.id})}"
+                                   th:text="${fullPostDTO.thread.subject}" class="post-author-info"></a>
+                            </div>
+                            <div th:text="${fullPostDTO.post.contents}" class="post-message"></div>
+                        </div>
+                    </th:block>
+                </div>
+            </th:block>
         </div>
-
-
-        <div th:each="fullPostDTO : ${posts}" class="post-grid">
-            <div class="post-grid-content">
-
-                <div th:text="${fullPostDTO.user.login}"
-                     th:class="${fullPostDTO.user.function == T(com.kuba.forum.model.User.Function).ADMIN} ? 'post-author-admin' : 'post-author'">
-                </div>
-
-                <div th:text="${fullPostDTO.user.function.toString()}" class="post-author-info"></div>
-
-                <div class="post-author-info">
-                    <div th:text="'Wiek: ' + ${fullPostDTO.user.getAge()}"></div>
-                    <div th:text="'Płeć: ' + ${fullPostDTO.user.gender.toString()}"></div>
-                    <div th:text="'Dołączenie: ' + ${fullPostDTO.user.getPrettyJoinDate()}"></div>
-                    <div th:text="'Posty: ' + ${fullPostDTO.numberOfUserPosts}"></div>
-                    <div th:text="'Skąd: ' + ${fullPostDTO.user.place}"></div>
-                </div>
-
-            </div>
-            <div class="post-grid-content">
-                <div>
-                    <span th:text="'Wysłano:' + ${fullPostDTO.post.getPrettyDate()}" class="post-author-info"></span>
-                    <span class="post-author-info">Temat:</span>
-                    <a th:href="@{/thread/{threadId}(threadId=${fullPostDTO.thread.id})}" th:text="${fullPostDTO.thread.subject}" class="post-author-info"></a>
-                </div>
-                <div th:text="${fullPostDTO.post.contents}" class="post-message"></div>
-            </div>
-        </div>
-    </th:block>
-    <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
+    </section>
+    <footer>
+        <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
+    </footer>
 </div>
 </body>
 </html>

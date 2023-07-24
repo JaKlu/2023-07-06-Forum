@@ -4,45 +4,60 @@
     <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
 </head>
 <body>
-<th:block th:replace="~{fragments.html :: page-header}"></th:block>
+<div class="wrapper">
+    <header>
+        <th:block th:replace="~{fragments.html :: page-header}"></th:block>
+    </header>
+    <section>
+        <div id="content">
+            <div th:if="${admin}" class="delete-content">
+                <a th:href="@{/topic/{topicId}/delete-topic(topicId=${topic.id})}"
+                   onclick="return confirm('Czy na pewno chcesz usunąć to forum?')">Usuń forum</a>
+            </div>
 
-<div id="content">
-    <th:block
-            th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
-    <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
+            <div class="thread-grid">
+                <th:block th:if="${threads.size() > 0}">
 
-    <div th:if="${admin}" class="delete-thread">
-        <a th:href="@{/topic/{topicId}/delete-topic(topicId=${topic.id})}"
-           onclick="return confirm('Czy na pewno chcesz usunąć to forum?')" class="delete-topic">Usuń forum</a>
-    </div>
+                    <div class="grid-header">Tematy</div>
+                    <div class="grid-header">Autor</div>
+                    <div class="grid-header">Odpowiedzi</div>
 
-    <th:block th:if="${threads.size() > 0}">
-        <div class="thread-grid-headers">
-            <div class="topic-header">Tematy</div>
-            <div class="topic-header">Autor</div>
-            <div class="topic-header">Odpowiedzi</div>
+                </th:block>
+
+                <th:block th:each="fullThreadDTO : ${threads}">
+                    <div class="post-grid-content">
+                        <div class="thread-subject">
+                            <a th:text="${fullThreadDTO.thread.subject}"
+                               th:href="'/thread/' + ${fullThreadDTO.thread.id}"
+                               class="thread-title"></a>
+                            <a th:if="${admin}"
+                               th:href="@{/thread/{threadId}/delete-thread(threadId=${fullThreadDTO.thread.id})}"
+                               onclick="return confirm('Czy na pewno chcesz usunąć ten temat?')" class="delete-link">Usuń
+                                temat</a>
+                        </div>
+                    </div>
+                    <div class="grid-content-center">
+
+                        <div th:text="${fullThreadDTO.user.login}"
+                             th:class="${fullThreadDTO.user.function == T(com.kuba.forum.model.User.Function).ADMIN} ? 'thread-stats-author-admin' : 'thread-stats-author-user'">
+                        </div>
+                    </div>
+                    <div class="grid-content-center">
+                        <div th:text="${fullThreadDTO.numberOfReplies}" class="thread-stats"></div>
+                    </div>
+                </th:block>
+            </div>
+
+            <div th:if="${threads.size() == 0}" class="no-threads">Na tym forum nie ma jeszcze żadnych tematów.
+            </div>
+            <div>
+                <a th:href="@{/thread/new-thread/{topic.id}(topic.id=${{topic.id}})}" class="button">Nowy temat</a>
+            </div>
         </div>
-    </th:block>
-
-    <div th:each="fullThreadDTO : ${threads}" class="thread-grid">
-        <div class="thread-subject">
-            <a th:text="${fullThreadDTO.thread.subject}" th:href="'/thread/' + ${fullThreadDTO.thread.id}" class="thread-title"></a>
-            <a th:if="${admin}"
-               th:href="@{/thread/{threadId}/delete-thread(threadId=${fullThreadDTO.thread.id})}"
-               onclick="return confirm('Czy na pewno chcesz usunąć ten temat?')" class="delete-thread">Usuń temat</a>
-        </div>
-        <div th:text="${fullThreadDTO.user.login}"
-             th:class="${fullThreadDTO.user.function == T(com.kuba.forum.model.User.Function).ADMIN} ? 'thread-stats-author-admin' : 'thread-stats-author-user'"
-        ></div>
-        <div th:text="${fullThreadDTO.numberOfReplies}" class="thread-stats"></div>
-    </div>
-
-    <div th:if="${threads.size() == 0}" class="no-threads">Na tym forum nie ma jeszcze żadnych tematów.</div>
-    <div>
-        <a th:href="@{/thread/new-thread/{topic.id}(topic.id=${{topic.id}})}" class="button">Nowy temat</a>
-    </div>
-
-    <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
+    </section>
+    <footer>
+        <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
+    </footer>
 </div>
 </body>
 </html>

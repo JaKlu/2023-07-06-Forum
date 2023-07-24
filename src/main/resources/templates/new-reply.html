@@ -6,27 +6,30 @@
     <script src="/reply-validator.js"></script>
 </head>
 <body>
-<th:block th:replace="~{fragments.html :: page-header}"></th:block>
+<div class="wrapper">
+    <header>
+        <th:block th:replace="~{fragments.html :: page-header}"></th:block>
+    </header>
+    <section>
+        <div id="content">
 
-<div id="content">
-    <th:block
-            th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}"></th:block>
-
-    <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
-
-    <div class="content-form">
-        <h3>Napisz odpowiedź</h3>
-        <form method="post" onsubmit="return validate()">
-            <label for="contents">Treść wiadomości: </label>
-            <textarea class="input" id="contents" rows="20" th:field="*{postModel.contents}"></textarea>
-            <div id="contents-error"></div>
-            <div class="form-footer">
-                <input type="submit" value="Wyślij" class="button">
-                <input type="reset" value="Reset" class="button">
+            <div class="content-new">
+                <h3>Napisz odpowiedź</h3>
+                <form method="post" onsubmit="return validate()">
+                    <label for="contents">Treść wiadomości: </label>
+                    <textarea class="textarea" id="contents" rows="15" th:field="*{postModel.contents}"></textarea>
+                    <div id="contents-error"></div>
+                    <div class="form-footer">
+                        <input type="submit" value="Wyślij" class="button">
+                        <input type="reset" value="Reset" class="button">
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-    <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
+        </div>
+    </section>
+    <footer>
+        <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
+    </footer>
 </div>
 </body>
 </html>

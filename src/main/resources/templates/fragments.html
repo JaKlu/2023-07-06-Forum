@@ -14,18 +14,22 @@
 </th:block>
 
 <th:block th:fragment="page-header">
-    <h1>Forum FILMOVIE</h1>
+    <h1><a href="/main">Forum FILMOVIE</a></h1>
     <h2>Mówimy o filmach</h2>
+    <th:block
+            th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}">
+    </th:block>
+    <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
 </th:block>
 
 <th:block th:fragment="directory-link">
     <div class="div-directory-link">
-        <a href="/" class="directory-link">.: Forum FILMOVIE :.</a>
+        <a href="/" class="directory-link">Forum FILMOVIE</a>
         <th:block th:if="${topic != null}">
-            >>
+            >
             <a th:text="${topic.name}" th:href="@{/topic/{topicId}(topicId=${topic.id})}"></a>
             <th:block th:if="${thread != null}">
-                >>
+                >
                 <a th:text="${thread.subject}" th:href="@{/thread/{threadId}(threadId=${thread.id})}"></a>
             </th:block>
         </th:block>
@@ -33,25 +37,30 @@
 </th:block>
 
 <th:block th:fragment="main-menu-link">
-    <div class="div-main-menu-link">
-        <a href="/" class="main-menu-link">Strona główna</a> |
-        <a href="/search" class="main-menu-link">Szukaj</a> |
-        <a href="/register" class="main-menu-link">Rejestracja</a> |
-        <a href="/login" class="main-menu-link">Zaloguj</a>
-    </div>
+    <nav class="div-main-menu-link">
+        <ul class="main-nav">
+            <li><a href="/" class="main-menu-link">Strona główna</a></li>
+            <li><a href="/search" class="main-menu-link">Szukaj</a></li>
+            <li><a href="/register" class="main-menu-link">Rejestracja</a></li>
+            <li><a href="/login" class="main-menu-link">Zaloguj</a></li>
+        </ul>
+    </nav>
 </th:block>
 
 <th:block th:fragment="main-menu-link-logged">
-    <div th:text="'Zalogowany użytkownik: ' + ${user.login}" class="div-main-menu-link"></div>
-    <div class="div-main-menu-link">
-        <a href="/" class="main-menu-link">Strona główna</a> |
-        <a href="/search" class="main-menu-link">Szukaj</a> |
-        <a href="/logout" class="main-menu-link">Wyloguj</a>
-    </div>
+    <div th:if="${admin}" class="div-main-menu-admin">Zalogowany administrator: <strong th:text="${user.login}"></strong></div>
+    <div th:if="${!admin}" class="div-main-menu-user">Zalogowany użytkownik: <strong th:text="${user.login}"></strong></div>
+    <nav class="div-main-menu-link">
+        <ul class="main-nav">
+            <li><a href="/" class="main-menu-link">Strona główna</a></li>
+            <li><a href="/search" class="main-menu-link">Szukaj</a></li>
+            <li><a href="/logout" class="main-menu-link">Wyloguj</a></li>
+        </ul>
+    </nav>
 </th:block>
 
 <th:block th:fragment="page-footer">
-    <div class="page-footer"> &copy; 2023 by JK</div>
+    <div class="page-footer"> &copy; 2023 by <a href="https://github.com/JaKlu" target="_blank" title="Find me on GitHub.com">JK</a></div>
 </th:block>
 </body>
 </html>

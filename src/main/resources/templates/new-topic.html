@@ -6,33 +6,34 @@
     <script src="/topic-validator.js"></script>
 </head>
 <body>
-<th:block th:replace="~{fragments.html :: page-header}"></th:block>
+<div class="wrapper">
+    <header>
+        <th:block th:replace="~{fragments.html :: page-header}"></th:block>
+    </header>
+    <section>
+        <div id="content">
+            <div class="content-new">
+                <h3>Dodaj nowe forum</h3>
+                <form method="post" onsubmit="return validate()">
+                    <label for="name">Temat: </label>
+                    <input type="text" class="input" id="name" th:field="*{topicModel.name}">
+                    <div id="name-error"></div>
 
-<div id="content">
-    <th:block
-            th:replace="${logged} ? ~{fragments.html :: main-menu-link-logged} : ~{fragments.html :: main-menu-link}">
-    </th:block>
+                    <label for="description">Opis forum: </label>
+                    <textarea class="textarea" id="description" rows="5" th:field="*{topicModel.description}"></textarea>
+                    <div id="description-error"></div>
 
-    <th:block th:replace="~{fragments.html :: directory-link}"></th:block>
-
-    <div class="content-form">
-        <h3>Dodaj nowe forum</h3>
-        <form method="post" onsubmit="return validate()">
-            <label for="name">Temat: </label>
-            <input type="text" class="input" id="name" th:field="*{topicModel.name}">
-            <div id="name-error"></div>
-
-            <label for="description">Opis forum: </label>
-            <textarea class="input" id="description" rows="5" th:field="*{topicModel.description}"></textarea>
-            <div id="description-error"></div>
-
-            <div class="form-footer">
-                <input type="submit" value="Wyślij" class="button">
-                <input type="reset" value="Reset" class="button">
+                    <div class="form-footer">
+                        <input type="submit" value="Wyślij" class="button">
+                        <input type="reset" value="Reset" class="button">
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-    <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
+        </div>
+    </section>
+    <footer>
+        <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
+    </footer>
 </div>
 </body>
 </html>

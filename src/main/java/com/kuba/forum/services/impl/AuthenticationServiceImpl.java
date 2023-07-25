@@ -25,7 +25,6 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     public void authenticate(String login, String password) {
         Optional<User> user = this.userDAO.getUserByLogin(login);
         if (user.isPresent() && user.get().getPassword().equals(DigestUtils.md5Hex(password))) {
-            //TODO powtórne logowanie - kopiowanie usera
             user.get().setPassword(null);
             this.sessionData.setUser(user.get());
         }

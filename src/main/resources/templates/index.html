@@ -8,9 +8,11 @@
     <header>
         <th:block th:replace="~{fragments.html :: page-header}"></th:block>
     </header>
-    <section>
-        <div id="content">
-            <div class="topic-grid">
+    <section id="content">
+            <div th:if="${topics.size() == 0}" class="no-content">
+                Na tym forum nie ma jeszcze żadnych dyskusji.
+            </div>
+            <div th:if="${topics.size() > 0}" class="topic-grid">
                 <div class="grid-header">Forum</div>
                 <div class="grid-header">Tematy</div>
 
@@ -31,13 +33,8 @@
                     </div>
                 </th:block>
             </div>
-            <div th:if="${topics.size() == 0}" class="no-threads">
-                Na tym forum nie ma jeszcze żadnych dyskusji.
-            </div>
 
             <a th:if="${admin}" th:href="@{/topic/new-topic}" class="button">Nowe forum</a>
-
-        </div>
     </section>
     <footer>
         <th:block th:replace="~{fragments.html :: page-footer}"></th:block>

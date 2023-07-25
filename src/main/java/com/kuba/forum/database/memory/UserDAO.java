@@ -56,6 +56,7 @@ public class UserDAO implements IUserDAO {
     public Optional<User> getUserByLogin(final String login) {
         return this.users.stream()
                 .filter(user -> user.getLogin().equals(login))
+                .map(User::copyOf)
                 .findFirst();
     }
 
@@ -63,6 +64,7 @@ public class UserDAO implements IUserDAO {
     public Optional<User> getUserById(final int userId) {
         return this.users.stream()
                 .filter(user -> user.getId() == userId)
+                .map(User::copyOf)
                 .findFirst();
     }
 

@@ -38,22 +38,22 @@ public class PostDAO implements IPostDAO {
                 2023, 7, 2), LocalTime.of(15, 12, 0), ZoneId.of("Europe/Warsaw")),
                 "Witajcie na nowym forum poświęconym szeroko pojętej filmografii. Dobrej zabawy!"));
         this.posts.add(new Post(postSequence.getId(), 3, 2, ZonedDateTime.of(LocalDate.of(
-                2023, 7, 2), LocalTime.of(15, 12, 0), ZoneId.of("Europe/Warsaw")),
+                2023, 7, 2), LocalTime.of(15, 12, 2), ZoneId.of("Europe/Warsaw")),
                 "Hej, fajne miejsce."));
         this.posts.add(new Post(postSequence.getId(), 3, 3, ZonedDateTime.of(LocalDate.of(
-                2023, 7, 3), LocalTime.of(15, 12, 0), ZoneId.of("Europe/Warsaw")),
+                2023, 7, 3), LocalTime.of(15, 12, 4), ZoneId.of("Europe/Warsaw")),
                 "Na pewno będę częstym gościem."));
         this.posts.add(new Post(postSequence.getId(), 3, 4, ZonedDateTime.of(LocalDate.of(
-                2023, 7, 4), LocalTime.of(15, 12, 0), ZoneId.of("Europe/Warsaw")),
+                2023, 7, 4), LocalTime.of(15, 12, 8), ZoneId.of("Europe/Warsaw")),
                 "Ale super forum. Nie pozbędziecie się mnie zbyt szybko <3"));
         this.posts.add(new Post(postSequence.getId(), 4, 2, ZonedDateTime.of(LocalDate.of(
-                2023, 7, 2), LocalTime.of(15, 12, 0), ZoneId.of("Europe/Warsaw")),
+                2023, 7, 2), LocalTime.of(15, 12, 12), ZoneId.of("Europe/Warsaw")),
                 "Cześć przyjaciele filmożercy. Pozdrawiam z byłej już stolicy - Krakowa!"));
         this.posts.add(new Post(postSequence.getId(), 5, 3, ZonedDateTime.of(LocalDate.of(
-                2023, 7, 3), LocalTime.of(15, 12, 0), ZoneId.of("Europe/Warsaw")),
+                2023, 7, 3), LocalTime.of(15, 12, 20), ZoneId.of("Europe/Warsaw")),
                 "RAZ RAZ PRÓBA MIKROFONU - Wita was Wojtas z WWA"));
         this.posts.add(new Post(postSequence.getId(), 6, 4, ZonedDateTime.of(LocalDate.of(
-                2023, 7, 4), LocalTime.of(15, 12, 0), ZoneId.of("Europe/Warsaw")),
+                2023, 7, 4), LocalTime.of(15, 12, 30), ZoneId.of("Europe/Warsaw")),
                 "Siemaneczko słodziaczki moje kochane pierożki nie-ruskie z masełkiem. BUZIACZKI!"));
     }
 
@@ -97,25 +97,21 @@ public class PostDAO implements IPostDAO {
                 .findFirst();
     }
 
-    //TODO edycja postów
     @Override
     public void editPost(Post post) {
-        Iterator<Post> iterator = this.posts.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getId() == post.getId()) {
-                iterator.remove();
-                break;
-            }
+        if (deletePost(post.getId())) {
+            this.posts.add(post);
         }
-        this.posts.add(post);
     }
 
     @Override
-    public void deletePost(int postId) {
+    public boolean deletePost(int postId) {
         Optional<Post> postBox = getPostById(postId);
         if (postBox.isPresent()) {
             this.posts.remove(postBox.get());
+            return true;
         }
+        return false;
     }
 
     @Override

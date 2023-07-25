@@ -23,8 +23,12 @@ public class AuthenticationController {
 
     @GetMapping(path = "/login")
     public String login(Model model) {
-        model.addAttribute("info", this.sessionData.getInfo());
         ModelUtils.addCommonDataToModel(model, sessionData);
+        if (this.sessionData.isLogged()) {
+            return "redirect:/";
+        }
+        model.addAttribute("formError", this.sessionData.getFormError());
+        model.addAttribute("formInfo", this.sessionData.getFormInfo());
         return "login";
     }
 
@@ -35,7 +39,7 @@ public class AuthenticationController {
         if (sessionData.isLogged()) {
             return "redirect:" + this.sessionData.getLastPath();
         }
-        this.sessionData.setInfo("Niepoprawny login lub hasło");
+        this.sessionData.setFormError("Niepoprawny login lub hasło");
         return "redirect:/login";
     }
 
@@ -47,9 +51,14 @@ public class AuthenticationController {
 
     @GetMapping(path = "/register")
     public String register(Model model,
-                           @RequestParam(required = false) String info) {
+                           @RequestParam(required = false) String formInfo,
+                           @RequestParam(required = false) String formError) {
         ModelUtils.addCommonDataToModel(model, sessionData);
-        model.addAttribute("info", this.sessionData.getInfo());
+        if (this.sessionData.isLogged()) {
+            return "redirect:/";
+        }
+        model.addAttribute("formInfo", this.sessionData.getFormInfo());
+        model.addAttribute("formError", this.sessionData.getFormError());
         model.addAttribute("userModel", new User());
         return "register";
     }
@@ -62,13 +71,13 @@ public class AuthenticationController {
             UserValidator.validatePasswordEquality(user.getPassword(), password2);
             this.authenticationService.register(user);
         } catch (LoginAlreadyExistException e) {
-            this.sessionData.setInfo("Użytkownik " + user.getLogin() + " już istnieje");
+            this.sessionData.setFormError("Użytkownik " + user.getLogin() + " już istnieje");
             return "redirect:/register";
         } catch (UserValidationException e) {
-            this.sessionData.setInfo("Wprowadź poprawne dane do formularza");
+            this.sessionData.setFormError("Wprowadź poprawne dane do formularza");
             return "redirect:/register";
         }
-        this.sessionData.setInfo("Rejestracja zakończona sukcesem. Zaloguj się na swoje konto.");
+        this.sessionData.setFormInfo("Rejestracja zakończona sukcesem. Zaloguj się na swoje konto.");
         return "redirect:/login";
     }
 }

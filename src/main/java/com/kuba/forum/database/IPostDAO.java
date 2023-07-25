@@ -21,7 +21,7 @@ public interface IPostDAO {
 
     void editPost(Post post);
 
-    void deletePost(int postId);
+    boolean deletePost(int postId);
 
     void deleteAllPostsFromThread(int threadId);
 

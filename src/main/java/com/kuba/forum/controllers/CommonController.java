@@ -40,5 +40,4 @@ public class CommonController {
         }
         return "search";
     }
-
 }

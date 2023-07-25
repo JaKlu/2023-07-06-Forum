@@ -222,16 +222,25 @@ grid-gap:1px;
 }
 div.delete-content{
     text-align: right;
-    font-size: .7rem;
+    font-size: .8rem;
+    font-weight: bold;
     padding: 0px 0px 10px 0px;
 }
-
+div.delete-content a {
+    color: #F8333C;
+}
 a.delete-link{
-    font-size: .7rem;
+    font-weight: bold;
+    color: #F8333C;
+    font-size: .8rem;
+}
+.delete-style{
+    font-weight: bold;
+    color: #F8333C;
 }
 
-.no-threads{
-    font-size: 1.05rem;
+.no-content{
+    font-size: 1.1rem;
     text-align: center;
     padding: 20px;
 }
@@ -252,36 +261,10 @@ a.delete-link{
     border: 2px solid #f29221;
     background-color: #f29221;
 }
-.register-info{
-    margin: 0px 0px 10px 15px;
-    font-size: .8em;
-    color: #E10B14;
-    text-align:center;
-}
-.error-on{
-    margin: 0px 0px 10px 15px;
-    font-size: .8em;
-    color: #E10B14;
-}
-
-.error-off {
-
-}
 
 .page-footer{
     text-align: center;
     font-size: .8rem;
     padding: 10px;
     border-top: 1px solid #3e6e93;
-}
-.register-link{
-    text-align:center;
-    font-size: .8em;
-    padding: 2px;
-}
-.register-link a{
-    text-decoration: none;
-}
-.register-link a:hover{
-    text-decoration: underline;
 }

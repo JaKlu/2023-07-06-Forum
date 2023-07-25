@@ -9,8 +9,10 @@ import com.kuba.forum.services.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements IPostService {
@@ -60,8 +62,8 @@ public class PostServiceImpl implements IPostService {
                         this.threadDAO.findThreadById(threadId).get(),
                         this.userDAO.getUserById(post.getAuthorId()).get(),
                         this.userDAO.getNumberOfPosts(post.getAuthorId())))
-                .toList();
-
+                .sorted(Comparator.comparing(fullPostDTO -> fullPostDTO.getPost().getCreationTime()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -76,6 +78,11 @@ public class PostServiceImpl implements IPostService {
 
     @Override
     public void editPost(Post post) {
-        this.postDAO.editPost(post);
+        Optional<Post> postToUpdateBox = this.postDAO.getPostById(post.getId());
+        if (postToUpdateBox.isPresent()) {
+            Post updatedPost = postToUpdateBox.get();
+            updatedPost.setContents(post.getContents());
+            this.postDAO.editPost(updatedPost);
+        }
     }
 }

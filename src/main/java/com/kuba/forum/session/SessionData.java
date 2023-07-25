@@ -15,7 +15,8 @@ import org.springframework.web.context.annotation.SessionScope;
 public class SessionData {
     private User user = null;
     private String lastPath = "/main";
-    private String info = null;
+    private String formInfo = null;
+    private String formError = null;
 
 
     public boolean isLogged() {
@@ -29,12 +30,21 @@ public class SessionData {
         return this.user.getFunction() == User.Function.ADMIN;
     }
 
-    public String getInfo() {
-        if (this.info == null) {
+    public String getFormInfo() {
+        if (this.formInfo == null) {
             return "";
         } else {
-            String temp = this.info;
-            this.info = null;
+            String temp = this.formInfo;
+            this.formInfo = null;
+            return temp;
+        }
+    }
+    public String getFormError() {
+        if (this.formError == null) {
+            return "";
+        } else {
+            String temp = this.formError;
+            this.formError = null;
             return temp;
         }
     }

@@ -6,7 +6,6 @@ import com.kuba.forum.model.Thread;
 import com.kuba.forum.services.IPostService;
 import com.kuba.forum.services.IThreadService;
 import com.kuba.forum.services.ITopicService;
-import com.kuba.forum.services.IUserService;
 import com.kuba.forum.session.SessionData;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,12 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping(path = "/thread")
 public class ThreadController {
-
-    @Autowired
-    IUserService userService;
     @Autowired
     IPostService postService;
     @Autowired
@@ -34,8 +32,7 @@ public class ThreadController {
     public String viewThread(@PathVariable int threadId, Model model) {
         ModelUtils.addCommonDataToModel(model, sessionData);
         model.addAttribute("topic", this.topicService.findTopicById(
-                this.threadService.findThreadById(threadId).get().getTopicId()
-        ).get());
+                this.threadService.findThreadById(threadId).get().getTopicId()).get());
         model.addAttribute("thread", this.threadService.findThreadById(threadId).get());
         model.addAttribute("posts", this.postService.getThreadContent(threadId));
         return "thread-content";
@@ -82,7 +79,9 @@ public class ThreadController {
             return "redirect:/login";
         }
         ModelUtils.addCommonDataToModel(model, sessionData);
-        model.addAttribute("topic", this.topicService.findTopicById(this.threadService.findThreadById(threadId).get().getTopicId()).get());
+        model.addAttribute("replying", true);
+        model.addAttribute("topic", this.topicService.findTopicById(
+                this.threadService.findThreadById(threadId).get().getTopicId()).get());
         model.addAttribute("thread", this.threadService.findThreadById(threadId).get());
         model.addAttribute("postModel", new Post());
 
@@ -101,7 +100,8 @@ public class ThreadController {
 
         return "redirect:/thread/" + threadId;
     }
-//TODO deleting last post - deleting thread?
+
+    //TODO deleting last post - deleting thread?
     @GetMapping(path = "/{threadId}/delete-post/{postId}")
     public String deletePost(@PathVariable int threadId,
                              @PathVariable int postId) {
@@ -121,4 +121,37 @@ public class ThreadController {
         this.threadService.deleteThread(threadId);
         return "redirect:/topic/" + topicId;
     }
+
+    @GetMapping(path = "/{threadId}/edit-post/{postId}")
+    public String editPost(Model model,
+                           @PathVariable int threadId,
+                           @PathVariable int postId) {
+        Optional<Post> postBox = this.postService.getPostById(postId);
+
+        if (postBox.isPresent() && (this.sessionData.isAdmin() || this.sessionData.getUser().getId() == postBox.get().getAuthorId())) {
+            ModelUtils.addCommonDataToModel(model, sessionData);
+            model.addAttribute("editing", true);
+            model.addAttribute("topic", this.topicService.findTopicById(
+                    this.threadService.findThreadById(threadId).get().getTopicId()).get());
+            model.addAttribute("thread", this.threadService.findThreadById(threadId).get());
+            model.addAttribute("postModel", postBox.get());
+            return "new-reply";
+        }
+
+        return "redirect:/thread/" + threadId;
+    }
+
+    @PostMapping(path = "/{threadId}/edit-post/{postId}")
+    public String editPost(@ModelAttribute Post post,
+                           @PathVariable int threadId,
+                           @PathVariable int postId) {
+        if (!this.sessionData.isLogged()) {
+            return "redirect:/login";
+        }
+        post.setId(postId);
+        this.postService.editPost(post);
+
+        return "redirect:/thread/" + threadId;
+    }
+
 }

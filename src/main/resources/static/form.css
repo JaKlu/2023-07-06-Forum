@@ -51,8 +51,40 @@ fieldset .gender {
     padding: 2px;
 }
 input[type=radio]{
-    accent-color: #E10B14;
+    accent-color: #3e6e93;
 }
 .form-footer {
     text-align: center;
+}
+.form-error{
+    margin: 10px 0px;
+    font-size: .8rem;
+    color: #E10B14;
+    text-align:center;
+}
+.form-info{
+    margin: 10px 0px;
+    font-size: .8rem;
+    color: #f29221;
+    text-align:center;
+}
+.error-on{
+    margin: 0px 0px 10px 15px;
+    font-size: .8em;
+    color: #E10B14;
+}
+
+.error-off {
+
+}
+.register-link{
+    text-align:center;
+    font-size: .8em;
+    padding: 2px;
+}
+.register-link a{
+    text-decoration: none;
+}
+.register-link a:hover{
+    text-decoration: underline;
 }

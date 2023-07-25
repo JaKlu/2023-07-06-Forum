@@ -10,84 +10,65 @@
     <header>
         <th:block th:replace="~{fragments.html :: page-header}"></th:block>
     </header>
-    <section>
-        <div id="content">
-            <div class="content-form">
-                <h3>Podaj dane rejestracyjne</h3>
-                <div th:text="${info}" class="register-info"></div>
-                <form method="post" onsubmit="return validate()">
-                    <fieldset class="fieldset-form">
-                        <legend>Login</legend>
-                        <input type="text" class="input-form" id="login" th:field="*{userModel.login}" autofocus><br>
-                    </fieldset>
+    <section id="content">
+        <div class="content-form">
+            <h3>Podaj dane rejestracyjne</h3>
+            <div th:text="${formInfo}" class="form-info"></div>
+            <div th:text="${formError}" class="form-error"></div>
+            <form method="post" onsubmit="return validate()">
+                <fieldset class="fieldset-form">
+                    <legend>Login</legend>
+                    <input type="text" class="input-form" id="login" th:field="*{userModel.login}" autofocus><br>
+                </fieldset>
+                <div id="login-error"></div>
 
-                    <!--            <label for="login">Login: </label><br>-->
-                    <!--            <input type="text" class="input" id="login" th:field="*{userModel.login}" autofocus><br>-->
-                    <div id="login-error"></div>
+                <fieldset class="fieldset-form">
+                    <legend>Hasło</legend>
+                    <input type="password" class="input-form" id="password" th:field="*{userModel.password}">
+                </fieldset>
+                <div id="password-error"></div>
 
-                    <fieldset class="fieldset-form">
-                        <legend>Hasło</legend>
-                        <input type="password" class="input-form" id="password" th:field="*{userModel.password}">
-                    </fieldset>
+                <fieldset class="fieldset-form">
+                    <legend>Powtórz hasło</legend>
+                    <input type="password" class="input-form" id="password2" name="password2">
+                </fieldset>
+                <div id="password2-error"></div>
 
+                <fieldset class="fieldset-form">
+                    <legend>E-mail</legend>
+                    <input type="text" class="input-form" id="email" th:field="*{userModel.email}">
+                </fieldset>
+                <div id="email-error"></div>
 
-                    <!--            <label for="password">Hasło: </label><br>-->
-                    <!--            <input type="password" class="input-form" id="password" th:field="*{userModel.password}"><br>-->
-                    <div id="password-error"></div>
+                <fieldset class="fieldset-form">
+                    <legend>Data urodzenia</legend>
+                    <input type="date" class="input-form" id="birthday" th:field="*{userModel.birthday}">
+                </fieldset>
+                <div id="birthday-error"></div>
 
-                    <fieldset class="fieldset-form">
-                        <legend>Powtórz hasło</legend>
-                        <input type="password" class="input-form" id="password2" name="password2">
-                    </fieldset>
-                    <!--            <label for="password2">Powtórz hasło: </label><br>-->
-                    <!--            <input type="password" class="input-form" id="password2" name="password2"><br>-->
-                    <div id="password2-error"></div>
+                <fieldset class="fieldset-form">
+                    <legend>Płeć</legend>
+                    <input type="radio" id="male" name="gender" value="MALE"
+                           th:field="*{userModel.gender}" checked="checked">
+                    <label class="input-radio" for="male">Mężczyzna</label><br>
 
-                    <fieldset class="fieldset-form">
-                        <legend>E-mail</legend>
-                        <input type="text" class="input-form" id="email" th:field="*{userModel.email}">
-                    </fieldset>
+                    <input type="radio" id="female" name="gender" value="FEMALE"
+                           th:field="*{userModel.gender}">
+                    <label class="input-radio" for="female">Kobieta</label><br>
+                </fieldset>
+                <div id="gender-error"></div>
 
-                    <!--            <label for="email">E-mail: </label><br>-->
-                    <!--            <input type="text" class="input-form" id="email" th:field="*{userModel.email}"><br>-->
-                    <div id="email-error"></div>
+                <fieldset class="fieldset-form">
+                    <legend>Skąd</legend>
+                    <input type="text" class="input-form" id="place" th:field="*{userModel.place}">
+                </fieldset>
+                <div id="place-error"></div>
 
-                    <fieldset class="fieldset-form">
-                        <legend>Data urodzenia</legend>
-                        <input type="date" class="input-form" id="birthday" th:field="*{userModel.birthday}">
-                    </fieldset>
-
-                    <!--            <label for="birthday">Data urodzenia: </label><br>-->
-                    <!--            <input type="date" class="input-form" id="birthday" th:field="*{userModel.birthday}"><br>-->
-                    <div id="birthday-error"></div>
-
-                    <fieldset class="fieldset-form">
-                        <legend>Płeć</legend>
-                        <input type="radio" id="male" name="gender" value="MALE"
-                               th:field="*{userModel.gender}" checked="checked">
-                        <label class="input-radio" for="male">Mężczyzna</label><br>
-
-                        <input type="radio" id="female" name="gender" value="FEMALE"
-                               th:field="*{userModel.gender}">
-                        <label class="input-radio" for="female">Kobieta</label><br>
-                    </fieldset>
-                    <div id="gender-error"></div>
-
-                    <fieldset class="fieldset-form">
-                        <legend>Skąd</legend>
-                        <input type="text" class="input-form" id="place" th:field="*{userModel.place}">
-                    </fieldset>
-
-                    <!--            <label for="place">Skąd: </label><br>-->
-                    <!--            <input type="text" class="input" id="place" th:field="*{userModel.place}"><br>-->
-                    <div id="place-error"></div>
-
-                    <div class="form-footer">
-                        <input type="submit" value="Zarejestruj" class="button">
-                        <input type="reset" value="Wyczyść formularz" class="button">
-                    </div>
-                </form>
-            </div>
+                <div class="form-footer">
+                    <input type="submit" value="Zarejestruj" class="button">
+                    <input type="reset" value="Wyczyść formularz" class="button">
+                </div>
+            </form>
         </div>
     </section>
     <footer>

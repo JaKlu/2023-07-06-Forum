@@ -10,32 +10,31 @@
     <header>
         <th:block th:replace="~{fragments.html :: page-header}"></th:block>
     </header>
-    <section>
-        <div id="content">
-            <div class="content-form">
-                <h3>Podaj dane logowania</h3>
-                <div th:text="${info}" class="register-info"></div>
+    <section id="content">
+        <div class="content-form">
+            <h3>Podaj dane logowania</h3>
+            <div th:text="${formInfo}" class="form-info"></div>
+            <div th:text="${formError}" class="form-error"></div>
 
-                <form method="post" onsubmit="return validate()">
-                    <fieldset class="fieldset-form parent">
-                        <legend>Login</legend>
-                        <input type="text" name="login" id="login" class="input-form" autofocus>
-                    </fieldset>
-                    <div id="login-error"></div>
+            <form method="post" onsubmit="return validate()">
+                <fieldset class="fieldset-form parent">
+                    <legend>Login</legend>
+                    <input type="text" name="login" id="login" class="input-form" autofocus>
+                </fieldset>
+                <div id="login-error"></div>
 
-                    <fieldset class="fieldset-form">
-                        <legend>Hasło</legend>
-                        <input type="password" name="password" id="password" class="input-form">
-                    </fieldset>
-                    <div id="password-error"></div>
+                <fieldset class="fieldset-form">
+                    <legend>Hasło</legend>
+                    <input type="password" name="password" id="password" class="input-form">
+                </fieldset>
+                <div id="password-error"></div>
 
-                    <div class="form-footer">
-                        <input type="submit" value="Zaloguj" class="button">
-                    </div>
-                </form>
+                <div class="form-footer">
+                    <input type="submit" value="Zaloguj" class="button">
+                </div>
+            </form>
 
-                <div class="register-link"><a href="/register">Zarejestruj</a></div>
-            </div>
+            <div class="register-link"><a href="/register">Zarejestruj</a></div>
         </div>
     </section>
     <footer>

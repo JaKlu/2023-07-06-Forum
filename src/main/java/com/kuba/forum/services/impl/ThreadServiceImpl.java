@@ -48,7 +48,7 @@ public class ThreadServiceImpl implements IThreadService {
                         thread,
                         this.topicDAO.findTopicById(topicId).get(),
                         this.userDAO.getUserById(thread.getAuthorId()).get(),
-                        (Math.max(this.threadDAO.getNumberOfRepliesInThread(thread.getId()) - 1, 0))
+                        this.threadDAO.getNumberOfRepliesInThread(thread.getId())
                 ))
                 .toList();
     }

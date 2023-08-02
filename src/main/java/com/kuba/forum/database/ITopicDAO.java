@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ITopicDAO {
+    Topic addTopic(Topic topic);
+
     List<Topic> getAllTopics();
 
     Optional<Topic> findTopicById(final int topicId);
 
-    Topic addTopic(Topic topic);
+    int getNumberOfThreadsInTopic(int topicId);
 
     void deleteTopic(final int topicId);
-
-    int getNumberOfThreadsInTopic(int topicId);
 }

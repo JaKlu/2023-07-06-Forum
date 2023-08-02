@@ -9,13 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public class ThreadDAO implements IThreadDAO {
     @Autowired
     IPostDAO postDAO;
@@ -26,23 +24,23 @@ public class ThreadDAO implements IThreadDAO {
         this.threadSequence = threadSequence;
 
         this.threads.add(new Thread(threadSequence.getId(), 1, 3, "Kill Bill",
-                ZonedDateTime.of(LocalDate.of(2023, 7, 1),
-                        LocalTime.of(12, 15, 10), ZoneId.of("Europe/Warsaw"))));
+                LocalDateTime.of(LocalDate.of(2023, 7, 1),
+                        LocalTime.of(12, 15, 10))));
         this.threads.add(new Thread(threadSequence.getId(), 2, 3, "Avengers",
-                ZonedDateTime.of(LocalDate.of(2023, 7, 2),
-                        LocalTime.of(9, 30, 20), ZoneId.of("Europe/Warsaw"))));
+                LocalDateTime.of(LocalDate.of(2023, 7, 2),
+                        LocalTime.of(9, 30, 20))));
         this.threads.add(new Thread(threadSequence.getId(), 1, 1, "Witam na forum",
-                ZonedDateTime.of(LocalDate.of(2023, 7, 1),
-                        LocalTime.of(8, 0, 0), ZoneId.of("Europe/Warsaw"))));
+                LocalDateTime.of(LocalDate.of(2023, 7, 1),
+                        LocalTime.of(8, 0, 0))));
         this.threads.add(new Thread(threadSequence.getId(), 2, 1, "Cześć wszystkim!!!",
-                ZonedDateTime.of(LocalDate.of(2023, 7, 2),
-                        LocalTime.of(15, 12, 0), ZoneId.of("Europe/Warsaw"))));
+                LocalDateTime.of(LocalDate.of(2023, 7, 2),
+                        LocalTime.of(15, 12, 0))));
         this.threads.add(new Thread(threadSequence.getId(), 3, 1, "Pozdrowienia z Warszawy :)",
-                ZonedDateTime.of(LocalDate.of(2023, 7, 3),
-                        LocalTime.of(9, 7, 0), ZoneId.of("Europe/Warsaw"))));
+                LocalDateTime.of(LocalDate.of(2023, 7, 3),
+                        LocalTime.of(9, 7, 0))));
         this.threads.add(new Thread(threadSequence.getId(), 4, 1, "Eluwina, tu Ania z Gdańska",
-                ZonedDateTime.of(LocalDate.of(2023, 7, 4),
-                        LocalTime.of(8, 15, 0), ZoneId.of("Europe/Warsaw"))));
+                LocalDateTime.of(LocalDate.of(2023, 7, 4),
+                        LocalTime.of(8, 15, 0))));
     }
 
     public List<Thread> getThreadsInTopic(final int topicId) {
@@ -61,7 +59,7 @@ public class ThreadDAO implements IThreadDAO {
     @Override
     public Thread addThread(Thread thread) {
         thread.setId(threadSequence.getId());
-        thread.setCreationTime(ZonedDateTime.now());
+        thread.setCreationTime(LocalDateTime.now());
         this.threads.add(thread);
         return thread;
     }

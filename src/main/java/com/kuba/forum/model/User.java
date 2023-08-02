@@ -3,6 +3,7 @@ package com.kuba.forum.model;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,7 +20,7 @@ public class User {
     private String email;
     private LocalDate birthday;
     private Gender gender;
-    private ZonedDateTime joinDate;
+    private LocalDateTime joinDate;
     private String place;
     private Function function;
 

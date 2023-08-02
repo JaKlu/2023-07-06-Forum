@@ -11,12 +11,11 @@ public interface IThreadDAO {
 
     List<Thread> getThreadsInTopic(int topicId);
 
-
     Optional<Thread> findThreadById(int threadId);
-
-    void deleteThread(int threadId);
 
     void editThread(Thread thread);
 
     int getNumberOfRepliesInThread(int threadId);
+
+    void deleteThread(int threadId);
 }

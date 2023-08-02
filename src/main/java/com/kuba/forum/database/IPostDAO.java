@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface IPostDAO {
+    Post addPost(Post post);
+
     List<Post> getAllPosts();
 
     List<Post> getQueriedPosts(String query);
@@ -15,14 +17,12 @@ public interface IPostDAO {
 
     List<Post> getAllUserPosts(int userId);
 
-    Post addPost(Post post);
-
     Optional<Post> getPostById(int id);
 
     void editPost(Post post);
 
-    boolean deletePost(int postId);
-
     void deleteAllPostsFromThread(int threadId);
+
+    boolean deletePost(int postId);
 
 }

@@ -2,6 +2,7 @@ package com.kuba.forum.model;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 @NoArgsConstructor
@@ -15,5 +16,5 @@ public class Thread {
     private int authorId;
     private int topicId;
     private String subject;
-    private ZonedDateTime creationTime;
+    private LocalDateTime creationTime;
 }

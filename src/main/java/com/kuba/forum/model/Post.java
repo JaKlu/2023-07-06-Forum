@@ -2,6 +2,7 @@ package com.kuba.forum.model;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,7 +16,7 @@ public class Post {
     private int id;
     private int threadId;
     private int authorId;
-    private ZonedDateTime creationTime;
+    private LocalDateTime creationTime;
     private String contents;
 
     public static Post copyOf(Post post) {

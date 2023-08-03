@@ -112,27 +112,7 @@ public class PostDAO implements IPostDAO {
 
     @Override
     public void deleteAllPostsFromThread(final int threadId) {
-
-        //working stream
-//        List<Post> threadToDelete = this.posts.stream()
-//                .filter(post -> post.getThreadId() == threadId)
-//                .toList();
-//        threadToDelete
-//                .forEach(post -> deletePost(post.getId()));
-
         List<Post> threadToDelete = getPostsFromThread(threadId);
         this.posts.removeAll(threadToDelete);
-
-
-        //TODO dlaczego nie działa?
-        //not working stream
-/*        this.posts.stream()
-                .filter(post -> post.getThreadId() == threadId)
-                .forEach(post -> deletePost(post.getId()));*/
-
-//        List<Post> threadToDelete = getPostsFromThread(threadId);
-//        for (Post post : threadToDelete) {
-//            deletePost(post.getId());
-//        }
     }
 }

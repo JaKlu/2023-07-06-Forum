@@ -22,10 +22,10 @@
                            class="topic-name"></a>
                         <div class="topic-description">
                             <th:block th:text="${fullTopicDTO.topic.description}"></th:block>
-                            <a th:if="${admin}"
+<!--                            <a th:if="${admin}"
                                th:href="@{/topic/{topicId}/delete-topic(topicId=${fullTopicDTO.topic.id})}"
                                onclick="return confirm('Czy na pewno chcesz usunąć to forum?')" class="delete-link">
-                                Usuń forum</a>
+                                Usuń forum</a>-->
                         </div>
                     </div>
                     <div class="grid-content-center">

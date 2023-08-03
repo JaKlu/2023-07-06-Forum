@@ -44,4 +44,15 @@ public class TopicServiceImpl implements ITopicService {
     public void deleteTopic(int topicId) {
         this.topicDAO.deleteTopic(topicId);
     }
+
+    @Override
+    public void editTopic(Topic topic) {
+        Optional<Topic> topicToUpdateBox = this.topicDAO.findTopicById(topic.getId());
+        if (topicToUpdateBox.isPresent()) {
+            Topic updatedTopic = topicToUpdateBox.get();
+            updatedTopic.setName(topic.getName());
+            updatedTopic.setDescription(topic.getDescription());
+            this.topicDAO.editTopic(updatedTopic);
+        }
+    }
 }

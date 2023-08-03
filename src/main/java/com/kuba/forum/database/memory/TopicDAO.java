@@ -66,4 +66,9 @@ public class TopicDAO implements ITopicDAO {
     public int getNumberOfThreadsInTopic(int topicId) {
         return this.threadDAO.getThreadsInTopic(topicId).size();
     }
+
+    @Override
+    public void editTopic(Topic topic) {
+        throw new RuntimeException();
+    }
 }

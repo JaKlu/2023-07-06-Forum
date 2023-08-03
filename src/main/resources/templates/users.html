@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments.html :: head-meta}"></th:block>
+    <link rel="stylesheet" href="/users.css">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <th:block th:replace="~{fragments.html :: page-header}"></th:block>
+    </header>
+    <section id="content">
+        <div class="content-form">
+            <h3>Lista użytkowników forum</h3>
+
+        </div>
+
+        <div th:if="${users.size() == 0}" class="no-content">
+            Na tym forum nie ma jeszcze zarejestrowanych użytkowników.
+        </div>
+
+        <div th:if="${users.size() > 0}" class="users-grid">
+            <div class="grid-header">Użytkownik</div>
+            <div class="grid-header">Ranga</div>
+            <div class="grid-header">Płeć</div>
+            <div class="grid-header">Skąd</div>
+            <div class="grid-header">Wiek</div>
+            <div class="grid-header">Data dołączenia</div>
+            <div class="grid-header">Liczba postów</div>
+            <div class="user-row" th:each="fullUserDTO : ${users}">
+                <div class="users-grid-content">
+                    <div th:text="${fullUserDTO.user.login}"
+                         th:class="${fullUserDTO.user.function == T(com.kuba.forum.model.User.Function).ADMIN} ? 'post-author-admin' : 'post-author'"></div>
+                </div>
+                <div class="users-grid-content">
+                    <div th:text="${fullUserDTO.user.function}"></div>
+                </div>
+                <div class="users-grid-content">
+                    <div th:text="${fullUserDTO.user.gender}"></div>
+                </div>
+                <div class="users-grid-content">
+                    <div th:text="${fullUserDTO.user.place}"></div>
+                </div>
+                <div class="users-grid-content">
+                    <div th:text="${fullUserDTO.user.getAge()}"></div>
+                </div>
+                <div class="users-grid-content">
+                    <div th:text="${fullUserDTO.user.getPrettyJoinDate()}"></div>
+                </div>
+                <div class="users-grid-content">
+                    <div th:text="${fullUserDTO.numberOfPosts}"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <th:block th:replace="~{fragments.html :: page-footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>

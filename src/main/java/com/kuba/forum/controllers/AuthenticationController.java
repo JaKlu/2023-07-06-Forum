@@ -4,6 +4,7 @@ import com.kuba.forum.controllers.utils.ModelUtils;
 import com.kuba.forum.exceptions.LoginAlreadyExistException;
 import com.kuba.forum.exceptions.UserValidationException;
 import com.kuba.forum.model.User;
+import com.kuba.forum.model.view.Link;
 import com.kuba.forum.services.IAuthenticationService;
 import com.kuba.forum.session.SessionData;
 import com.kuba.forum.validators.UserValidator;
@@ -24,6 +25,7 @@ public class AuthenticationController {
     @GetMapping(path = "/login")
     public String login(Model model) {
         ModelUtils.addCommonDataToModel(model, sessionData);
+        model.addAttribute("directory", new Link("Logowanie", "/login"));
         if (this.sessionData.isLogged()) {
             return "redirect:/";
         }
@@ -54,6 +56,7 @@ public class AuthenticationController {
                            @RequestParam(required = false) String formInfo,
                            @RequestParam(required = false) String formError) {
         ModelUtils.addCommonDataToModel(model, sessionData);
+        model.addAttribute("directory", new Link("Rejestracja", "/register"));
         if (this.sessionData.isLogged()) {
             return "redirect:/";
         }

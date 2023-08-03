@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping(path = "/topic")
 public class TopicController {
@@ -35,6 +37,7 @@ public class TopicController {
             return "redirect:/main";
         }
         ModelUtils.addCommonDataToModel(model, sessionData);
+        model.addAttribute("adding", true);
         model.addAttribute("topicModel", new Topic());
 
         return "new-topic";
@@ -58,5 +61,31 @@ public class TopicController {
         this.topicService.deleteTopic(topicId);
 
         return "redirect:/main";
+    }
+
+    @GetMapping(path = "/{topicId}/edit-topic")
+    public String editTopic(Model model,
+                            @PathVariable int topicId) {
+        Optional<Topic> topicBox = this.topicService.findTopicById(topicId);
+        if (topicBox.isPresent() && this.sessionData.isAdmin()) {
+            ModelUtils.addCommonDataToModel(model, sessionData);
+            model.addAttribute("editing", true);
+            model.addAttribute("topic", topicBox.get());
+            model.addAttribute("topicModel", topicBox.get());
+            return "new-topic";
+        }
+        return "redirect:/main";
+    }
+
+    @PostMapping(path = "/{topicId}/edit-topic")
+    public String editTopic(@ModelAttribute Topic topic,
+                            @PathVariable int topicId) {
+        if (!this.sessionData.isAdmin()) {  //TODO security
+            return "redirect:/login";
+        }
+        topic.setId(topicId);
+        this.topicService.editTopic(topic);
+
+        return "redirect:/topic/" + topicId;
     }
 }

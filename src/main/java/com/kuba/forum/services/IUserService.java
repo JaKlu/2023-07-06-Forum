@@ -1,7 +1,9 @@
 package com.kuba.forum.services;
 
 import com.kuba.forum.model.User;
+import com.kuba.forum.model.view.FullUserDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IUserService {
@@ -12,4 +14,6 @@ public interface IUserService {
     void addUser(User user);
 
     int getNumberOfPosts(int userId);
+    List<User> getAllUsers();
+    List<FullUserDTO> getUsersContent();
 }

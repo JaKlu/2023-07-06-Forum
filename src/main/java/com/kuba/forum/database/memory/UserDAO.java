@@ -77,4 +77,9 @@ public class UserDAO implements IUserDAO {
     public int getNumberOfPosts(int userId) {
         return this.postDAO.getAllUserPosts(userId).size();
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        throw new RuntimeException();
+    }
 }

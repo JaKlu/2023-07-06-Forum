@@ -9,9 +9,13 @@
         <th:block th:replace="~{fragments.html :: page-header}"></th:block>
     </header>
     <section id="content">
-        <div th:if="${admin}" class="delete-content">
+        <div th:if="${admin}" class="edit-content">
+            <a th:if="${(logged) && (admin || fullThreadDTO.user.id == user.id)}"
+               th:href="@{/thread/{threadId}/edit-thread(threadId=${thread.id})}"
+               class="post-author-info">Edytuj temat</a>
             <a th:href="@{/thread/{threadId}/delete-thread(threadId=${thread.id})}"
-               onclick="return confirm('Czy na pewno chcesz usunąć ten temat?')">Usuń temat</a>
+               onclick="return confirm('Czy na pewno chcesz usunąć ten temat?')"
+               class="post-author-info delete-style">Usuń temat</a>
         </div>
         <div th:if="${posts.size() == 0}" class="no-content">
             W tym temacie nie ma jeszcze żadnych postów.
@@ -43,16 +47,14 @@
                     <div>
                         <span th:text="'Wysłano: ' + ${fullPostDTO.post.getPrettyDate()}"
                               class="post-author-info"></span>
+                        <a th:if="${(logged) && (admin || fullPostDTO.user.id == user.id)}"
+                           th:href="@{/thread/{threadId}/edit-post/{postId}(threadId=${thread.id},postId=${fullPostDTO.post.id})}"
+                           class="post-author-info">Edytuj post</a>
                         <a th:if="${admin}"
                            th:href="@{/thread/{threadId}/delete-post/{postId}(threadId=${thread.id},postId=${fullPostDTO.post.id})}"
                            class="post-author-info delete-style"
                            onclick="return confirm('Czy na pewno chcesz usunąć ten post?')">Usuń
                             post</a>
-
-                        <a th:if="${(logged) && (admin || fullPostDTO.user.id == user.id)}"
-                           th:href="@{/thread/{threadId}/edit-post/{postId}(threadId=${thread.id},postId=${fullPostDTO.post.id})}"
-                           class="post-author-info">Edytuj post</a>
-
                     </div>
                     <div th:text="${fullPostDTO.post.contents}" class="post-message"></div>
                 </div>

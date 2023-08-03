@@ -1,0 +1,21 @@
+.users-grid {
+    display: grid;
+    grid-template-columns: 20% 15% 15% 20% 10% 10% auto;
+    grid-gap: 1px;
+}
+
+.users-grid-content {
+    padding: 2px;
+    outline: 1px solid #555555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.user-row {
+display:contents;
+}
+.user-row:hover {
+    background-color: red;
+}

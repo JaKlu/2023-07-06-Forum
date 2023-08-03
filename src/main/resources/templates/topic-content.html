@@ -9,9 +9,12 @@
         <th:block th:replace="~{fragments.html :: page-header}"></th:block>
     </header>
     <section id="content">
-        <div th:if="${admin}" class="delete-content">
+        <div th:if="${admin}" class="edit-content">
+            <a th:href="@{/topic/{topicId}/edit-topic(topicId=${topic.id})}"
+               class="post-author-info">Edytuj forum</a>
             <a th:href="@{/topic/{topicId}/delete-topic(topicId=${topic.id})}"
-               onclick="return confirm('Czy na pewno chcesz usunąć to forum?')">Usuń forum</a>
+               onclick="return confirm('Czy na pewno chcesz usunąć to forum?')"
+               class="post-author-info delete-style">Usuń forum</a>
         </div>
         <div th:if="${threads.size() == 0}" class="no-content">
             Na tym forum nie ma jeszcze żadnych tematów.
@@ -27,10 +30,10 @@
                         <a th:text="${fullThreadDTO.thread.subject}"
                            th:href="'/thread/' + ${fullThreadDTO.thread.id}"
                            class="thread-title"></a>
-                        <a th:if="${admin}"
-                           th:href="@{/thread/{threadId}/delete-thread(threadId=${fullThreadDTO.thread.id})}"
-                           onclick="return confirm('Czy na pewno chcesz usunąć ten temat?')" class="delete-link">Usuń
-                            temat</a>
+                        <!--                        <a th:if="${admin}"
+                                                   th:href="@{/thread/{threadId}/delete-thread(threadId=${fullThreadDTO.thread.id})}"
+                                                   onclick="return confirm('Czy na pewno chcesz usunąć ten temat?')" class="delete-link">Usuń
+                                                    temat</a>-->
                     </div>
                 </div>
                 <div class="grid-content-center">

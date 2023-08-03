@@ -16,4 +16,6 @@ public interface ITopicService {
     Topic addTopic(Topic topic);
 
     void deleteTopic(int topicId);
+
+    void editTopic(Topic topic);
 }

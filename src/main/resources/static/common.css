@@ -94,7 +94,7 @@ ul li a:hover {
 
 .post-author-info{
     display: inline-block;
-    font-size: .8em;
+    font-size: .8rem;
     padding: 2px;
 }
 
@@ -220,15 +220,12 @@ grid-gap:1px;
     background-color: #f7f7f7;
 
 }
-div.delete-content{
+div.edit-content{
     text-align: right;
     font-size: .8rem;
-    font-weight: bold;
     padding: 0px 0px 10px 0px;
 }
-div.delete-content a {
-    color: #F8333C;
-}
+
 a.delete-link{
     font-weight: bold;
     color: #F8333C;

@@ -52,4 +52,14 @@ public class ThreadServiceImpl implements IThreadService {
                 ))
                 .toList();
     }
+
+    @Override
+    public void editThread(Thread thread) {
+        Optional<Thread> threadToUpdateBox = this.threadDAO.findThreadById(thread.getId());
+        if (threadToUpdateBox.isPresent()) {
+            Thread updatedThread = threadToUpdateBox.get();
+            updatedThread.setSubject(thread.getSubject());
+            this.threadDAO.editThread(updatedThread);
+        }
+    }
 }

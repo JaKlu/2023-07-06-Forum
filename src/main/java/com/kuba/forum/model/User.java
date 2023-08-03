@@ -43,6 +43,10 @@ public class User {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return this.joinDate.format(formatter);
     }
+    public String getPrettyBirthday() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return this.birthday.format(formatter);
+    }
 
     public int getAge() {
         return (int) java.time.temporal.ChronoUnit.YEARS.between(this.birthday, ZonedDateTime.now());

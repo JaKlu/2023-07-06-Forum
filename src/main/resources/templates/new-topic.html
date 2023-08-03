@@ -12,7 +12,8 @@
     </header>
     <section id="content">
         <div class="content-new">
-            <h3>Dodaj nowe forum</h3>
+            <h3 th:if="${adding}">Dodaj nowe forum</h3>
+            <h3 th:if="${editing}">Edytuj forum</h3>
             <form method="post" onsubmit="return validate()">
                 <label for="name">Temat: </label>
                 <input type="text" class="input" id="name" th:field="*{topicModel.name}">

@@ -4,7 +4,6 @@ import com.kuba.forum.database.IPostDAO;
 import com.kuba.forum.database.IThreadDAO;
 import com.kuba.forum.model.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;

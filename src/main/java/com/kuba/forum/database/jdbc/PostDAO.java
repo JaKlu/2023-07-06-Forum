@@ -3,7 +3,6 @@ package com.kuba.forum.database.jdbc;
 import com.kuba.forum.database.IPostDAO;
 import com.kuba.forum.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;

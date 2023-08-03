@@ -12,15 +12,17 @@
     </header>
     <section id="content">
         <div class="content-new">
-            <h3>Napisz nowy temat</h3>
+            <h3 th:if="${adding}">Napisz nowy temat</h3>
+            <h3 th:if="${editing}">Edytuj temat</h3>
             <form method="post" onsubmit="return validate()">
                 <label for="subject">Temat: </label>
                 <input type="text" class="input" id="subject" th:field="*{threadModel.subject}">
                 <div id="subject-error"></div>
-
-                <label for="contents">Treść wiadomości: </label>
-                <textarea class="textarea" id="contents" rows="15" th:field="*{postModel.contents}"></textarea>
-                <div id="contents-error"></div>
+                <th:block th:if="${adding}">
+                    <label for="contents">Treść wiadomości: </label>
+                    <textarea class="textarea" id="contents" rows="15" th:field="*{postModel.contents}"></textarea>
+                    <div id="contents-error"></div>
+                </th:block>
                 <div class="form-footer">
                     <input type="submit" value="Wyślij" class="button">
                     <input type="reset" value="Reset" class="button">

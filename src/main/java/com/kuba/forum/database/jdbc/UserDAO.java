@@ -3,15 +3,17 @@ package com.kuba.forum.database.jdbc;
 import com.kuba.forum.database.IUserDAO;
 import com.kuba.forum.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class UserDAO implements IUserDAO {
+    /*Login = Hasło*/
     @Autowired
     Connection connection;
 
@@ -106,5 +108,31 @@ public class UserDAO implements IUserDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> result = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM tuser";
+            PreparedStatement ps = this.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result.add(new User(
+                        rs.getInt("id"),
+                        rs.getString("login"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getDate("birthday").toLocalDate(),
+                        User.Gender.valueOf(rs.getString("gender")),
+                        rs.getTimestamp("join_date").toLocalDateTime(),
+                        rs.getString("place"),
+                        User.Function.valueOf(rs.getString("function")))
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 }

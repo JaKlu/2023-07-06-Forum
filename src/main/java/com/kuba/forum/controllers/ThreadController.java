@@ -46,6 +46,7 @@ public class ThreadController {
             return "redirect:/login";
         }
         ModelUtils.addCommonDataToModel(model, sessionData);
+        model.addAttribute("adding", true);
         model.addAttribute("topic", this.topicService.findTopicById(topicId).get());
         model.addAttribute("threadModel", new Thread());
         model.addAttribute("postModel", new Post());
@@ -127,25 +128,26 @@ public class ThreadController {
                            @PathVariable int threadId,
                            @PathVariable int postId) {
         Optional<Post> postBox = this.postService.getPostById(postId);
+        Optional<Thread> threadBox = this.threadService.findThreadById(threadId);
 
-        if (postBox.isPresent() && (this.sessionData.isAdmin() || this.sessionData.getUser().getId() == postBox.get().getAuthorId())) {
+        if (postBox.isPresent() && threadBox.isPresent() &&
+                (this.sessionData.isAdmin() || this.sessionData.getUser().getId() == postBox.get().getAuthorId())) {
             ModelUtils.addCommonDataToModel(model, sessionData);
             model.addAttribute("editing", true);
-            model.addAttribute("topic", this.topicService.findTopicById(
-                    this.threadService.findThreadById(threadId).get().getTopicId()).get());
-            model.addAttribute("thread", this.threadService.findThreadById(threadId).get());
+            model.addAttribute("topic", this.topicService.findTopicById(threadBox.get().getTopicId()).get());
+            model.addAttribute("thread", threadBox.get());
             model.addAttribute("postModel", postBox.get());
             return "new-reply";
         }
 
-        return "redirect:/thread/" + threadId;
+        return "redirect:/main";
     }
 
     @PostMapping(path = "/{threadId}/edit-post/{postId}")
     public String editPost(@ModelAttribute Post post,
                            @PathVariable int threadId,
                            @PathVariable int postId) {
-        if (!this.sessionData.isLogged()) {
+        if (!this.sessionData.isLogged()) {  //TODO security
             return "redirect:/login";
         }
         post.setId(postId);
@@ -154,4 +156,31 @@ public class ThreadController {
         return "redirect:/thread/" + threadId;
     }
 
+    @GetMapping(path = "/{threadId}/edit-thread")
+    public String editThread(Model model,
+                             @PathVariable int threadId) {
+        Optional<Thread> threadBox = this.threadService.findThreadById(threadId);
+        if (threadBox.isPresent() &&
+                (this.sessionData.isAdmin() || this.sessionData.getUser().getId() == threadBox.get().getAuthorId())) {
+            ModelUtils.addCommonDataToModel(model, sessionData);
+            model.addAttribute("editing", true);
+            model.addAttribute("topic", this.topicService.findTopicById(
+                    threadBox.get().getTopicId()).get());
+            model.addAttribute("thread", threadBox.get());
+            model.addAttribute("threadModel", threadBox.get());
+            return "new-thread";
+        }
+        return "redirect:/thread/" + threadId;
+    }
+
+    @PostMapping(path = "/{threadId}/edit-thread")
+    public String editThread(@ModelAttribute Thread thread,
+                             @PathVariable int threadId) {
+        if (!this.sessionData.isLogged()) {  //TODO security
+            return "redirect:/login";
+        }
+        thread.setId(threadId);
+        this.threadService.editThread(thread);
+        return "redirect:/thread/" + threadId;
+    }
 }

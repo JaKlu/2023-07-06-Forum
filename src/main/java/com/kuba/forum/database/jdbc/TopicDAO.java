@@ -4,7 +4,6 @@ import com.kuba.forum.database.IThreadDAO;
 import com.kuba.forum.database.ITopicDAO;
 import com.kuba.forum.model.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -106,6 +105,22 @@ public class TopicDAO implements ITopicDAO {
             ps.executeUpdate();
             this.threadDAO.getThreadsInTopic(topicId)
                     .forEach(thread -> this.threadDAO.deleteThread(thread.getId()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void editTopic(Topic topic) {
+        try {
+            String sql = "UPDATE ttopic " +
+                    "SET name = ?, description = ? " +
+                    "WHERE id = ?";
+            PreparedStatement ps = this.connection.prepareStatement(sql);
+            ps.setString(1, topic.getName());
+            ps.setString(2, topic.getDescription());
+            ps.setInt(3, topic.getId());
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -33,6 +33,10 @@
                 <a th:text="${thread.subject}" th:href="@{/thread/{threadId}(threadId=${thread.id})}"></a>
             </th:block>
         </th:block>
+        <th:block th:if="${topic == null && directory != null}">
+            >
+            <a th:text="${directory.name}" th:href="@{{directory}(directory=${directory.address})}"></a>
+        </th:block>
     </div>
 </th:block>
 
@@ -41,6 +45,7 @@
         <ul class="main-nav">
             <li><a href="/" class="main-menu-link">Strona główna</a></li>
             <li><a href="/search" class="main-menu-link">Szukaj</a></li>
+            <li><a href="/users" class="main-menu-link">Użytkownicy</a></li>
             <li><a href="/register" class="main-menu-link">Rejestracja</a></li>
             <li><a href="/login" class="main-menu-link">Zaloguj</a></li>
         </ul>
@@ -48,19 +53,23 @@
 </th:block>
 
 <th:block th:fragment="main-menu-link-logged">
-    <div th:if="${admin}" class="div-main-menu-admin">Zalogowany administrator: <strong th:text="${user.login}"></strong></div>
-    <div th:if="${!admin}" class="div-main-menu-user">Zalogowany użytkownik: <strong th:text="${user.login}"></strong></div>
+    <div th:if="${admin}" class="div-main-menu-admin">Zalogowany administrator: <strong
+            th:text="${user.login}"></strong></div>
+    <div th:if="${!admin}" class="div-main-menu-user">Zalogowany użytkownik: <strong th:text="${user.login}"></strong>
+    </div>
     <nav class="div-main-menu-link">
         <ul class="main-nav">
             <li><a href="/" class="main-menu-link">Strona główna</a></li>
             <li><a href="/search" class="main-menu-link">Szukaj</a></li>
+            <li><a href="/users" class="main-menu-link">Użytkownicy</a></li>
             <li><a href="/logout" class="main-menu-link">Wyloguj</a></li>
         </ul>
     </nav>
 </th:block>
 
 <th:block th:fragment="page-footer">
-    <div class="page-footer"> &copy; 2023 by <a href="https://github.com/JaKlu" target="_blank" title="Find me on GitHub.com">JK</a></div>
+    <div class="page-footer"> &copy; 2023 by <a href="https://github.com/JaKlu" target="_blank"
+                                                title="Find me on GitHub.com">JK</a></div>
 </th:block>
 </body>
 </html>

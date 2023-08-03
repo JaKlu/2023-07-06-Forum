@@ -14,7 +14,7 @@
             <h3>Wyszukiwarka</h3>
             <form method="get">
                 <label for="query">Wyszukaj w treści posta: </label><br>
-                <input type="search" name="query" id="query" class="input" autofocus>
+                <input type="search" name="query" id="query" class="input" th:value="${param.query}" autofocus>
                 <div class="form-footer">
                     <input type="submit" value="Szukaj" class="button">
                 </div>

@@ -17,4 +17,6 @@ public interface IThreadService {
     void deleteThread(int threadId);
 
     Optional<Thread> findThreadById(int threadId);
+
+    void editThread(Thread thread);
 }

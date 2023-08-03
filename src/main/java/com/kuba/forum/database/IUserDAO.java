@@ -2,6 +2,7 @@ package com.kuba.forum.database;
 
 import com.kuba.forum.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IUserDAO {
@@ -12,4 +13,6 @@ public interface IUserDAO {
     void addUser(User user);
 
     int getNumberOfPosts(int userId);
+
+    List<User> getAllUsers();
 }

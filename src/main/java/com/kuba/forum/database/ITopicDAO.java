@@ -15,4 +15,6 @@ public interface ITopicDAO {
     int getNumberOfThreadsInTopic(int topicId);
 
     void deleteTopic(final int topicId);
+
+    void editTopic(Topic topic);
 }

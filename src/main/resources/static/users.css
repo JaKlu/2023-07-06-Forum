@@ -1,21 +1,33 @@
-.users-grid {
+.users-table {
     display: grid;
     grid-template-columns: 20% 15% 15% 20% 10% 10% auto;
+    grid-template-rows: [header-start] auto;
     grid-gap: 1px;
 }
 
-.users-grid-content {
-    padding: 2px;
-    outline: 1px solid #555555;
+.users-table .user-row, .users-table .users-header {
     display: flex;
-    align-items: center;
+    padding: 5px;
+    position: relative;
+    outline: 1px solid #555555;
     justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.users-header{
+    font-size: .9rem;
+    background: #f7f7f7;
+    grid-row: header;
+    text-align: center;
+}
+.user-row div {
+    position: relative;
+    justify-self: center;
 }
 
-
-.user-row {
-display:contents;
+.user-row-wrapper {
+    display: contents;
 }
-.user-row:hover {
-    background-color: red;
+.user-row-wrapper:hover > div{
+    background-color: #f7f7f7;
 }

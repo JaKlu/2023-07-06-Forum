@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public class UserDAO implements IUserDAO {
     /*Login = Hasło*/
     @Autowired

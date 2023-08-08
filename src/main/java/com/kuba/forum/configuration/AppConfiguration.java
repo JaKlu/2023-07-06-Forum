@@ -1,5 +1,6 @@
 package com.kuba.forum.configuration;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,12 @@ import java.sql.SQLException;
 public class AppConfiguration {
 
     @Bean
+    public SessionFactory sessionFactory() {
+        return new org.hibernate.cfg.Configuration().configure().buildSessionFactory();
+    }
+
+
+    /*@Bean
     public Connection connection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -24,5 +31,5 @@ public class AppConfiguration {
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 }

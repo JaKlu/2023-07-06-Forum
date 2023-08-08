@@ -1,5 +1,6 @@
 package com.kuba.forum.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -13,15 +14,21 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @ToString
 @EqualsAndHashCode
+@Entity(name = "tuser")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(unique = true)
     private String login;
     private String password;
     private String email;
     private LocalDate birthday;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private LocalDateTime joinDate;
     private String place;
+    @Enumerated(EnumType.STRING)
     private Function function;
 
 

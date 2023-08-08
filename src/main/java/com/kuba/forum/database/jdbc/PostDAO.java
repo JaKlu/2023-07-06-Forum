@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public class PostDAO implements IPostDAO {
     @Autowired
     Connection connection;
@@ -72,7 +71,7 @@ public class PostDAO implements IPostDAO {
     public List<Post> getPostsFromThread(int threadId) {
         List<Post> result = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM tpost WHERE thread_id = ?"; //TODO ASC?
+            String sql = "SELECT * FROM tpost WHERE thread_id = ?"; //TODO ASC? Order by
             PreparedStatement ps = this.connection.prepareStatement(sql);
             ps.setInt(1, threadId);
             ResultSet rs = ps.executeQuery();

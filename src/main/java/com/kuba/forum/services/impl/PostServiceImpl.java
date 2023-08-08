@@ -34,8 +34,8 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
-    public List<FullPostDTO> getPostsFromQuery(String query) {
-        return this.postDAO.getQueriedPosts(query).stream()
+    public List<FullPostDTO> getPostsFromQuery(String pattern) {
+        return this.postDAO.getQueriedPosts(pattern).stream()
                 .map(post -> new FullPostDTO(
                         post,
                         this.threadDAO.findThreadById(post.getThreadId()).get(),

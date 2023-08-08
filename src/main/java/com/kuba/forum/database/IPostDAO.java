@@ -11,7 +11,7 @@ public interface IPostDAO {
 
     List<Post> getAllPosts();
 
-    List<Post> getQueriedPosts(String query);
+    List<Post> getQueriedPosts(String pattern);
 
     List<Post> getPostsFromThread(int threadId);
 

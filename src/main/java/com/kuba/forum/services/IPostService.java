@@ -10,6 +10,7 @@ public interface IPostService {
     Optional<Post> getPostById(int postId);
 
     List<Post> getQueriedPosts(String query);
+
     List<FullPostDTO> getPostsFromQuery(String pattern);
 
     Post addPost(Post post);
@@ -18,7 +19,7 @@ public interface IPostService {
 
     List<FullPostDTO> getThreadContent(int threadId);
 
-    void deletePost(int id);
+    Long deletePost(int id);
 
     void editPost(Post post);
 

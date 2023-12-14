@@ -18,17 +18,34 @@ import java.time.format.DateTimeFormatter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(name = "id")
     private int id;
-    @Column(unique = true)
+
+    @Column(name = "login", unique = true)
     private String login;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "birthday")
     private LocalDate birthday;
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
     private Gender gender;
+
+    @Column(name = "join_date")
     private LocalDateTime joinDate;
+
+    @Column(name = "place")
     private String place;
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "function_type")
     private Function function;
 
 
@@ -50,6 +67,7 @@ public class User {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return this.joinDate.format(formatter);
     }
+
     public String getPrettyBirthday() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return this.birthday.format(formatter);

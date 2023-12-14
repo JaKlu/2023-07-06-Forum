@@ -11,9 +11,9 @@ public interface IUserService {
 
     Optional<User> getUserById(int userId);
 
-    void addUser(User user);
-
     int getNumberOfPosts(int userId);
+
     List<User> getAllUsers();
+
     List<FullUserDTO> getUsersContent();
 }

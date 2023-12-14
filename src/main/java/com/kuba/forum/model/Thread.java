@@ -1,13 +1,9 @@
 package com.kuba.forum.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,10 +15,19 @@ import java.time.ZonedDateTime;
 public class Thread {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "author_id")
     private int authorId;
+
+    @Column(name = "topic_id")
     private int topicId;
+
+    @Column(name = "subject")
     private String subject;
+
+    @Column(name = "creation_time")
     private LocalDateTime creationTime;
 
     public Thread(int id) {

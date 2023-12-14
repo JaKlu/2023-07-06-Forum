@@ -1,6 +1,5 @@
 package com.kuba.forum.services;
 
-import com.kuba.forum.model.Post;
 import com.kuba.forum.model.Thread;
 import com.kuba.forum.model.view.FullThreadDTO;
 

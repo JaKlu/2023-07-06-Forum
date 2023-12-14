@@ -9,32 +9,32 @@
         <th:block th:replace="~{fragments.html :: page-header}"></th:block>
     </header>
     <section id="content">
-            <div th:if="${topics.size() == 0}" class="no-content">
-                Na tym forum nie ma jeszcze żadnych dyskusji.
-            </div>
-            <div th:if="${topics.size() > 0}" class="topic-grid">
-                <div class="grid-header">Forum</div>
-                <div class="grid-header">Tematy</div>
+        <div th:if="${topics.size() == 0}" class="no-content">
+            Na tym forum nie ma jeszcze żadnych dyskusji.
+        </div>
+        <div th:if="${topics.size() > 0}" class="topic-grid">
+            <div class="grid-header">Forum</div>
+            <div class="grid-header">Tematy</div>
 
-                <th:block th:each="fullTopicDTO : ${topics}">
-                    <div class="topic-info">
-                        <a th:text="${fullTopicDTO.topic.name}" th:href="'/topic/' + ${fullTopicDTO.topic.id}"
-                           class="topic-name"></a>
-                        <div class="topic-description">
-                            <th:block th:text="${fullTopicDTO.topic.description}"></th:block>
-<!--                            <a th:if="${admin}"
-                               th:href="@{/topic/{topicId}/delete-topic(topicId=${fullTopicDTO.topic.id})}"
-                               onclick="return confirm('Czy na pewno chcesz usunąć to forum?')" class="delete-link">
-                                Usuń forum</a>-->
-                        </div>
+            <th:block th:each="fullTopicDTO : ${topics}">
+                <div class="topic-info">
+                    <a th:text="${fullTopicDTO.topic.name}" th:href="'/topic/' + ${fullTopicDTO.topic.id}"
+                       class="topic-name"></a>
+                    <div class="topic-description">
+                        <th:block th:text="${fullTopicDTO.topic.description}"></th:block>
+                        <!--                            <a th:if="${admin}"
+                                                       th:href="@{/topic/{topicId}/delete-topic(topicId=${fullTopicDTO.topic.id})}"
+                                                       onclick="return confirm('Czy na pewno chcesz usunąć to forum?')" class="delete-link">
+                                                        Usuń forum</a>-->
                     </div>
-                    <div class="grid-content-center">
-                        <div th:text="${fullTopicDTO.numberOfThreads}" class="topic-stats">x</div>
-                    </div>
-                </th:block>
-            </div>
+                </div>
+                <div class="grid-content-center">
+                    <div th:text="${fullTopicDTO.numberOfThreads}" class="topic-stats">x</div>
+                </div>
+            </th:block>
+        </div>
 
-            <a th:if="${admin}" th:href="@{/topic/new-topic}" class="button">Nowe forum</a>
+        <a th:if="${admin}" th:href="@{/topic/new-topic}" class="button">Nowe forum</a>
     </section>
     <footer>
         <th:block th:replace="~{fragments.html :: page-footer}"></th:block>

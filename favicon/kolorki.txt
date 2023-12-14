@@ -1,0 +1,10 @@
+#3e6e93 - niebieski
+#f29221 - pomarańczowy
+#ffffff - białe tło główne
+
+#f7f7f7 - szare tło całkowite
+
+#f8f8f8 - szare tło treści
+#555555 - kolor fontu
+#faedb2 - kolor pogrubionego linka
+#0074a3 - kolor niebieskiego linka
